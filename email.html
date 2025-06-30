@@ -1,119 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Email Sender with Progress Save</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email Sender</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    textarea { width: 100%; height: 150px; }
-    button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }
-    #status { margin-top: 20px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #emailLink {
+      font-weight: 600;
+      color: #007bff;
+      text-decoration: underline;
+      margin-bottom: 20px;
+      display: inline-block;
+      word-break: break-word;
+      cursor: pointer;
+    }
+    #footer {
+      margin-top: auto;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Email Sender</h1>
+  </header>
 
-  <h2>Email Sender</h2>
-  <p>Paste emails below, one per line:</p>
-  <textarea id="emailList"></textarea><br>
-  
-  <button id="loadBtn">Load Emails</button>
-  <button id="nextBtn" disabled>Send Next Email</button>
-  
-  <div id="status"></div>
+  <textarea id="emailsInput" placeholder="Paste your email list here, one email per line"></textarea>
+  <button id="loadEmailsBtn">Load Emails</button>
+  <button id="sendNextBtn" disabled>Send Next Email</button>
+
+  <a href="#" id="emailLink" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
 
   <script>
-    const emailListEl = document.getElementById('emailList');
-    const loadBtn = document.getElementById('loadBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const statusEl = document.getElementById('status');
+    const emailsInput = document.getElementById("emailsInput");
+    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+    const sendNextBtn = document.getElementById("sendNextBtn");
+    const emailLink = document.getElementById("emailLink");
 
-    // Constants for subject and body, you can customize these
-    const emailSubject = "Inquiry About Artworks";
-    const emailBody = `Hello,
+    // Load saved emails on page load to repopulate textarea
+    function loadEmailsFromStorage() {
+      const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
+      emailsInput.value = savedEmails.join("\n");
+      updateSendNextButton();
+    }
+
+    // Save current textarea emails to localStorage
+    function saveEmailsToStorage(emails) {
+      localStorage.setItem("emails", JSON.stringify(emails));
+    }
+
+    // Update Send Next button state
+    function updateSendNextButton() {
+      const emails = getEmails();
+      sendNextBtn.disabled = emails.length === 0;
+      if (emails.length === 0) {
+        emailLink.style.display = "none";
+        emailLink.href = "#";
+        emailLink.textContent = "";
+      }
+    }
+
+    // Helper to get emails array from textarea
+    function getEmails() {
+      return emailsInput.value
+        .split(/\r?\n/)
+        .map(e => e.trim())
+        .filter(e => e.length > 0);
+    }
+
+    // Encode mailto link for an email
+    function encodeMailto(email) {
+      const subject = encodeURIComponent("Inquiry About Artworks");
+      const body = encodeURIComponent(`Hello,
 
 My name is Jonathan Peterson Miller; an Artwork Collector/Trader. I came across your works and was truly impressed by your unique creative vision.
 
 I'm interested in acquiring some pieces and would love to discuss details. Please get back to me at your earliest convenience.
 
 Best Regards,
-Jonathan.`;
-
-    // Load saved data from localStorage if any
-    let emails = [];
-    let currentIndex = 0;
-
-    function saveProgress() {
-      localStorage.setItem('emails', JSON.stringify(emails));
-      localStorage.setItem('currentIndex', currentIndex);
-    }
-
-    function loadProgress() {
-      const savedEmails = localStorage.getItem('emails');
-      const savedIndex = localStorage.getItem('currentIndex');
-
-      if (savedEmails) {
-        emails = JSON.parse(savedEmails);
-        emailListEl.value = emails.join('\n');
-      }
-
-      currentIndex = savedIndex ? parseInt(savedIndex, 10) : 0;
-
-      if (emails.length > 0 && currentIndex < emails.length) {
-        statusEl.innerText = `Loaded ${emails.length} emails. Next to send: ${emails[currentIndex]}`;
-        nextBtn.disabled = false;
-      } else if (emails.length > 0 && currentIndex >= emails.length) {
-        statusEl.innerText = "All emails have been sent.";
-        nextBtn.disabled = true;
-      } else {
-        statusEl.innerText = "No emails loaded.";
-        nextBtn.disabled = true;
-      }
-    }
-
-    function createMailtoLink(email) {
-      const subject = encodeURIComponent(emailSubject);
-      const body = encodeURIComponent(emailBody);
+Jonathan.`);
       return `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
-    loadBtn.addEventListener('click', () => {
-      const rawEmails = emailListEl.value.trim();
-      if (!rawEmails) {
-        alert("Please paste some emails.");
+    // Load emails button click
+    loadEmailsBtn.addEventListener("click", () => {
+      const emails = getEmails();
+      if (emails.length === 0) {
+        alert("Please paste at least one email.");
         return;
       }
-      emails = rawEmails.split('\n').map(e => e.trim()).filter(e => e);
-      currentIndex = 0;
-      saveProgress();
-      loadProgress();
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+      alert(`Loaded ${emails.
+length} emails.`);
     });
 
-    nextBtn.addEventListener('click', () => {
-      if (currentIndex >= emails.length) {
-        statusEl.innerText = "✅ All emails have been sent.";
-        nextBtn.disabled = true;
+    // Send next email button click
+    sendNextBtn.addEventListener("click", () => {
+      let emails = getEmails();
+      if (emails.length === 0) {
+        alert("No emails to send.");
         return;
       }
-      const email = emails[currentIndex];
-      const mailtoLink = createMailtoLink(email);
-      statusEl.innerHTML = `Opening email client for: <b>${email}</b>`;
-      // Open the mailto link in a new tab/window
-      window.open(mailtoLink);
 
-      currentIndex++;
-      saveProgress();
+      const currentEmail = emails.shift(); // Remove first email
 
-      if (currentIndex >= emails.length) {
-        statusEl.innerText = "✅ All emails have been sent.";
-        nextBtn.disabled = true;
-      } else {
-        statusEl.innerHTML += `<br>Next to send: <b>${emails[currentIndex]}</b>`;
-      }
+      // Update textarea and storage
+      emailsInput.value = emails.join("\n");
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+
+      // Open mailto link in new tab/window
+      const mailtoLink = encodeMailto(currentEmail);
+      emailLink.href = mailtoLink;
+      emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
+      emailLink.style.display = "inline-block";
+
+      // Trigger mail app opening by clicking link programmatically
+      emailLink.click();
     });
 
-    // On page load, try to load progress
-    loadProgress();
-
+    // On page load, populate textarea with saved emails
+    window.addEventListener("load", loadEmailsFromStorage);
   </script>
 
+  <footer id="footer">
+    Property of KaddaphiFX
+  </footer>
 </body>
 </html>
+
