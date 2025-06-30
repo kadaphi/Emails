@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Sender with Progress Save</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    textarea { width: 100%; height: 150px; }
+    button { padding: 10px 20px; margin-top: 10px; font-size: 16px; }
+    #status { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h2>Email Sender</h2>
+  <p>Paste emails below, one per line:</p>
+  <textarea id="emailList"></textarea><br>
+  
+  <button id="loadBtn">Load Emails</button>
+  <button id="nextBtn" disabled>Send Next Email</button>
+  
+  <div id="status"></div>
+
+  <script>
+    const emailListEl = document.getElementById('emailList');
+    const loadBtn = document.getElementById('loadBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const statusEl = document.getElementById('status');
+
+    // Constants for subject and body, you can customize these
+    const emailSubject = "Inquiry About Artworks";
+    const emailBody = `Hello,
+
+My name is Jonathan Peterson Miller; an Artwork Collector/Trader. I came across your works and was truly impressed by your unique creative vision.
+
+I'm interested in acquiring some pieces and would love to discuss details. Please get back to me at your earliest convenience.
+
+Best Regards,
+Jonathan.`;
+
+    // Load saved data from localStorage if any
+    let emails = [];
+    let currentIndex = 0;
+
+    function saveProgress() {
+      localStorage.setItem('emails', JSON.stringify(emails));
+      localStorage.setItem('currentIndex', currentIndex);
+    }
+
+    function loadProgress() {
+      const savedEmails = localStorage.getItem('emails');
+      const savedIndex = localStorage.getItem('currentIndex');
+
+      if (savedEmails) {
+        emails = JSON.parse(savedEmails);
+        emailListEl.value = emails.join('\n');
+      }
+
+      currentIndex = savedIndex ? parseInt(savedIndex, 10) : 0;
+
+      if (emails.length > 0 && currentIndex < emails.length) {
+        statusEl.innerText = `Loaded ${emails.length} emails. Next to send: ${emails[currentIndex]}`;
+        nextBtn.disabled = false;
+      } else if (emails.length > 0 && currentIndex >= emails.length) {
+        statusEl.innerText = "All emails have been sent.";
+        nextBtn.disabled = true;
+      } else {
+        statusEl.innerText = "No emails loaded.";
+        nextBtn.disabled = true;
+      }
+    }
+
+    function createMailtoLink(email) {
+      const subject = encodeURIComponent(emailSubject);
+      const body = encodeURIComponent(emailBody);
+      return `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+
+    loadBtn.addEventListener('click', () => {
+      const rawEmails = emailListEl.value.trim();
+      if (!rawEmails) {
+        alert("Please paste some emails.");
+        return;
+      }
+      emails = rawEmails.split('\n').map(e => e.trim()).filter(e => e);
+      currentIndex = 0;
+      saveProgress();
+      loadProgress();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex >= emails.length) {
+        statusEl.innerText = "✅ All emails have been sent.";
+        nextBtn.disabled = true;
+        return;
+      }
+      const email = emails[currentIndex];
+      const mailtoLink = createMailtoLink(email);
+      statusEl.innerHTML = `Opening email client for: <b>${email}</b>`;
+      // Open the mailto link in a new tab/window
+      window.open(mailtoLink);
+
+      currentIndex++;
+      saveProgress();
+
+      if (currentIndex >= emails.length) {
+        statusEl.innerText = "✅ All emails have been sent.";
+        nextBtn.disabled = true;
+      } else {
+        statusEl.innerHTML += `<br>Next to send: <b>${emails[currentIndex]}</b>`;
+      }
+    });
+
+    // On page load, try to load progress
+    loadProgress();
+
+  </script>
+
+</body>
+</html>
