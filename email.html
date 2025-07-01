@@ -117,15 +117,17 @@
 
     // Encode mailto link for an email
     function encodeMailto(email) {
-      const subject = encodeURIComponent("Inquiry About Artworks");
-      const body = encodeURIComponent(`Hello,
+      const subject = encodeURIComponent("Interested in Your Art");
+      const body = encodeURIComponent(`Hi there,
 
-My name is Jonathan Peterson Miller; an Artwork Collector/Trader. I came across your works and was truly impressed by your unique creative vision.
+I recently came across your artwork and was really impressed by your style. I'm an independent art collector currently looking to acquire a few pieces for a personal project, and your work stood out to me.
 
-I'm interested in acquiring some pieces and would love to discuss details. Please get back to me at your earliest convenience.
+If you're open to discussing available works or commissions, I'd love to hear more about your process, pricing or portfolio.
+
+Thanks for your time, and I look forward to hearing from you.
 
 Best Regards,
-Jonathan.`);
+Jonathan Peterson Miller.`);
       return `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
