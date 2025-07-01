@@ -119,13 +119,17 @@
     function encodeMailto(email) {
       const subject = encodeURIComponent("Inquiry About Artworks");
       const body = encodeURIComponent(`Hello,
+      
+I hope this message finds you well.
 
-My name is Jonathan Peterson Miller; an Artwork Collector/Trader. I came across your works and was truly impressed by your unique creative vision.
+I recently came across your artworks and was genuinely moved by your unique style and the emotion behind each piece. Your work truly stood out to me and I felt compelled to reach out.
 
-I'm interested in acquiring some pieces and would love to discuss details. Please get back to me at your earliest convenience.
+I'd love to learn more about the stories or inspiration behind some of your pieces and get a sense of your creative process. It would be a pleasure to connect when you have a moment.
+
+Looking forward to hearing from you soon.
 
 Best Regards,
-Jonathan.`);
+Thomas.`);
       return `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
@@ -172,7 +176,7 @@ length} emails.`);
   </script>
 
   <footer id="footer">
-    Property of KaddaphiFX
+    Property of Muna
   </footer>
 </body>
 </html>
