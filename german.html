@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email Sender</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #emailLink {
+      font-weight: 600;
+      color: #007bff;
+      text-decoration: underline;
+      margin-bottom: 20px;
+      display: inline-block;
+      word-break: break-word;
+      cursor: pointer;
+    }
+    #footer {
+      margin-top: auto;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Email Sender</h1>
+  </header>
+
+  <textarea id="emailsInput" placeholder="Paste your email list here, one email per line"></textarea>
+  <button id="loadEmailsBtn">Load Emails</button>
+  <button id="sendNextBtn" disabled>Send Next Email</button>
+
+  <a href="#" id="emailLink" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
+
+  <script>
+    const emailsInput = document.getElementById("emailsInput");
+    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+    const sendNextBtn = document.getElementById("sendNextBtn");
+    const emailLink = document.getElementById("emailLink");
+
+    // Load saved emails on page load to repopulate textarea
+    function loadEmailsFromStorage() {
+      const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
+      emailsInput.value = savedEmails.join("\n");
+      updateSendNextButton();
+    }
+
+    // Save current textarea emails to localStorage
+    function saveEmailsToStorage(emails) {
+      localStorage.setItem("emails", JSON.stringify(emails));
+    }
+
+    // Update Send Next button state
+    function updateSendNextButton() {
+      const emails = getEmails();
+      sendNextBtn.disabled = emails.length === 0;
+      if (emails.length === 0) {
+        emailLink.style.display = "none";
+        emailLink.href = "#";
+        emailLink.textContent = "";
+      }
+    }
+
+    // Helper to get emails array from textarea
+    function getEmails() {
+      return emailsInput.value
+        .split(/\r?\n/)
+        .map(e => e.trim())
+        .filter(e => e.length > 0);
+    }
+
+    // Encode mailto link for an email
+    function encodeMailto(email) {
+      const subject = encodeURIComponent("Interested in Your Art");
+      const body = encodeURIComponent(`Hi there,
+
+I recently came across your artwork and was really impressed by your style. I'm an art collector currently looking to acquire a few pieces for a project, and your work stood out to me.
+
+If you're open to discussing available works or commissions, I'd love to hear more about your process, pricing or portfolio.
+
+Thanks for your time, and I look forward to hearing from you.
+
+Best Regards,
+Thomas Hillary Jefferson.`);
+      return `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+
+    // Load emails button click
+    loadEmailsBtn.addEventListener("click", () => {
+      const emails = getEmails();
+      if (emails.length === 0) {
+        alert("Please paste at least one email.");
+        return;
+      }
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+      alert(`Loaded ${emails.
+length} emails.`);
+    });
+
+    // Send next email button click
+    sendNextBtn.addEventListener("click", () => {
+      let emails = getEmails();
+      if (emails.length === 0) {
+        alert("No emails to send.");
+        return;
+      }
+
+      const currentEmail = emails.shift(); // Remove first email
+
+      // Update textarea and storage
+      emailsInput.value = emails.join("\n");
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+
+      // Open mailto link in new tab/window
+      const mailtoLink = encodeMailto(currentEmail);
+      emailLink.href = mailtoLink;
+      emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
+      emailLink.style.display = "inline-block";
+
+      // Trigger mail app opening by clicking link programmatically
+      emailLink.click();
+    });
+
+    // On page load, populate textarea with saved emails
+    window.addEventListener("load", loadEmailsFromStorage);
+  </script>
+
+  <footer id="footer">
+    Property of German 🇩🇪
+  </footer>
+</body>
+</html>
