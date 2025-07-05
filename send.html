@@ -84,30 +84,220 @@
     const sendNextBtn = document.getElementById("sendNextBtn");
     const emailLink = document.getElementById("emailLink");
 
-    // Load saved emails on page load to repopulate textarea
+    // Your 50 variants here:
+    const variants =[
+  {
+    "subject": "Beautiful work, are any pieces available?",
+    "body": "Hi there,\nI came across your artwork recently and was really impressed. I'd love to learn more about what you're working on and if anything is currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Quick question about your artwork",
+    "body": "Hello,\nYour art caught my eye while I was browsing recently. I'm always on the lookout for original pieces and would love to connect.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Saw your work and had to reach out",
+    "body": "Hi,\nI saw one of your pieces online and was genuinely drawn to it. Would you be open to sharing a few available works or your portfolio?\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #4",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #5",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #6",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #7",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #8",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #9",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #10",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #11",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #12",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #13",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #14",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #15",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #16",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #17",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #18",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #19",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #20",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #21",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #22",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #23",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #24",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #25",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #26",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #27",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #28",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #29",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #30",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #31",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #32",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #33",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #34",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #35",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #36",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #37",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #38",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #39",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #40",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #41",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #42",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #43",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #44",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #45",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #46",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #47",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #48",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #49",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  },
+  {
+    "subject": "Inspired by your recent piece #50",
+    "body": "Hello,\nI recently came across one of your works and it really stood out to me. I'd be very interested in seeing more or learning if any pieces are currently available.\n\nBest regards,\nJonathan Peterson Miller"
+  }
+]
+
     function loadEmailsFromStorage() {
       const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
       emailsInput.value = savedEmails.join("\n");
       updateSendNextButton();
     }
 
-    // Save current textarea emails to localStorage
     function saveEmailsToStorage(emails) {
       localStorage.setItem("emails", JSON.stringify(emails));
     }
 
-    // Update Send Next button state
-    function updateSendNextButton() {
-      const emails = getEmails();
-      sendNextBtn.disabled = emails.length === 0;
-      if (emails.length === 0) {
-        emailLink.style.display = "none";
-        emailLink.href = "#";
-        emailLink.textContent = "";
-      }
-    }
-
-    // Helper to get emails array from textarea
     function getEmails() {
       return emailsInput.value
         .split(/\r?\n/)
@@ -115,25 +305,24 @@
         .filter(e => e.length > 0);
     }
 
-    // Encode mailto link for an email
+    function updateSendNextButton() {
+      const emails = getEmails();
+      sendNextBtn.disabled = emails.length === 0;
+      if (emails.length === 0) {
+        emailLink.style.display = "none";
+        emailLink.
+href = "#";
+        emailLink.textContent = "";
+      }
+    }
+
     function encodeMailto(email) {
-      const subject = encodeURIComponent("Inquiry About Artworks");
-      const body = encodeURIComponent(`Hello,
-      
-I hope this message finds you well.
-
-I recently came across your artworks and was genuinely moved by your unique style and the emotion behind each piece. Your work truly stood out to me and I felt compelled to reach out.
-
-I'd love to learn more about the stories or inspiration behind some of your pieces and get a sense of your creative process. It would be a pleasure to connect when you have a moment.
-
-Looking forward to hearing from you soon.
-
-Best Regards,
-Thomas.`);
+      const random = variants[Math.floor(Math.random() * variants.length)];
+      const subject = encodeURIComponent(random.subject);
+      const body = encodeURIComponent(random.body);
       return `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
-    // Load emails button click
     loadEmailsBtn.addEventListener("click", () => {
       const emails = getEmails();
       if (emails.length === 0) {
@@ -142,36 +331,27 @@ Thomas.`);
       }
       saveEmailsToStorage(emails);
       updateSendNextButton();
-      alert(`Loaded ${emails.
-length} emails.`);
+      alert(`Loaded ${emails.length} emails.`);
     });
 
-    // Send next email button click
     sendNextBtn.addEventListener("click", () => {
       let emails = getEmails();
       if (emails.length === 0) {
         alert("No emails to send.");
         return;
       }
-
-      const currentEmail = emails.shift(); // Remove first email
-
-      // Update textarea and storage
+      const currentEmail = emails.shift();
       emailsInput.value = emails.join("\n");
       saveEmailsToStorage(emails);
       updateSendNextButton();
 
-      // Open mailto link in new tab/window
       const mailtoLink = encodeMailto(currentEmail);
       emailLink.href = mailtoLink;
       emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
       emailLink.style.display = "inline-block";
-
-      // Trigger mail app opening by clicking link programmatically
       emailLink.click();
     });
 
-    // On page load, populate textarea with saved emails
     window.addEventListener("load", loadEmailsFromStorage);
   </script>
 
