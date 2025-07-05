@@ -84,30 +84,70 @@
     const sendNextBtn = document.getElementById("sendNextBtn");
     const emailLink = document.getElementById("emailLink");
 
-    // Load saved emails on page load to repopulate textarea
+    // Your 50 variants here:
+    const variants = [
+  {subject:"Beautiful work — are any pieces available?", body:"Hi there,\nI came across your artwork recently and was really impressed. I’d love to learn more about what you’re working on and if anything is currently available.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Quick question about your artwork", body:"Hello,\nYour art caught my eye while I was browsing recently. I’m always on the lookout for original pieces and would love to connect.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Saw your work and had to reach out", body:"Hi,\nI saw one of your pieces online and was genuinely drawn to it. Would you be open to sharing a few available works or your portfolio?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Interested in acquiring a piece", body:"Hello there,\nYour creative style really stood out to me. I’m a private collector and was wondering if you’re currently selling any of your work.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Loved your style — any works for sale?", body:"Hey,\nI stumbled upon your artwork and thought it was beautiful. I’m currently looking to acquire a few pieces and would love to see more.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Commission or available works?", body:"Hi,\nYou have a really compelling visual style. Are you open to discussing your work or availability for commissions?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Just wanted to say — great work", body:"Hi there,\nI admire your artistic approach — very refreshing. If you're offering any pieces for sale, I'd be glad to learn more.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Do you have any available artwork?", body:"Hello,\nI collect art and came across some of your work that caught my attention. Would love to see what you currently have available.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Your work really stood out", body:"Hi,\nJust a quick note to say I really enjoyed seeing your artwork recently. If you're open to sales or commissions, I’d love to connect.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Is there a way to view more of your work?", body:"Hey there,\nI came across your art and was instantly drawn in. Is there a way I can view more of your work?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Are you offering any pieces currently?", body:"Hi,\nYour artwork has a very captivating feel. Are you currently showcasing or selling any pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Looking to collect — your art stood out", body:"Hello,\nI saw your art and was truly moved by it. I’m currently searching for new pieces to add to my collection — let me know if you're open to that.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Love your work — interested in a piece", body:"Hi there,\nYou have a great eye for detail. I’d love to learn more about your work and possibly acquire a piece.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Impressed by your recent work", body:"Hello,\nI recently discovered your art and was really impressed by your use of color and form. Would love to explore further.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Do you have anything for sale at the moment?", body:"Hi,\nJust wanted to reach out and say I think your art is fantastic. Would you be open to sharing a few works that are currently for sale?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Curious about your availability", body:"Hey,\nI really like your artistic style — it feels very original. I’d be happy to learn more about your work if you’re open to sharing.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Is there a catalog I can browse?", body:"Hi there,\nI enjoy collecting art and recently came across your work. Do you have a site or catalog I could look through?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Artwork inquiry", body:"Hi,\nHope you’re doing well. I recently saw some of your work and wanted to ask if you have any pieces available for purchase.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Looking to connect", body:"Hello,\nI love finding new artists, and your work really stood out. Would you be willing to share a portfolio or available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Interested in one of your pieces", body:"Hi,\nYour recent piece really made an impact on me. I’d be interested in hearing if you have other works available.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Available work?", body:"Hi there,\nI recently came across your artwork and found it incredibly inspiring. Are you currently offering any pieces for sale or commission?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Collector interested in your art", body:"Hello,\nI'm a private collector and your work really stood out to me. Would love to see if you have any current pieces available.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Saw your work and had to ask", body:"Hi,\nI came across your art and really enjoyed the emotion behind it. Would you be open to sharing any available pieces or pricing?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Your work caught my attention", body:"Hi there,\nYour visual style is so unique — really captivating. I’d love to learn more if you have anything available.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Inquiry about available artwork", body:"Hello,\nI saw your work recently and it really stayed with me. Are you currently showcasing or selling any of your pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Would love to see more of your work", body:"Hi,\nI just wanted to say I really admire your work. Is there a way I could see more or learn about available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Looking for new pieces — your work stood out", body:"Hello,\nI collect art and came across your work while browsing. I’d love to connect and possibly add one of your pieces to my collection.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Great work — interested in connecting", body:"Hi there,\nYour style really speaks to me. Are you accepting commissions or selling any work at the moment?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Quick message from a collector", body:"Hi,\nYour artwork has a calm and emotional presence that I truly appreciate. Would love to know more about any pieces for sale.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Your art is incredible", body:"Hey there,\nI just discovered your work and had to reach out. Is there a way I could explore more or inquire about a potential purchase?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Do you offer commissions?", body:"Hi,\nI was really drawn to your art style and wanted to ask if you’re open to commissions or custom pieces.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Loved your recent work", body:"Hi there,\nI noticed a recent piece you shared and it left a strong impression. Would love to know more about your process and any available work.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Really enjoyed seeing your work", body:"Hello,\nI just wanted to reach out and say how much I appreciated your artwork. Let me know if you're open to a conversation.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Are you currently exhibiting or selling?", body:"Hi,\nI'm always looking for new artists and your work stood out immediately. Do you have any current exhibitions or available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Looking to acquire — open to connect?", body:"Hey,\nI collect contemporary work and your style really aligns with what I appreciate. Are you open to a quick chat?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Curious about your portfolio", body:"Hi,\nI came across your art online and was curious if you have a portfolio or online gallery I could view.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"New collector reaching out", body:"Hi there,\nI’ve started collecting recently and found your work inspiring. Would love to explore a potential acquisition.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Interested in your work", body:"Hello,\nI came across your work and found it quite moving. I’d love to know more about your available pieces.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Looking for unique pieces — love your work", body:"Hi,\nYour artistic voice feels very personal and strong. I’m interested in acquiring something meaningful and thought your work might fit.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Art collector reaching out", body:"Hello,\nI’m reaching out as an art collector interested in your visual style. Would you be open to sharing a few works or details about availability?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Any works available this season?", body:"Hi there,\nYour work has a great presence. Just wondering if you have any pieces currently for sale or in progress.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Your art has great energy", body:"Hi,\nI really appreciate the energy and style in your work. Are you offering any originals or commissions at this time?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Would love to add your work to my collection", body:"Hello,\nI’ve been collecting for a while and your artwork made a real impression. Would love to talk more if you're open.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Just discovered your art", body:"Hi,\nI found your work while browsing and couldn’t leave without saying something. Do you have any available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Is your work available for acquisition?", body:"Hey,\nI’ve been searching for new work for a collection I’m building and thought your art might be a great fit.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Collector interested in your latest series", body:"Hi there,\nYour recent pieces are beautiful. Are you currently offering any of them for acquisition?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Can we talk about your art?", body:"Hi,\nI’m reaching out with a simple question — do you have anything available, or a way I could explore more of your pieces?\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Are you currently offering any artwork?", body:"Hi,\nI'm interested in finding new work for a small collection and came across your pieces. Would love to connect.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Really impressed by your work", body:"Hello,\nYour artwork struck a chord with me. Just wanted to ask if you're open to selling any pieces currently.\n\nBest regards,\nJonathan Peterson Miller"},
+  {subject:"Would love to learn more about your art", body:"Hi there,\nYou have a really interesting visual language. I’d appreciate the chance to view more or hear about what’s available.\n\nBest regards,\nJonathan Peterson Miller"}
+];
+
     function loadEmailsFromStorage() {
       const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
       emailsInput.value = savedEmails.join("\n");
       updateSendNextButton();
     }
 
-    // Save current textarea emails to localStorage
     function saveEmailsToStorage(emails) {
       localStorage.setItem("emails", JSON.stringify(emails));
     }
 
-    // Update Send Next button state
-    function updateSendNextButton() {
-      const emails = getEmails();
-      sendNextBtn.disabled = emails.length === 0;
-      if (emails.length === 0) {
-        emailLink.style.display = "none";
-        emailLink.href = "#";
-        emailLink.textContent = "";
-      }
-    }
-
-    // Helper to get emails array from textarea
     function getEmails() {
       return emailsInput.value
         .split(/\r?\n/)
@@ -115,23 +155,24 @@
         .filter(e => e.length > 0);
     }
 
-    // Encode mailto link for an email
+    function updateSendNextButton() {
+      const emails = getEmails();
+      sendNextBtn.disabled = emails.length === 0;
+      if (emails.length === 0) {
+        emailLink.style.display = "none";
+        emailLink.
+href = "#";
+        emailLink.textContent = "";
+      }
+    }
+
     function encodeMailto(email) {
-      const subject = encodeURIComponent("Interested in Your Art");
-      const body = encodeURIComponent(`Hi there,
-
-I recently came across your artwork and was really impressed by your style. I'm an independent art collector currently looking to acquire a few pieces for a personal project, and your work stood out to me.
-
-If you're open to discussing available works or commissions, I'd love to hear more about your process, pricing or portfolio.
-
-Thanks for your time, and I look forward to hearing from you.
-
-Best Regards,
-Jonathan Peterson Miller.`);
+      const random = variants[Math.floor(Math.random() * variants.length)];
+      const subject = encodeURIComponent(random.subject);
+      const body = encodeURIComponent(random.body);
       return `mailto:${email}?subject=${subject}&body=${body}`;
     }
 
-    // Load emails button click
     loadEmailsBtn.addEventListener("click", () => {
       const emails = getEmails();
       if (emails.length === 0) {
@@ -140,36 +181,27 @@ Jonathan Peterson Miller.`);
       }
       saveEmailsToStorage(emails);
       updateSendNextButton();
-      alert(`Loaded ${emails.
-length} emails.`);
+      alert(`Loaded ${emails.length} emails.`);
     });
 
-    // Send next email button click
     sendNextBtn.addEventListener("click", () => {
       let emails = getEmails();
       if (emails.length === 0) {
         alert("No emails to send.");
         return;
       }
-
-      const currentEmail = emails.shift(); // Remove first email
-
-      // Update textarea and storage
+      const currentEmail = emails.shift();
       emailsInput.value = emails.join("\n");
       saveEmailsToStorage(emails);
       updateSendNextButton();
 
-      // Open mailto link in new tab/window
       const mailtoLink = encodeMailto(currentEmail);
       emailLink.href = mailtoLink;
       emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
       emailLink.style.display = "inline-block";
-
-      // Trigger mail app opening by clicking link programmatically
       emailLink.click();
     });
 
-    // On page load, populate textarea with saved emails
     window.addEventListener("load", loadEmailsFromStorage);
   </script>
 
