@@ -79,13 +79,13 @@
   <a href="#" id="emailLink" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
 
   <script>
-    const emailsInput = document.getElementById("emailsInput");
-    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
-    const sendNextBtn = document.getElementById("sendNextBtn");
-    const emailLink = document.getElementById("emailLink");
+  const emailsInput = document.getElementById("emailsInput");
+  const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+  const sendNextBtn = document.getElementById("sendNextBtn");
+  const emailLink = document.getElementById("emailLink");
 
-    // Your 50 variants here:
-    const variants = [
+  // your variants list
+  const variants = [
   {subject:"Beautiful work — are any pieces available?", body:"Hi there,\nI came across your artwork recently and was really impressed. I’d love to learn more about what you’re working on and if anything is currently available.\n\nBest regards,\nJonathan Peterson Miller"},
   {subject:"Quick question about your artwork", body:"Hello,\nYour art caught my eye while I was browsing recently. I’m always on the lookout for original pieces and would love to connect.\n\nBest regards,\nJonathan Peterson Miller"},
   {subject:"Saw your work and had to reach out", body:"Hi,\nI saw one of your pieces online and was genuinely drawn to it. Would you be open to sharing a few available works or your portfolio?\n\nBest regards,\nJonathan Peterson Miller"},
@@ -114,100 +114,92 @@
   {subject:"Would love to see more of your work", body:"Hi,\nI just wanted to say I really admire your work. Is there a way I could see more or learn about available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
   {subject:"Looking for new pieces — your work stood out", body:"Hello,\nI collect art and came across your work while browsing. I’d love to connect and possibly add one of your pieces to my collection.\n\nBest regards,\nJonathan Peterson Miller"},
   {subject:"Great work — interested in connecting", body:"Hi there,\nYour style really speaks to me. Are you accepting commissions or selling any work at the moment?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Quick message from a collector", body:"Hi,\nYour artwork has a calm and emotional presence that I truly appreciate. Would love to know more about any pieces for sale.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Your art is incredible", body:"Hey there,\nI just discovered your work and had to reach out. Is there a way I could explore more or inquire about a potential purchase?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Do you offer commissions?", body:"Hi,\nI was really drawn to your art style and wanted to ask if you’re open to commissions or custom pieces.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Loved your recent work", body:"Hi there,\nI noticed a recent piece you shared and it left a strong impression. Would love to know more about your process and any available work.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Really enjoyed seeing your work", body:"Hello,\nI just wanted to reach out and say how much I appreciated your artwork. Let me know if you're open to a conversation.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Are you currently exhibiting or selling?", body:"Hi,\nI'm always looking for new artists and your work stood out immediately. Do you have any current exhibitions or available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Looking to acquire — open to connect?", body:"Hey,\nI collect contemporary work and your style really aligns with what I appreciate. Are you open to a quick chat?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Curious about your portfolio", body:"Hi,\nI came across your art online and was curious if you have a portfolio or online gallery I could view.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"New collector reaching out", body:"Hi there,\nI’ve started collecting recently and found your work inspiring. Would love to explore a potential acquisition.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Interested in your work", body:"Hello,\nI came across your work and found it quite moving. I’d love to know more about your available pieces.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Looking for unique pieces — love your work", body:"Hi,\nYour artistic voice feels very personal and strong. I’m interested in acquiring something meaningful and thought your work might fit.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Art collector reaching out", body:"Hello,\nI’m reaching out as an art collector interested in your visual style. Would you be open to sharing a few works or details about availability?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Any works available this season?", body:"Hi there,\nYour work has a great presence. Just wondering if you have any pieces currently for sale or in progress.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Your art has great energy", body:"Hi,\nI really appreciate the energy and style in your work. Are you offering any originals or commissions at this time?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Would love to add your work to my collection", body:"Hello,\nI’ve been collecting for a while and your artwork made a real impression. Would love to talk more if you're open.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Just discovered your art", body:"Hi,\nI found your work while browsing and couldn’t leave without saying something. Do you have any available pieces?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Is your work available for acquisition?", body:"Hey,\nI’ve been searching for new work for a collection I’m building and thought your art might be a great fit.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Collector interested in your latest series", body:"Hi there,\nYour recent pieces are beautiful. Are you currently offering any of them for acquisition?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Can we talk about your art?", body:"Hi,\nI’m reaching out with a simple question — do you have anything available, or a way I could explore more of your pieces?\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Are you currently offering any artwork?", body:"Hi,\nI'm interested in finding new work for a small collection and came across your pieces. Would love to connect.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Really impressed by your work", body:"Hello,\nYour artwork struck a chord with me. Just wanted to ask if you're open to selling any pieces currently.\n\nBest regards,\nJonathan Peterson Miller"},
-  {subject:"Would love to learn more about your art", body:"Hi there,\nYou have a really interesting visual language. I’d appreciate the chance to view more or hear about what’s available.\n\nBest regards,\nJonathan Peterson Miller"}
-];
+  ];
 
-    function loadEmailsFromStorage() {
-      const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
-      emailsInput.value = savedEmails.join("\n");
-      updateSendNextButton();
+  function loadEmailsFromStorage() {
+    const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
+    emailsInput.value = savedEmails.join("\n");
+    updateSendNextButton();
+  }
+
+  function saveEmailsToStorage(emails) {
+    localStorage.setItem("emails", JSON.stringify(emails));
+  }
+
+  function getEmails() {
+    return emailsInput.value
+      .split(/\r?\n/)
+      .map(e => e.trim())
+      .filter(e => e.length > 0);
+  }
+
+  function updateSendNextButton() {
+    const emails = getEmails();
+    sendNextBtn.disabled = emails.length === 0;
+    if (emails.length === 0) {
+      emailLink.style.display = "none";
+      emailLink.href = "#";
+      emailLink.textContent = "";
     }
+  }
 
-    function saveEmailsToStorage(emails) {
-      localStorage.setItem("emails", JSON.stringify(emails));
+  function encodeMailto(email) {
+    const random = variants[Math.floor(Math.random() * variants.length)];
+    const subject = encodeURIComponent(random.subject);
+    const body = encodeURIComponent(random.body);
+    return `mailto:${email}?subject=${subject}&body=${body}`;
+  }
+
+  loadEmailsBtn.addEventListener("click", () => {
+    const emails = getEmails();
+    if (emails.length === 0) {
+      alert("Please paste at least one email.");
+      return;
     }
+    saveEmailsToStorage(emails);
+    updateSendNextButton();
+    alert(`Loaded ${emails.length} emails.`);
+  });
 
-    function getEmails() {
-      return emailsInput.value
-        .split(/\r?\n/)
-        .map(e => e.trim())
-        .filter(e => e.length > 0);
+  sendNextBtn.addEventListener("click", () => {
+    let emails = getEmails();
+    if (emails.length === 0) {
+      alert("No emails to send.");
+      return;
     }
+    const currentEmail = emails.shift();
+    emailsInput.value = emails.join("\n");
+    saveEmailsToStorage(emails);
+    updateSendNextButton();
 
-    function updateSendNextButton() {
-      const emails = getEmails();
-      sendNextBtn.disabled = emails.length === 0;
-      if (emails.length === 0) {
-        emailLink.style.display = "none";
-        emailLink.
-href = "#";
-        emailLink.textContent = "";
+    const mailtoLink = encodeMailto(currentEmail);
+    emailLink.href = mailtoLink;
+    emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
+    emailLink.style.display = "inline-block";
+    emailLink.click();
+
+    // 🔥 NEW: start cooldown after click
+    startCooldown(10); // 10 seconds
+  });
+
+  function startCooldown(seconds) {
+    sendNextBtn.disabled = true;
+    let remaining = seconds;
+    const originalText = "Send Next Email";
+    sendNextBtn.textContent = `Wait ${remaining}s...`;
+    const interval = setInterval(() => {
+      remaining--;
+      if (remaining > 0) {
+        sendNextBtn.textContent = `Wait ${remaining}s...`;
+      } else {
+        clearInterval(interval);
+        sendNextBtn.textContent = originalText;
+        updateSendNextButton();
       }
-    }
+    }, 1000);
+  }
 
-    function encodeMailto(email) {
-      const random = variants[Math.floor(Math.random() * variants.length)];
-      const subject = encodeURIComponent(random.subject);
-      const body = encodeURIComponent(random.body);
-      return `mailto:${email}?subject=${subject}&body=${body}`;
-    }
+  window.addEventListener("load", loadEmailsFromStorage);
+</script>
 
-    loadEmailsBtn.addEventListener("click", () => {
-      const emails = getEmails();
-      if (emails.length === 0) {
-        alert("Please paste at least one email.");
-        return;
-      }
-      saveEmailsToStorage(emails);
-      updateSendNextButton();
-      alert(`Loaded ${emails.length} emails.`);
-    });
-
-    sendNextBtn.addEventListener("click", () => {
-      let emails = getEmails();
-      if (emails.length === 0) {
-        alert("No emails to send.");
-        return;
-      }
-      const currentEmail = emails.shift();
-      emailsInput.value = emails.join("\n");
-      saveEmailsToStorage(emails);
-      updateSendNextButton();
-
-      const mailtoLink = encodeMailto(currentEmail);
-      emailLink.href = mailtoLink;
-      emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
-      emailLink.style.display = "inline-block";
-      emailLink.click();
-    });
-
-    window.addEventListener("load", loadEmailsFromStorage);
-  </script>
-
-  <footer id="footer">
-    Property of KaddaphiFX
-  </footer>
-</body>
-</html>
 
