@@ -79,102 +79,417 @@
   <a href="#" id="emailLink" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
 
   <script>
-    const emailsInput = document.getElementById("emailsInput");
-    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
-    const sendNextBtn = document.getElementById("sendNextBtn");
-    const emailLink = document.getElementById("emailLink");
+  const emailsInput = document.getElementById("emailsInput");
+  const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+  const sendNextBtn = document.getElementById("sendNextBtn");
+  const emailLink = document.getElementById("emailLink");
 
-    // Load saved emails on page load to repopulate textarea
-    function loadEmailsFromStorage() {
-      const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
-      emailsInput.value = savedEmails.join("\n");
-      updateSendNextButton();
+  // your variants list
+  const variants = [
+  {
+    "subject": "Exploring new pieces for my collection",
+    "body": "Hi there,\nI’m expanding my private collection and your work caught my eye. Are there any pieces currently available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are you accepting commissions right now?",
+    "body": "Hello,\nYour style really resonates with me. Would you be open to custom work or commissions?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible direct purchase inquiry",
+    "body": "Hey,\nI’m very interested in purchasing directly from artists. Do you sell privately?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Loved your recent series",
+    "body": "Hi,\nI came across your latest pieces online and was very impressed. Are any still for sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to add something new",
+    "body": "Hello,\nI’m currently searching for fresh works to add to my collection. Do you have suggestions?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you have a digital catalog?",
+    "body": "Hey there,\nI’d love to see a broader view of your work. Is there an online catalog I could browse?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Art collector reaching out",
+    "body": "Hi,\nI’ve been collecting contemporary art for a while and your pieces really stood out to me. Would love to know what’s available.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Interested in smaller works too",
+    "body": "Hello,\nBeyond larger pieces, do you also offer smaller works or sketches?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you share updates or newsletters?",
+    "body": "Hey,\nI’d like to stay updated on your new releases. Do you keep a mailing list?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any originals currently for sale?",
+    "body": "Hi there,\nI especially value original works. Are you currently offering any for direct sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Exploring your creative process",
+    "body": "Hello,\nPart of what fascinates me is the artist’s journey. Would love to hear about yours if you’re open.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to buy before next season",
+    "body": "Hey,\nI’m hoping to make new acquisitions soon. Do you have pieces ready now?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Your abstracts really impressed me",
+    "body": "Hi,\nI have a special interest in abstract work, and yours stood out. Anything available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you sell through galleries or privately?",
+    "body": "Hello,\nJust curious how you handle sales — directly, or via galleries?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are you open to future projects?",
+    "body": "Hey there,\nI might consider a custom project later on. Would you be open to that?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible addition to my private space",
+    "body": "Hi,\nI’m decorating a private office and your work seems like it would fit beautifully. Are pieces available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Can I view your portfolio online?",
+    "body": "Hello,\nI’d love to see more examples of your work. Do you have a portfolio site?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Quick question about pricing",
+    "body": "Hey,\nI’m curious about the price range of your available works. Could you share details?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to buy this month",
+    "body": "Hi there,\nI’m planning some acquisitions soon. Anything you’d recommend from your recent series?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Your recent color studies caught my eye",
+    "body": "Hello,\nI saw some of your color-focused pieces online. Are any still for sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+{
+    "subject": "Considering new acquisitions soon",
+    "body": "Hi there,\nI’m planning to add new pieces to my collection this season. Do you have anything currently available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you offer prints or only originals?",
+    "body": "Hello,\nYour work really stands out. Just wondering if you also offer prints or only originals?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Loved your work — is it part of a series?",
+    "body": "Hey,\nI saw one of your pieces online and it caught my attention. Is it part of a larger series?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible direct commission inquiry",
+    "body": "Hi,\nYour unique style really resonates with me. Would you consider a custom piece?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to see more of your work",
+    "body": "Hello,\nI’d love to browse more of your recent or past pieces. Do you have an online gallery or lookbook?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any smaller format pieces for sale?",
+    "body": "Hey there,\nDo you happen to offer smaller works? They could fit nicely in my study.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Could you share your pricing guide?",
+    "body": "Hi,\nI’m very interested in your work and would appreciate knowing your price range for available pieces.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you showcase at art fairs?",
+    "body": "Hello,\nJust curious if you exhibit at local or international art fairs. Would be great to see your work in person.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Exploring options for a new space",
+    "body": "Hey,\nI’m currently redecorating and thought your art could work beautifully. Do you have anything available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Could we discuss your latest series?",
+    "body": "Hi there,\nI’ve seen a few pieces from your recent series and would love to learn more about them.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Your technique really impressed me",
+    "body": "Hello,\nI’m fascinated by your technique. Are you offering any works at the moment?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to buy before the end of the month",
+    "body": "Hey,\nI’d like to finalize a purchase before month-end. Could you share what’s currently for sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you keep an updated catalog online?",
+    "body": "Hi,\nI often browse artist catalogs to see new works. Do you have one I could view?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Exploring custom commission options",
+    "body": "Hello,\nYour style could fit perfectly in a project I’m planning. Are you accepting commissions now?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are you represented by any galleries?",
+    "body": "Hey there,\nJust curious if you work directly with collectors or through galleries.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Your recent work really caught my eye",
+    "body": "Hi,\nI came across your latest pieces online and found them captivating. Anything still available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible new piece for a private office",
+    "body": "Hello,\nI’m decorating a new space and think your work could fit beautifully. Could you share what’s available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any landscape pieces currently for sale?",
+    "body": "Hey,\nI’m especially drawn to your landscapes. Do you have any originals available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Quick chat about your process and work",
+    "body": "Hi there,\nI’m genuinely interested in your approach to creating. Could we talk more about your current works?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking to add contemporary art this year",
+    "body": "Hello,\nI’m planning to focus on contemporary art acquisitions this year. Would love to know what you have available.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+{
+    "subject": "Any abstract works available now?",
+    "body": "Hi there,\nI’ve been looking to add an abstract piece to my collection. Do you currently have any for sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Curious about your creative process",
+    "body": "Hello,\nI’m always fascinated by how artists approach their work. Could you share a bit about your process?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you ship internationally?",
+    "body": "Hey,\nI live outside your country — do you ship your artworks internationally?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Love your palette — any new works?",
+    "body": "Hi,\nYour use of color is fantastic. Have you completed any new pieces recently?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Planning to buy before next month",
+    "body": "Hello,\nI’d like to secure a piece before the next month begins. Could you show me what’s available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Interested in smaller commissions",
+    "body": "Hey there,\nI’m thinking of commissioning something smaller. Do you accept small custom requests?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Your textures really caught my eye",
+    "body": "Hi,\nThe texture in your work is striking. Are you currently offering any textured pieces?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are you adding new works this season?",
+    "body": "Hello,\nI often check in with artists I follow. Are you planning to add new works soon?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you have works in other mediums?",
+    "body": "Hey,\nI love your main style, but do you experiment with different mediums or formats?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Building my collection this quarter",
+    "body": "Hi there,\nI’m actively searching for new pieces to add to my collection. Would love to know what’s available.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking for a signature piece",
+    "body": "Hello,\nI’m searching for something special to serve as a centerpiece. Do you have anything you’d recommend?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are prints available for your last series?",
+    "body": "Hey,\nI really enjoyed your last series. Are prints available, or only originals?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Saw your art on social media",
+    "body": "Hi,\nI came across your work on social media and was very impressed. Could you share what’s available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any floral-themed pieces for sale?",
+    "body": "Hello,\nI collect floral-themed works. Do you currently have any originals or prints?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible holiday gift idea",
+    "body": "Hey there,\nI’m considering buying art as a gift. Do you have anything suitable and available now?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Love your minimalistic approach",
+    "body": "Hi,\nYour minimalistic style is captivating. Are you offering any works in that series?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Adding more color to my collection",
+    "body": "Hello,\nI’d love to add something colorful to my space. Do you have suggestions from your current works?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Quick question about commissions",
+    "body": "Hey,\nAre you currently accepting new commissions? If so, I’d love to discuss.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you have an updated price list?",
+    "body": "Hi there,\nCould you share your latest price list or catalog for available works?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Interested in learning more about your art",
+    "body": "Hello,\nI’d appreciate any background or stories behind your recent pieces. It always adds meaning.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+{
+    "subject": "Any monochrome pieces available?",
+    "body": "Hi there,\nI’ve been collecting monochrome works lately. Do you have any currently for sale?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Loved your last exhibition",
+    "body": "Hello,\nI saw photos from your recent exhibition — fantastic work. Are any of those pieces still available?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Possible addition to my office space",
+    "body": "Hey,\nI’m redecorating my office and thought of your art. Do you have pieces that might fit?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Exploring new acquisitions this year",
+    "body": "Hi,\nI’m adding new pieces to my collection this year. Would love to know what you have available.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you collaborate with collectors?",
+    "body": "Hello,\nI enjoy collaborating directly with artists. Are you open to that kind of process?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any coastal-themed works?",
+    "body": "Hey there,\nI’m drawn to coastal and sea-inspired art. Do you have anything in that style?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Looking for a large statement piece",
+    "body": "Hi,\nI’m searching for a large artwork as a statement for my home. Could you show me what you have?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are you selling your latest series?",
+    "body": "Hello,\nI saw your latest series online. Are those works available for purchase?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you offer framed options?",
+    "body": "Hey,\nI sometimes prefer framed pieces. Do you offer framing, or do you sell unframed only?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Discovering your art was a highlight",
+    "body": "Hi there,\nFinding your work really made my day. Would love to know what’s currently on offer.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you list your art on any marketplace?",
+    "body": "Hello,\nI sometimes buy through marketplaces. Is your work listed anywhere, or do you sell direct?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Considering art for a gift",
+    "body": "Hey,\nA friend of mine loves your style. Could you suggest smaller works suitable as a gift?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Any nature-inspired works available?",
+    "body": "Hi,\nNature themes really resonate with me. Do you have any pieces in that category?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Quick inquiry about your availability",
+    "body": "Hello,\nJust checking if you’re currently accepting new projects or custom work.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Adding to my themed collection",
+    "body": "Hey there,\nI’m working on a new themed collection. Would love to know what you have that might fit.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Are prints signed by you?",
+    "body": "Hi,\nIf you offer prints, do you sign them? It adds a lot of meaning for collectors like me.\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you create diptychs or triptychs?",
+    "body": "Hello,\nI love multi-panel works. Have you done any diptychs or triptychs recently?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Interested in your earlier work too",
+    "body": "Hey,\nYour recent work is great, but do you have earlier pieces for sale as well?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Seeking a vibrant piece for my home",
+    "body": "Hi there,\nI’d love something bold and colorful. Could you share options from your current catalog?\n\nBest regards,\nThomas Hillary Jefferson"
+  },
+  {
+    "subject": "Do you attend art fairs?",
+    "body": "Hello,\nI often go to art fairs.Do you showcase your work at any upcoming events?\n\nBest regards,\nThomas Hillary Jefferson"
+  }
+]
+
+  function loadEmailsFromStorage() {
+    const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
+    emailsInput.value = savedEmails.join("\n");
+    updateSendNextButton();
+  }
+
+  function saveEmailsToStorage(emails) {
+    localStorage.setItem("emails", JSON.stringify(emails));
+  }
+
+  function getEmails() {
+    return emailsInput.value
+      .split(/\r?\n/)
+      .map(e => e.trim())
+      .filter(e => e.length > 0);
+  }
+
+  function updateSendNextButton() {
+    const emails = getEmails();
+    sendNextBtn.disabled = emails.length === 0;
+    if (emails.length === 0) {
+      emailLink.style.display = "none";
+      emailLink.href = "#";
+      emailLink.textContent = "";
     }
+  }
 
-    // Save current textarea emails to localStorage
-    function saveEmailsToStorage(emails) {
-      localStorage.setItem("emails", JSON.stringify(emails));
+  function encodeMailto(email) {
+    const random = variants[Math.floor(Math.random() * variants.length)];
+    const subject = encodeURIComponent(random.subject);
+    const body = encodeURIComponent(random.body);
+    return `mailto:${email}?subject=${subject}&body=${body}`;
+  }
+
+  loadEmailsBtn.addEventListener("click", () => {
+    const emails = getEmails();
+    if (emails.length === 0) {
+      alert("Please paste at least one email.");
+      return;
     }
+    saveEmailsToStorage(emails);
+    updateSendNextButton();
+    alert(`Loaded ${emails.length} emails.`);
+  });
 
-    // Update Send Next button state
-    function updateSendNextButton() {
-      const emails = getEmails();
-      sendNextBtn.disabled = emails.length === 0;
-      if (emails.length === 0) {
-        emailLink.style.display = "none";
-        emailLink.href = "#";
-        emailLink.textContent = "";
+  sendNextBtn.addEventListener("click", () => {
+    let emails = getEmails();
+    if (emails.length === 0) {
+      alert("No emails to send.");
+      return;
+    }
+    const currentEmail = emails.shift();
+    emailsInput.value = emails.join("\n");
+    saveEmailsToStorage(emails);
+    updateSendNextButton();
+
+    const mailtoLink = encodeMailto(currentEmail);
+    emailLink.href = mailtoLink;
+    emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
+    emailLink.style.display = "inline-block";
+    emailLink.click();
+
+    // 🔥 NEW: start cooldown after click
+    startCooldown(15); // 10 seconds
+  });
+
+  function startCooldown(seconds) {
+    sendNextBtn.disabled = true;
+    let remaining = seconds;
+    const originalText = "Send Next Email";
+    sendNextBtn.textContent = `Wait ${remaining}s...`;
+    const interval = setInterval(() => {
+      remaining--;
+      if (remaining > 0) {
+        sendNextBtn.textContent = `Wait ${remaining}s...`;
+      } else {
+        clearInterval(interval);
+        sendNextBtn.textContent = originalText;
+        updateSendNextButton();
       }
-    }
+    }, 1000);
+  }
 
-    // Helper to get emails array from textarea
-    function getEmails() {
-      return emailsInput.value
-        .split(/\r?\n/)
-        .map(e => e.trim())
-        .filter(e => e.length > 0);
-    }
-
-    // Encode mailto link for an email
-    function encodeMailto(email) {
-      const subject = encodeURIComponent("Interested in Your Art");
-      const body = encodeURIComponent(`Hi there,
-
-I recently came across your artwork and was really impressed by your style. I'm an art collector currently looking to acquire a few pieces for a project, and your work stood out to me.
-
-If you're open to discussing available works or commissions, I'd love to hear more about your process, pricing or portfolio.
-
-Thanks for your time, and I look forward to hearing from you.
-
-Best Regards,
-Thomas Hillary Jefferson.`);
-      return `mailto:${email}?subject=${subject}&body=${body}`;
-    }
-
-    // Load emails button click
-    loadEmailsBtn.addEventListener("click", () => {
-      const emails = getEmails();
-      if (emails.length === 0) {
-        alert("Please paste at least one email.");
-        return;
-      }
-      saveEmailsToStorage(emails);
-      updateSendNextButton();
-      alert(`Loaded ${emails.
-length} emails.`);
-    });
-
-    // Send next email button click
-    sendNextBtn.addEventListener("click", () => {
-      let emails = getEmails();
-      if (emails.length === 0) {
-        alert("No emails to send.");
-        return;
-      }
-
-      const currentEmail = emails.shift(); // Remove first email
-
-      // Update textarea and storage
-      emailsInput.value = emails.join("\n");
-      saveEmailsToStorage(emails);
-      updateSendNextButton();
-
-      // Open mailto link in new tab/window
-      const mailtoLink = encodeMailto(currentEmail);
-      emailLink.href = mailtoLink;
-      emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
-      emailLink.style.display = "inline-block";
-
-      // Trigger mail app opening by clicking link programmatically
-      emailLink.click();
-    });
-
-    // On page load, populate textarea with saved emails
-    window.addEventListener("load", loadEmailsFromStorage);
-  </script>
-
-  <footer id="footer">
-    Property of German 🇩🇪
-  </footer>
-</body>
-</html>
+  window.addEventListener("load", loadEmailsFromStorage);
+</script>
