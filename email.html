@@ -86,201 +86,108 @@
 
     // your variants list
 const variants = [
-  {
-    subject: "Really admired your recent piece",
-    body: "Hi,\nI came across your work earlier this week and was genuinely impressed by the atmosphere you create. It’s always refreshing to find art that carries such balance and emotion.\n\nBest regards,"
-  },
-  {
-    subject: "Your latest work stood out beautifully",
-    body: "Hello,\nI saw your recent piece online and found it quite striking. The tone and detail really pull you in. Thought I’d reach out and say so.\n\nKind regards,"
-  },
-  {
-    subject: "Enjoyed exploring your portfolio",
-    body: "Hi there,\nI spent some time going through your work and really enjoyed the sense of flow across your pieces. You have a distinct rhythm in your compositions.\n\nWarmly,"
-  },
-  {
-    subject: "Your visual tone is remarkable",
-    body: "Hey,\nI recently discovered your artwork and loved the tone you convey through your use of color. It feels grounded yet expressive in a rare way.\n\nAll the best,"
-  },
-  {
-    subject: "Appreciated your latest work",
-    body: "Hi,\nI came across your latest post and wanted to say it really stood out. The simplicity and emotion you capture are both compelling.\n\nSincerely,"
-  },
-  {
-    subject: "Your art caught my attention",
-    body: "Hello,\nI was browsing through a few recent works online and your piece instantly stood out. You’ve got a great sense of balance in your storytelling.\n\nBest regards,"
-  },
-  {
-    subject: "Loved the atmosphere in your art",
-    body: "Hi there,\nI came across your work today and really admired the calm yet powerful tone in it. You have a style that feels effortlessly original.\n\nKind regards,"
-  },
-  {
-    subject: "Impressed by your creative approach",
-    body: "Hey,\nI’ve been looking at contemporary pieces lately, and yours really stayed with me. Your use of space and contrast feels thoughtful and confident.\n\nWarm regards,"
-  },
-  {
-    subject: "Beautiful composition in your work",
-    body: "Hi,\nJust wanted to say I admire how you handle composition. There’s a nice quiet strength to your recent pieces.\n\nBest wishes,"
-  },
-  {
-    subject: "Your series feels very cohesive",
-    body: "Hello,\nI went through several of your works and loved how naturally they connect. The tone and emotion feel consistent without being repetitive.\n\nKind regards,"
-  },
-  {
-    subject: "That was a memorable piece",
-    body: "Hi there,\nI saw one of your paintings recently and it’s been on my mind since. The light and framing really make it stand out.\n\nWarm regards,"
-  },
-  {
-    subject: "Loved the depth in your work",
-    body: "Hey,\nI’ve been exploring a few emerging artists recently, and your work had a real sense of depth and control. It’s rare to see such precision paired with emotion.\n\nAll the best,"
-  },
-  {
-    subject: "Your recent post was inspiring",
-    body: "Hi,\nI came across your recent post and found it genuinely inspiring. The emotion behind your style really translates through the piece.\n\nBest regards,"
-  },
-  {
-    subject: "Striking tone and detail in your work",
-    body: "Hello,\nYour latest series caught my attention — I love how you balance tone, detail, and simplicity. It’s quietly powerful.\n\nSincerely,"
-  },
-  {
-    subject: "Your art carries real emotion",
-    body: "Hi there,\nI came across your art online and really felt the emotion behind it. There’s honesty and restraint in your expression that’s rare.\n\nWarm regards,"
-  },
-  {
-    subject: "Impressed by your unique perspective",
-    body: "Hey,\nI saw your portfolio and really liked your creative direction. The compositions feel intentional and well thought out.\n\nKind regards,"
-  },
-  {
-    subject: "Beautifully balanced work",
-    body: "Hi,\nYour work has such a natural balance between form and feeling. I admire the quiet precision in your pieces.\n\nBest regards,"
-  },
-  {
-    subject: "Appreciated your sense of light",
-    body: "Hello,\nYour handling of light in recent works really impressed me. It feels both natural and carefully structured.\n\nWarmly,"
-  },
-  {
-subject: "Your pieces have a calm strength",
-    body: "Hi there,\nI’ve seen a lot of art lately, but your work carries a calm confidence that’s really refreshing. Just wanted to say I appreciate it.\n\nAll the best,"
-  },
-  {
-    subject: "Loved the storytelling in your art",
-    body: "Hey,\nI noticed your work has a subtle narrative quality that really draws you in. It’s beautifully understated.\n\nKind regards,"
-  },
-  {
-    subject: "Your work feels very genuine",
-    body: "Hi,\nI came across your art and really appreciated its honesty. The tone feels personal and grounded in a good way.\n\nSincerely,"
-  },
-  {
-    subject: "Admired your latest collection",
-    body: "Hello,\nI took a look through your collection and thought your consistency was remarkable. You’ve built a very defined visual voice.\n\nWarm regards,"
-  },
-  {
-    subject: "Wonderful tone in your new series",
-    body: "Hi there,\nYour new series stood out for its mood and restraint. It’s nice to come across art that feels this intentional.\n\nBest wishes,"
-  },
-  {
-    subject: "You’ve got a really distinct style",
-    body: "Hey,\nYour creative identity shines clearly through your pieces. I admire the way you’ve developed such a defined look.\n\nKind regards,"
-  },
-  {
-    subject: "Loved the energy in your latest work",
-    body: "Hi,\nYour last piece had a great sense of movement and energy. It really pulled me in.\n\nBest regards,"
-  },
-  {
-    subject: "Your composition feels thoughtful",
-    body: "Hello,\nI came across your portfolio and was struck by how considered your layout and forms are. Really enjoyed exploring your work.\n\nWarmly,"
-  },
-  {
-    subject: "Really enjoyed your portfolio",
-    body: "Hi there,\nSpent a bit of time going through your pieces — very cohesive and emotionally strong. Just wanted to say I admire your work.\n\nKind regards,"
-  },
-  {
-    subject: "Your color palette stands out",
-    body: "Hey,\nI love the tones and shades you work with. There’s something steady and confident about your color choices.\n\nBest regards,"
-  },
-  {
-    subject: "Appreciated your subtlety",
-    body: "Hi,\nYou have a really restrained, elegant approach to your work. I found it calming and memorable.\n\nWarm regards,"
-  },
-  {
-    subject: "Your art left a strong impression",
-    body: "Hello,\nI saw one of your pieces recently and it’s been on my mind since. You have a way of creating lasting imagery.\n\nAll the best,"
-  },
-  {
-    subject: "Really liked your artistic voice",
-    body: "Hi there,\nYour work feels cohesive and intentional — it’s clear you’ve found your rhythm as an artist.\n\nSincerely,"
-  },
-  {
-    subject: "Beautiful atmosphere in your art",
-    body: "Hey,\nI came across your recent series and loved the atmosphere you created. It’s rare to see tone handled that gracefully.\n\nWarm regards,"
-  },
-  {
-    subject: "Admired your sense of structure",
-    body: "Hi,\nYour compositions are so carefully put together. There’s a real understanding of form and rhythm in your pieces.\n\nBest wishes,"
-  },
-  {
-    subject: "Your latest work was refreshing",
-    body: "Hello,\nI’ve seen so much repetitive art lately, but your recent work felt fresh and natural. Really well done.\n\nKind regards,"
-  },
-  {
-    subject: "Enjoyed seeing your portfolio",
-    body: "Hi there,\nYour body of work feels consistent yet evolving. You’ve got a strong sense of identity coming through.\n\nWarmly,"
-  },
-  {
-    subject: "Your recent collection impressed me",
-    body: "Hey,\nI came across your new collection and thought it was brilliant. You’ve clearly developed a refined sense of storytelling.\n\nAll the best,"
-  },
-  {
-    subject: "Beautiful tone throughout your work",
-    body: "Hi,\nThe emotional tone across your portfolio feels very balanced and mature. You’ve created a calm but expressive signature.\n\nKind regards,"
-  },
-  {
-    subject: "Your texture work stood out",
-    body: "Hello,\nYou’ve got a fascinating approach to texture. It adds so much personality to your pieces.\n\nBest regards,"
-  },
-  {
-subject: "Loved your sense of balance",
-    body: "Hi there,\nYour work feels very considered — not overdone, not empty. That sense of balance really caught my attention.\n\nWarm regards,"
-  },
-  {
-    subject: "Impressed by your tonal control",
-    body: "Hey,\nYour handling of tone and shading really defines your pieces. I found it subtle yet powerful.\n\nSincerely,"
-  },
-  {
-    subject: "Your latest series had great flow",
-    body: "Hi,\nI just saw your new series — it moves beautifully from one piece to the next. You’ve created something very cohesive.\n\nAll the best,"
-  },
-  {
-    subject: "Enjoyed the quiet confidence in your art",
-    body: "Hello,\nThere’s something quietly confident about your style. It stands out without trying too hard.\n\nKind regards,"
-  },
-  {
-    subject: "Admired your latest creative direction",
-    body: "Hi there,\nIt’s clear your work has evolved in a thoughtful way. I like how you’ve built a clear artistic language.\n\nWarmly,"
-  },
-  {
-    subject: "Your color harmony is beautiful",
-    body: "Hey,\nI was really drawn to how you blend tones. It gives your pieces such depth and softness.\n\nBest wishes,"
-  },
-  {
-    subject: "That last piece was exceptional",
-    body: "Hi,\nYour latest work stood out from everything else I’ve seen this week. It has presence and restraint.\n\nKind regards,"
-  },
-  {
-    subject: "Loved the emotion behind your work",
-    body: "Hello,\nThere’s a lot of honesty in how you paint. It feels like each piece tells its own quiet story.\n\nWarm regards,"
-  },
-  {
-    subject: "Really enjoyed your current style",
-    body: "Hi there,\nYour style has a nice mix of control and freedom. It’s rare to see both handled so naturally.\n\nBest regards,"
-  },
-  {
-    subject: "Your artwork feels timeless",
-    body: "Hey,\nSome of your pieces have a classic, enduring quality that’s really appealing. Thought I’d reach out to say that.\n\nAll the best,"
-  }
+  { subject: "Curious about your latest series", body: "Hey, I came across your recent work and couldn’t help wondering what inspired it. Do you usually build around a single theme or mix ideas as they come?" },
+  { subject: "Your recent piece stood out", body: "Hi, I saw your latest piece online and it really caught my eye. Is it part of a larger collection or a standalone work?" },
+  { subject: "Loved the tone of your work", body: "Hey there, your use of color and space feels really intentional. Do you usually plan it that way, or is it more intuitive when you start?" },
+  { subject: "I noticed your style evolving", body: "Hi, I’ve seen a few of your older works and the recent ones feel different in tone. Was that a conscious shift or something that happened naturally?" },
+  { subject: "The emotion in your work is striking", body: "Hey, I just wanted to say your last piece really hit me emotionally. Do you ever base your themes on personal experiences?" },
+  { subject: "Question about your recent piece", body: "Hi, I noticed you used mixed media in your latest post. Is that something new you’ve been experimenting with?" },
+  { subject: "Curious about your inspiration", body: "Hey there, I was looking through your work and wondered who or what influences your compositions the most these days?" },
+  { subject: "Your art feels very personal", body: "Hi, I really liked how your last series seems to tell a story. Was that intentional or did it evolve on its own?" },
+  { subject: "Beautiful tone in your work", body: "Hey, I came across your portfolio and liked how cohesive your pieces feel. Do you plan them as a series or create them one by one?" },
+  { subject: "Your textures are something else", body: "Hi, your work with texture really stands out. I’m curious — what do you usually start with, sketch or straight to canvas?" },
+  { subject: "Your latest piece feels cinematic", body: "Hey there, saw your last upload and it almost feels like a film still. Do you draw inspiration from movies or photography too?" },
+  { subject: "I noticed the contrast in your palette", body: "Hi, your recent work has this strong light-dark contrast that’s beautiful. Is that a recurring theme in your art?" },
+  { subject: "Your work feels layered", body: "Hey, your paintings feel like they have a lot of hidden depth. Is there usually a story behind each one?" },
+  { subject: "Interesting use of space", body: "Hi, I really like how you leave open areas in your pieces — it gives a sense of calm. Do you think about composition a lot when you paint?" },
+  { subject: "Do you usually work in series?", body: "Hey, I noticed a pattern in your posts. Do you like working in connected series or prefer one-off creations?" },
+  { subject: "Curious about your background", body: "Hi, I came across your work and was wondering how you first got into painting. Formal training or self-taught?" },
+  { subject: "Your art gives off a dreamlike tone", body: "Hey, I really like that surreal atmosphere in your pieces. Do you consciously chase that mood or let it happen?" },
+  { subject: "Your line work caught my eye", body: "Hi, your control over line and form is impressive. Do you sketch a lot before starting a new piece?" },
+  { subject: "Loved your use of negative space", body: "Hey, just wanted to say that your balance of detail and emptiness in your last work is really engaging. Do you plan that balance or feel it out as you go?" },
+  { subject: "Your art feels emotionally charged", body: "Hi, I’ve been looking through your portfolio — your recent ones especially feel very raw. Was there a specific story behind them?" },
+  { subject: "Curious about your process", body: "Hey there, when you start a new piece, do you already know what you want it to look like, or does it change along the way?" },
+  { subject: "Your work feels very modern", body: "Hi, your latest series reminds me of contemporary European art styles. Do you follow any current artists?" },
+  { subject: "Question about your medium", body: "Hey, your texture looks rich — do you work primarily with oils or acrylics?" },
+  { subject: "Noticed your recurring theme", body: "Hi, I saw that you often revisit certain motifs. Is there a personal meaning behind that?" },
+  { subject: "Loved the composition of your last piece", body: "Hey, your balance of color and geometry is so well done. Do you use any digital tools in planning your compositions?" },
+  { subject: "The emotion behind your pieces", body: "Hi, there’s something very intimate about your recent works. Do you usually create based on mood?" },
+  { subject: "Your pieces feel poetic", body: "Hey, your art has this quiet, poetic tone that really draws you in. Do you ever write alongside your visual work?" },
+  { subject: "I liked how your art tells stories", body: "Hi, the narrative behind your recent series is fascinating. Do you ever think about adapting them into short visuals or NFTs?" },
+  { subject: "Do you show your work offline too?", body: "Hey, I was wondering if you also exhibit your works in galleries or just online?" },
+  { subject: "Your palette feels deliberate", body: "Hi, I noticed your colors have a lot of emotional weight. How do you usually pick your palette?" },
+  { subject: "Your perspective is unique", body: "Hey, your way of framing figures is really different. Do you draw inspiration from photography?" },
+  { subject: "Your digital works stood out", body: "Hi, I came across your page and noticed you blend traditional and digital techniques. How long have you been doing that?" },
+  { subject: "Your contrast of realism and abstraction", body: "Hey, your style seems to balance the two beautifully. Do you lean toward one more personally?" },
+  { subject: "Curious about your creative flow", body: "Hi, do you usually work on multiple pieces at once or one at a time?" },
+  { subject: "Your recent post drew me in", body: "Hey, saw your post earlier and really liked the atmosphere in it. How long did that one take to finish?" },
+  { subject: "Your tone reminds me of classical work", body: "Hi, your last few pieces feel almost renaissance-inspired. Do you study older painters?" },
+  { subject: "That blue you used was stunning", body: "Hey there, random note — that shade of blue in your last painting really worked. Do you mix your own colors?" },
+  { subject: "The depth in your portraits", body: "Hi, your portraits carry so much subtle expression. How do you decide when a piece feels finished?" },
+  { subject: "Your art feels very balanced", body: "Hey, I like how your work manages to be calm and powerful at once. Do you usually paint in silence or with music?" },
+  { subject: "Loved your use of minimalism", body: "Hi, your simplicity really speaks volumes. Do you find it harder to simplify or to add?" },
+  { subject: "Your compositions feel musical", body: "Hey, weird question — do you listen to anything specific while creating? Your pieces almost feel rhythmic." },
+  { subject: "Do you sell your pieces directly?", body: "Hi, just curious — do you usually handle sales yourself or through a platform?" },
+  { subject: "Your new piece felt powerful", body: "Hey there, that recent post really drew me in. How long have you been developing this current style?" },
+  { subject: "Your visual tone is memorable", body: "Hi, it’s rare to see a visual language that consistent. Do you document your progress over time?" },
+  { subject: "Your use of form is bold", body: "Hey, I like how confident your shapes are. Do you sketch a lot before painting or go straight in?" },
+  { subject: "Noticed your recurring figures", body: "Hi, I saw you revisit similar figures in different moods. Is that intentional storytelling?" },
+  { subject: "Your latest collection feels cohesive", body: "Hey, the pieces seem to flow into one another nicely. Do you plan them as a full series or separate ideas that aligned later?" },
+  { subject: "Curious about your presentation style", body: "Hi, your layout and background choices online look clean. Do you handle all that yourself?" },
+  { subject: "The atmosphere in your art is strong", body: "Hey, just wanted to say your recent works give off a powerful emotional space. Do you usually paint from memory?" },
+  { subject: "Your art has a quiet strength", body: "Hi, it’s rare to find subtlety that still feels powerful. Do you work in phases or in one sitting?" }
+  {subject:"Your work caught my eye", body:"Hey, I stumbled on one of your pieces earlier — really nice flow in your style. Do you have more I could see?"},
+  {subject:"Just saw your art", body:"Hi, I came across your artwork and couldn’t scroll past. Are you showing or selling anything right now?"},
+  {subject:"Had to reach out", body:"Hey, I found your work while browsing and it genuinely stood out. Would love to see more if you’re open to it."},
+  {subject:"Love your recent piece", body:"Hi, that last piece you posted was really strong. Curious if you’ve got other works like it."},
+  {subject:"Wanted to ask about your art", body:"Hey, I came across your page and really liked your use of color. Do you have anything available?"},
+  {subject:"You’ve got a great eye", body:"Hi, just wanted to say I really like your composition. Are any of your pieces available right now?"},
+  {subject:"Your work feels different", body:"Hey, I saw one of your paintings today — something about it just hits right. Do you have a site or portfolio?"},
+  {subject:"Loved the atmosphere in your work", body:"Hi, your tone and depth in that piece really stood out to me. Are you currently selling or taking commissions?"},
+  {subject:"I like your approach", body:"Hey, your art has this really grounded feel. Would love to see more if you’ve got anything up for viewing."},
+  {subject:"That last piece was beautiful", body:"Hi, your last upload really caught my attention. Do you usually work in that style or switch things up?"},
+  {subject:"Nice work — wanted to ask", body:"Hey, I really like what you’re creating lately. Are your works available anywhere?"},
+  {subject:"That was a stunning piece", body:"Hi, your art popped up on my feed and I was instantly hooked. Do you post or sell your work anywhere?"},
+  {subject:"Really liked what you made", body:"Hey, your painting has such a calm feel to it. Is it part of a series or a standalone piece?"},
+  {subject:"You’ve got something special", body:"Hi, your work really stood out in a good way. Would love to know if you’re open to sharing more of it."},
+  {subject:"Your art stopped me mid-scroll", body:"Hey, not exaggerating — your piece actually made me stop scrolling. Do you have more like it?"},
+  {subject:"Your latest work was great", body:"Hi, saw your latest piece and loved it. Are you planning to release more soon?"},
+  {subject:"That was impressive", body:"Hey, your artwork has such a strong identity. Would love to see more or know what’s coming next."},
+  {subject:"Really enjoyed your piece", body:"Hi, just wanted to say I loved your recent work. Are you currently doing commissions or private sales?"},
+  {subject:"Question about your art", body:"Hey, I saw one of your works earlier and had to ask — do you sell directly or only through galleries?"},
+  {subject:"Beautiful work — curious if available", body:"Hi, that piece you posted recently is beautiful. Any chance it’s still available?"},
+  {subject:"You’ve got a great sense of detail", body:"Hey, your attention to small elements really caught my eye. Are you showing anywhere right now?"},
+  {subject:"Loved the texture in your work", body:"Hi, your brushwork is really interesting. Do you share process shots or just finished pieces?"},
+  {subject:"Quick question about your work", body:"Hey, I came across your painting earlier — really liked it. Do you have a portfolio or page to view more?"},
+  {subject:"Impressed by your recent upload", body:"Hi, your art has a great balance to it. Are you currently open to sales or just sharing work online?"},
+  {subject:"Just wanted to say I love your art", body:"Hey, your work feels really genuine. Do you create full-time or as a side project?"},
+  {subject:"Really enjoyed seeing your piece", body:"Hi, the light in your last artwork was amazing. Are you planning an exhibition or collection soon?"},
+  {subject:"That was such a cool style", body:"Hey, your use of space and tone is unique. Got any more pieces like that?"},
+  {subject:"Caught your work earlier", body:"Hi, I saw your art earlier and it stayed in my head — rare thing.Do you have more I could look at?"},
+  {subject:"You’ve got a great color sense", body:"Hey, I like how you balance your palette. Are you showing any of your works at the moment?"},
+  {subject:"Your art is seriously good", body:"Hi, I’ve been looking at a lot of work lately, and yours really stood out. Would love to see more."},
+  {subject:"Wanted to reach out about your art", body:"Hey, your recent piece really stuck with me. Is it part of a collection or a one-off?"},
+  {subject:"Saw your painting today", body:"Hi, your painting popped up on my explore feed. Do you have any pieces currently available?"},
+  {subject:"You’ve got a nice rhythm in your work", body:"Hey, I really like how your pieces flow. Do you work on commission too?"},
+  {subject:"Admired your latest post", body:"Hi, that last work you shared was incredible. Are you planning to sell prints or originals?"},
+  {subject:"Loved that concept", body:"Hey, your latest idea feels really fresh. Are you working on something new in that direction?"},
+  {subject:"Really liked your composition", body:"Hi, you’ve got such an eye for balance. Are you currently showing or selling anywhere?"},
+  {subject:"Just had to reach out", body:"Hey, your piece genuinely caught my attention today. Do you have a website where you list your works?"},
+  {subject:"Your latest was brilliant", body:"Hi, I really admired your sense of contrast in that one. Are you accepting private inquiries?"},
+  {subject:"Amazing use of light", body:"Hey, your lighting choices are on point. Would love to see what else you’ve been creating."},
+  {subject:"Love your creative tone", body:"Hi, your work feels really personal — that’s rare. Are you open to showing more pieces privately?"},
+  {subject:"Beautiful sense of motion", body:"Hey, the energy in your last work is amazing. Do you share anywhere outside your main page?"},
+  {subject:"Just curious about your art", body:"Hi, your art feels so alive. Are you currently open to selling or just sharing for now?"},
+  {subject:"That color palette was stunning", body:"Hey, your tones really stood out to me. Is that your usual style or a one-off experiment?"},
+  {subject:"Enjoyed your last upload", body:"Hi, your last post really caught my eye. Are you planning to release more from that series?"},
+  {subject:"You’ve got a great visual tone", body:"Hey, your work feels both calm and strong at once. Do you sell directly or through a platform?"},
+  {subject:"Really liked that painting", body:"Hi, I can’t stop thinking about that piece I saw earlier. Do you have any others in that same mood?"},
+  {subject:"Wanted to say I love your work", body:"Hey, your creativity shines through. Do you have more available pieces I could look at?"},
+  {subject:"That was such a strong piece", body:"Hi, your work really left an impression. Are you planning to release prints or limited editions?"},
+  {subject:"You’ve got great range", body:"Hey, your styles vary but all feel consistent. Do you post your available works anywhere?"},
+  {subject:"Impressive piece", body:"Hi, just saw your artwork earlier and it’s still in my head. Do you have a place I can view more?"},
+  {subject:"Loved your tone and depth", body:"Hey, your art has this quiet strength to it. Curious if you have anything else in that line."}
 ];
-
-
 
 
   function loadEmailsFromStorage() {
