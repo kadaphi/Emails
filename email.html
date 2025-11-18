@@ -85,50 +85,179 @@
   const emailLink = document.getElementById("emailLink");
 
     // your variants list
-const variants = [
-  { subject: "Curious about your latest series", body: "Hey, I came across your recent work and couldn’t help wondering what inspired it. Do you usually build around a single theme or mix ideas as they come?" },
-  { subject: "Your recent piece stood out", body: "Hi, I saw your latest piece online and it really caught my eye. Is it part of a larger collection or a standalone work?" },
-  { subject: "Loved the tone of your work", body: "Hey there, your use of color and space feels really intentional. Do you usually plan it that way, or is it more intuitive when you start?" },
-  { subject: "I noticed your style evolving", body: "Hi, I’ve seen a few of your older works and the recent ones feel different in tone. Was that a conscious shift or something that happened naturally?" },
-  { subject: "The emotion in your work is striking", body: "Hey, I just wanted to say your last piece really hit me emotionally. Do you ever base your themes on personal experiences?" },
-  { subject: "Question about your recent piece", body: "Hi, I noticed you used mixed media in your latest post. Is that something new you’ve been experimenting with?" },
-  { subject: "Curious about your inspiration", body: "Hey there, I was looking through your work and wondered who or what influences your compositions the most these days?" },
-  { subject: "Your art feels very personal", body: "Hi, I really liked how your last series seems to tell a story. Was that intentional or did it evolve on its own?" },
-  { subject: "Beautiful tone in your work", body: "Hey, I came across your portfolio and liked how cohesive your pieces feel. Do you plan them as a series or create them one by one?" },
-  { subject: "Your textures are something else", body: "Hi, your work with texture really stands out. I’m curious — what do you usually start with, sketch or straight to canvas?" },
-  { subject: "Your latest piece feels cinematic", body: "Hey there, saw your last upload and it almost feels like a film still. Do you draw inspiration from movies or photography too?" },
-  { subject: "I noticed the contrast in your palette", body: "Hi, your recent work has this strong light-dark contrast that’s beautiful. Is that a recurring theme in your art?" },
-  { subject: "Your work feels layered", body: "Hey, your paintings feel like they have a lot of hidden depth. Is there usually a story behind each one?" },
-  { subject: "Interesting use of space", body: "Hi, I really like how you leave open areas in your pieces — it gives a sense of calm. Do you think about composition a lot when you paint?" },
-  { subject: "Do you usually work in series?", body: "Hey, I noticed a pattern in your posts. Do you like working in connected series or prefer one-off creations?" },
-  { subject: "Curious about your background", body: "Hi, I came across your work and was wondering how you first got into painting. Formal training or self-taught?" },
-  { subject: "Your art gives off a dreamlike tone", body: "Hey, I really like that surreal atmosphere in your pieces. Do you consciously chase that mood or let it happen?" },
-  { subject: "Your line work caught my eye", body: "Hi, your control over line and form is impressive. Do you sketch a lot before starting a new piece?" },
-  { subject: "Loved your use of negative space", body: "Hey, just wanted to say that your balance of detail and emptiness in your last work is really engaging. Do you plan that balance or feel it out as you go?" },
-  { subject: "Your art feels emotionally charged", body: "Hi, I’ve been looking through your portfolio — your recent ones especially feel very raw. Was there a specific story behind them?" },
-  { subject: "Curious about your process", body: "Hey there, when you start a new piece, do you already know what you want it to look like, or does it change along the way?" },
-  { subject: "Your work feels very modern", body: "Hi, your latest series reminds me of contemporary European art styles. Do you follow any current artists?" },
-  { subject: "Question about your medium", body: "Hey, your texture looks rich — do you work primarily with oils or acrylics?" },
-  { subject: "Noticed your recurring theme", body: "Hi, I saw that you often revisit certain motifs. Is there a personal meaning behind that?" },
-  { subject: "Loved the composition of your last piece", body: "Hey, your balance of color and geometry is so well done. Do you use any digital tools in planning your compositions?" },
-  { subject: "The emotion behind your pieces", body: "Hi, there’s something very intimate about your recent works. Do you usually create based on mood?" },
-  { subject: "Your pieces feel poetic", body: "Hey, your art has this quiet, poetic tone that really draws you in. Do you ever write alongside your visual work?" },
-  { subject: "I liked how your art tells stories", body: "Hi, the narrative behind your recent series is fascinating. Do you ever think about adapting them into short visuals or NFTs?" },
-  { subject: "Do you show your work offline too?", body: "Hey, I was wondering if you also exhibit your works in galleries or just online?" },
-  { subject: "Your palette feels deliberate", body: "Hi, I noticed your colors have a lot of emotional weight. How do you usually pick your palette?" },
-  { subject: "Your perspective is unique", body: "Hey, your way of framing figures is really different. Do you draw inspiration from photography?" },
-  { subject: "Your digital works stood out", body: "Hi, I came across your page and noticed you blend traditional and digital techniques. How long have you been doing that?" },
-  { subject: "Your contrast of realism and abstraction", body: "Hey, your style seems to balance the two beautifully. Do you lean toward one more personally?" },
-  { subject: "Curious about your creative flow", body: "Hi, do you usually work on multiple pieces at once or one at a time?" },
-  { subject: "Your recent post drew me in", body: "Hey, saw your post earlier and really liked the atmosphere in it. How long did that one take to finish?" },
-  { subject: "Your tone reminds me of classical work", body: "Hi, your last few pieces feel almost renaissance-inspired. Do you study older painters?" },
-  { subject: "That blue you used was stunning", body: "Hey there, random note — that shade of blue in your last painting really worked. Do you mix your own colors?" },
-  { subject: "The depth in your portraits", body: "Hi, your portraits carry so much subtle expression. How do you decide when a piece feels finished?" },
-  { subject: "Your art feels very balanced", body: "Hey, I like how your work manages to be calm and powerful at once. Do you usually paint in silence or with music?" },
-  { subject: "Loved your use of minimalism", body: "Hi, your simplicity really speaks volumes. Do you find it harder to simplify or to add?" },
-  { subject: "Your compositions feel musical", body: "Hey, weird question — do you listen to anything specific while creating? Your pieces almost feel rhythmic." },
-  { subject: "Do you sell your pieces directly?", body: "Hi, just curious — do you usually handle sales yourself or through a platform?" },
-  { subject: "Your new piece felt powerful", body: "Hey there, that recent post really drew me in. How long have you been developing this current style?" }
+const variants =const variants = [
+  {
+    subject: "Interest in your work",
+    body: "Good day, I trust your day is going well. I came across your art recently and was struck by the creativity and style in your pieces. I’m a collector exploring potential NFT acquisitions and wanted to know if you’d be open to discussing that.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring opportunities with your art",
+    body: "Hi, I hope you’re having a pleasant day. Your portfolio caught my attention for its originality and energy. I occasionally acquire works as NFTs and wanted to see if this might be of interest to you.\n\nBest regards,"
+  },
+  {
+    subject: "Curious about your creations",
+    body: "I hope this email finds you well. I recently discovered your work and was impressed by the creativity and thoughtfulness in your pieces. I collect art and sometimes explore NFT possibilities. Would you be open to discussing that?\n\nBest regards,"
+  },
+  {
+    subject: "Potential interest in your portfolio",
+    body: "Good afternoon, I trust you’re doing well. Your recent creations really stood out for their originality and expression. I sometimes acquire artworks as NFTs and wondered if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry regarding your work",
+    body: "Hi, I came across your portfolio and was impressed by the tone and energy in your pieces. I’m a collector exploring NFT opportunities and would love to know if you’d be open to a conversation.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in exploring NFT possibilities",
+    body: "Good day, I hope all is well. I recently viewed your work and admired the creativity and expression in your pieces. I occasionally acquire works as NFTs and wanted to see if you might be open to discussing that.\n\nBest regards,"
+  },
+  {
+    subject: "Potential collector inquiry",
+    body: "I trust you’re having a pleasant day. Your artwork caught my eye recently and I appreciated the originality and energy in your portfolio. I sometimes acquire works as NFTs and wanted to know if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Curious about your art",
+    body: "Hi, I hope you’re doing well. I recently came across your creations and found them very engaging. I collect art and occasionally explore NFT acquisitions. Would you be open to a conversation about this?\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your recent pieces",
+    body: "Good morning, I trust your day is going well. I discovered your artwork recently and was impressed by the originality and tone of your pieces. I sometimes acquire works as NFTs and wanted to know if you’d consider exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring possibilities with your portfolio",
+    body: "I hope this email finds you well. Your work recently caught my attention and I admired the creativity and style in your pieces. I collect art and occasionally acquire them as NFTs. Would you be open to a brief discussion?\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your creative work",
+    body: "Hi, I trust you’re having a great day. I recently came across your art and appreciated the originality and energy in your portfolio. I sometimes collect artworks as NFTs and wondered if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring NFT potential",
+    body: "Good day, I hope all is well. Your recent works caught my attention for their creativity and expression. I collect art and occasionally acquire pieces as NFTs. Would you be open to a conversation about this possibility?\n\nBest regards,"
+  },
+  {
+    subject: "Potential interest in your art",
+    body: "I hope you’re having a pleasant day. I recently discovered your portfolio and admired the energy and originality in your pieces. I occasionally collect works as NFTs and wanted to see if this might be of interest.\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry regarding your portfolio",
+    body: "Hi, I trust your day is going well.I came across your art recently and was impressed by the creativity and style in your pieces. I sometimes acquire artworks as NFTs and wanted to know if you’d consider exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in collaborating on NFTs",
+    body: "Good afternoon, I hope this message finds you well. Your recent works really stood out for their originality and tone. I occasionally collect pieces as NFTs and wanted to see if you might be open to discussing that.\n\nBest regards,"
+  },
+  {
+    subject: "Potential collector interest",
+    body: "Hi, I hope you’re doing well. I recently came across your portfolio and appreciated the creativity and energy in your pieces. I sometimes acquire works as NFTs and wanted to know if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Curious about your recent work",
+    body: "I trust you’re having a pleasant day. Your recent creations caught my attention for their originality and expression. I collect artworks and occasionally acquire them as NFTs. Would you be open to discussing this?\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your work for collection",
+    body: "Good morning, I hope all is well. I recently viewed your work and admired the creativity and tone in your pieces. I occasionally collect pieces as NFTs and wanted to see if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Potential NFT inquiry",
+    body: "Hi, I trust this email finds you well. I came across your portfolio recently and appreciated the originality and style in your work. I sometimes acquire artworks as NFTs and wondered if you’d be open to exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring your creations",
+    body: "Good day, I hope you’re having a great day. Your recent pieces caught my attention and I admired the creativity and energy in your work. I collect art and occasionally acquire them as NFTs. Would you be open to a brief discussion?\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry about potential opportunities",
+    body: "Hi, I trust your day is going well. I recently discovered your artwork and appreciated the originality and tone in your pieces. I sometimes acquire works as NFTs and wanted to see if this might be of interest.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your portfolio for collection",
+    body: "I hope this email finds you well. Your work recently caught my attention and I admired the energy and creativity in your pieces. I occasionally acquire pieces as NFTs and wanted to know if you’d be open to exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Curious about your creative work",
+    body: "Good afternoon, I trust you’re doing well. I came across your portfolio recently and appreciated the originality and style in your pieces. I sometimes acquire artworks as NFTs and wanted to know if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Potential interest in acquiring your work",
+    body: "Hi, I hope you’re having a pleasant day. Your recent creations stood out to me for their creativity and tone. I occasionally collect art as NFTs and wanted to see if you might be open to a conversation.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring opportunities with your art",
+    body: "I trust this email finds you well. I recently discovered your portfolio and admired the originality and energy in your pieces. I collect artworks and sometimes acquire them as NFTs. Would you be open to discussing this?\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry regarding your creative pieces",
+    body: "Good day, I hope all is well. Your work recently caught my eye and I appreciated the creativity and style in your portfolio. I sometimes acquire pieces as NFTs and wanted to see if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your work for potential NFT acquisition",
+    body: "Hi, I trust you’re having a great day. I came across your portfolio recently and admired the originality and tone in your pieces.I occasionally collect works as NFTs and wondered if this is something you might explore.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring potential collaborations",
+    body: "Good morning, I hope this email finds you well. Your recent creations caught my attention for their creativity and expression. I collect art and sometimes acquire pieces as NFTs. Would you be open to a brief discussion?\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your portfolio",
+    body: "Hi, I trust your day is going well. I recently discovered your work and appreciated the energy and originality in your pieces. I occasionally acquire artworks as NFTs and wanted to see if you might be open to exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Potential NFT collaboration",
+    body: "Good day, I hope all is well. Your portfolio stood out to me for its creativity and style. I sometimes collect art as NFTs and wanted to know if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry about your creative portfolio",
+    body: "Hi, I trust you’re having a pleasant day. I came across your work recently and admired the originality and energy in your pieces. I occasionally acquire pieces as NFTs and wanted to see if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring possibilities with your art",
+    body: "I hope this email finds you well. Your work recently caught my eye and I appreciated the creativity and tone in your portfolio. I collect artworks and sometimes acquire them as NFTs. Would you be open to discussing this?\n\nBest regards,"
+  },
+  {
+    subject: "Potential interest in your art for collection",
+    body: "Good afternoon, I trust you’re doing well. I recently discovered your creations and admired the originality and energy in your pieces. I occasionally acquire works as NFTs and wanted to see if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Curious about your creative work",
+    body: "Hi, I hope you’re having a great day. Your recent portfolio caught my attention for its creativity and style. I sometimes acquire artworks as NFTs and wondered if this is something you might consider.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in exploring NFT possibilities",
+    body: "Good day, I trust your day is going well. I recently came across your work and appreciated the originality and expression in your pieces. I occasionally collect works as NFTs and wanted to know if you might be open to a conversation.\n\nBest regards,"
+  },
+  {
+    subject: "Inquiry about your art",
+    body: "I hope this email finds you well. Your portfolio recently stood out to me for its creativity and tone. I sometimes acquire artworks as NFTs and wanted to see if this might be something you’d consider.\n\nBest regards,"
+  },
+  {
+    subject: "Potential NFT acquisition",
+    body: "Hi, I trust you’re having a pleasant day. I recently discovered your work and admired the originality and energy in your pieces. I occasionally acquire pieces as NFTs and wanted to know if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring opportunities with your creations",
+    body: "Good morning, I hope all is well. Your recent portfolio caught my attention for its creativity and expression. I sometimes collect artworks as NFTs and wanted to see if you might be open to exploring that.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your work",
+    body: "Hi, I trust your day is going well. I recently came across your art and admired the originality and tone in your portfolio. I occasionally acquire works as NFTs and wondered if this might be of interest.\n\nBest regards,"
+  },
+  {
+    subject: "Potential collaboration inquiry",
+    body: "Good day, I hope you’re having a great day. Your recent works caught my attention and I appreciated the creativity and style in your pieces. I sometimes acquire artworks as NFTs and wanted to know if this is something you’d consider.\n\nBest regards,"
+  },
+  {
+    subject: "Exploring your portfolio",
+    body: "Hi, I trust this email finds you well. I recently discovered your creations and admired the originality and energy in your portfolio. I occasionally acquire pieces as NFTs and wanted to see if this might interest you.\n\nBest regards,"
+  },
+  {
+    subject: "Interest in your creative work",
+    body: "I hope you’re having a pleasant day. Your recent portfolio caught my attention for its creativity and tone. I sometimes acquire artworks as NFTs and wanted to know if you might be open to discussing that.\n\nBest regards,"
+  },
+  {
+    subject: "Potential NFT opportunity",
+    body: "Good afternoon, I trust your day is going well. I recently came across your work and appreciated the originality and expression in your pieces. I occasionally collect art as NFTs and wanted to see if you’d consider exploring this.\n\nBest regards,"
+  }
 ];
 
 
