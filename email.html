@@ -16,61 +16,29 @@
       flex-direction: column;
       min-height: 100vh;
     }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      resize: vertical;
-      box-sizing: border-box;
-      margin-bottom: 15px;
-      white-space: pre-wrap;
-      font-family: monospace;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      font-size: 1rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-    #emailLink {
-      font-weight: 600;
-      color: #007bff;
-      text-decoration: underline;
-      margin-bottom: 20px;
-      display: inline-block;
-      word-break: break-word;
-      cursor: pointer;
-    }
-    #footer {
-      margin-top: auto;
-      text-align: center;
-      color: #777;
-      font-size: 0.9rem;
-      padding: 10px 0;
-      border-top: 1px solid #ddd;
-    }
+    header { text-align: center; margin-bottom: 20px; }
+    textarea { width: 100%; height: 150px; padding: 10px; font-size: 1rem; border: 1px solid #ccc; border-radius: 5px; resize: vertical; box-sizing: border-box; margin-bottom: 15px; white-space: pre-wrap; font-family: monospace; }
+    button { background-color: #007bff; color: white; font-size: 1rem; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px; transition: background-color 0.3s ease; user-select: none; }
+    button:hover { background-color: #0056b3; }
+    #emailLink { font-weight: 600; color: #007bff; text-decoration: underline; margin-bottom: 20px; display: inline-block; word-break: break-word; cursor: pointer; }
+    #footer { margin-top: auto; text-align: center; color: #777; font-size: 0.9rem; padding: 10px 0; border-top: 1px solid #ddd; }
+    select { margin-bottom: 15px; padding: 5px; font-size: 1rem; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Email Sender</h1>
-  </header>
+  <header><h1>Email Sender</h1></header>
+
+  <select id="languageSelect">
+    <option value="en">English</option>
+    <option value="es">Spanish</option>
+    <option value="ru">Russian</option>
+    <option value="de">German</option>
+    <option value="ar">Arabic</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="fr">French</option>
+    <option value="el">Greek</option>
+  </select>
 
   <textarea id="emailsInput" placeholder="Paste your email list here, one email per line"></textarea>
   <button id="loadEmailsBtn">Load Emails</button>
@@ -79,14 +47,16 @@
   <a href="#" id="emailLink" style="display:none;" target="_blank" rel="noopener noreferrer"></a>
 
   <script>
-  const emailsInput = document.getElementById("emailsInput");
-  const loadEmailsBtn = document.getElementById("loadEmailsBtn");
-  const sendNextBtn = document.getElementById("sendNextBtn");
-  const emailLink = document.getElementById("emailLink");
+    const emailsInput = document.getElementById("emailsInput");
+    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+    const sendNextBtn = document.getElementById("sendNextBtn");
+    const emailLink = document.getElementById("emailLink");
+    const languageSelect = document.getElementById("languageSelect");
 
-    // your variants list
-const variants = [
-  {
+    // Variants object keyed by language
+    const variants = {
+      en: [
+        {
     subject: "Quick question about your work",
     body: "Good day, I trust your day is going well. I came across some of your pieces while browsing and felt I should reach out. I’m a collector and I often review new artists to see what they currently have available. If you’re open to it, I’d love to see any works you’re comfortable sharing."
   },
@@ -148,6 +118,7 @@ const variants = [
   },
   {
     subject: "Reaching out about your art",
+
     body: "Hi there, hope you're having a pleasant day. I came across your page earlier and found your style interesting. Would you be open to sharing your available pieces?"
   },
   {
@@ -220,6 +191,7 @@ const variants = [
   },
   {
     subject: "Your artistic direction",
+
     body: "Good afternoon, hope you're well. I found your artwork today and enjoyed the feel of your pieces. I'd like to know if you have any works available at the moment."
   },
   {
@@ -282,94 +254,1689 @@ const variants = [
     subject: "Art review request",
     body: "Good day, hope your week is going well. I came across your artwork today and wanted to ask if you have any pieces available for a private look."
   }
-];
-
-
-
-  function loadEmailsFromStorage() {
-    const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
-    emailsInput.value = savedEmails.join("\n");
-    updateSendNextButton();
+      ], // load English variants here
+      es: [
+        {
+    subject: "Pregunta rápida sobre tu trabajo",
+    body: "Buen día, espero que estés teniendo un buen día. Vi algunas de tus obras mientras navegaba y sentí que debía contactarte. Soy coleccionista y a menudo reviso nuevos artistas para ver qué tienen disponible. Si estás abierto, me encantaría ver las obras que estés cómodo compartiendo."
+  },
+  {
+    subject: "Revisando tu arte",
+    body: "Hola, espero que tengas un día agradable. Encontré tu trabajo y algunas piezas me llamaron la atención. Soy coleccionista y quería preguntarte si compartes una lista de obras disponibles. Me gustaría echar un vistazo si te parece bien."
+  },
+  {
+    subject: "Pequeña consulta",
+    body: "Hola, espero que estés bien hoy. Vi tu página y tu estilo me llamó la atención. Reviso obras para coleccionistas privados y quería preguntar si actualmente tienes alguna obra disponible para ver."
+  },
+  {
+    subject: "Tu arte",
+    body: "Buen día, espero que este mensaje te encuentre bien. Descubrí tu trabajo mientras revisaba algunos perfiles de artistas y decidí contactarte. Soy coleccionista y me gustaría ver qué tienes disponible en este momento, si hay algo."
+  },
+  {
+    subject: "Consulta sobre disponibilidad de arte",
+    body: "Hola, espero que estés teniendo un buen día. Recientemente vi tu arte y la dirección de tus piezas realmente me llamó la atención. Me encantaría saber si tienes obras actuales disponibles para revisión privada."
+  },
+  {
+    subject: "Tu trabajo reciente",
+    body: "Hola, espero que tu día vaya bien. Estuve revisando algunos portafolios y tus piezas destacaron. Soy coleccionista y quería preguntar si estás abierto a compartir tus obras disponibles en este momento."
+  },
+  {
+    subject: "Una mirada rápida a tu catálogo",
+    body: "Buenas tardes, espero que estés bien. Vi tu trabajo hoy y me gustó la energía de tus piezas. ¿Estarías dispuesto a compartir algunas obras que tengas disponibles?"
+  },
+  {
+    subject: "Interés en tus piezas",
+    body: "Hola, espero que tu día vaya bien. Me encontré con tu obra y pensé que valía la pena contactarte. Soy coleccionista y me gustaría ver lo que tienes disponible, si no te importa compartirlo."
+  },
+  {
+    subject: "Pequeña solicitud",
+    body: "Buen día, espero que estés bien. Noté algunas de tus obras mientras navegaba y realmente me gustó la sensación de tus piezas. ¿Tienes una lista o catálogo de arte disponible? Me encantaría echar un vistazo."
+  },
+  {
+    subject: "Tu portafolio me llamó la atención",
+    body: "Hola, espero que este mensaje te encuentre bien. Vi tu trabajo hoy y pensé que tu estilo era interesante. Soy coleccionista y quería preguntar si tienes obras disponibles en este momento."
+  },
+  {
+    subject: "Revisando tu arte",
+    body: "Hola, espero que tu día vaya bien. Vi algunas de tus piezas y me gustó la dirección que estás tomando. Si estás abierto, ¿podrías compartir algunas obras disponibles?"
+  },
+  {
+    subject: "Consulta rápida de arte",
+    body: "Buenos días, espero que estés teniendo un día tranquilo. Descubrí tu portafolio recientemente y quería contactarte. Soy coleccionista y me gustaría saber si tienes piezas disponibles para revisión."
+  },
+  {
+    subject: "Pregunta de disponibilidad",
+    body: "Hola, espero que estés bien. Vi tu arte y me pareció interesante. ¿Tienes piezas actuales disponibles para que los coleccionistas las revisen?"
+  },
+  {
+    subject: "Explorando nuevos artistas",
+    body: "Hola, espero que tu día vaya bien. Revisando algunos perfiles de artistas, el tuyo destacó. Me gustaría saber si tienes una lista de obras disponibles que pueda revisar."
+  },
+  {
+    subject: "Tus creaciones",
+    body: "Buen día, espero que este mensaje te encuentre de buen ánimo. Vi tu trabajo mientras navegaba y pensé en contactarte. Soy coleccionista y quería preguntar si tienes obras disponibles para revisión privada."
+  },
+  {
+    subject: "Contactando sobre tu arte",
+    body: "Hola, espero que tengas un buen día. Vi tu página y me pareció interesante tu estilo. ¿Estarías abierto a compartir tus piezas disponibles?"
+},
+  {
+    subject: "Una breve presentación",
+    body: "Hola, espero que estés bien. Descubrí tu arte recientemente y me gustó la sensación de tus piezas. Soy coleccionista y quería preguntar si tienes obras actuales que puedas compartir."
+  },
+  {
+    subject: "Disponibilidad de arte",
+    body: "Buenas tardes, espero que tu día vaya bien. Vi tu trabajo y quería saber si tienes piezas disponibles para que los coleccionistas las revisen."
+  },
+  {
+    subject: "Revisando tus piezas",
+    body: "Hola, espero que tu día vaya bien. Vi tu trabajo hoy y me gustó tu enfoque. ¿Tienes piezas disponibles que estés dispuesto a compartir?"
+  },
+  {
+    subject: "Consulta sobre tu trabajo",
+    body: "Hola, espero que tu día vaya bien. Estuve revisando portafolios de artistas y tu trabajo llamó mi atención. Si estás abierto, me gustaría ver qué tienes disponible actualmente."
+  },
+  {
+    subject: "Buscando obras disponibles",
+    body: "Buen día, espero que estés bien. Vi algunas de tus piezas y quería contactarte. Soy coleccionista y quería preguntar si tienes obras disponibles para revisión."
+  },
+  {
+    subject: "Tus piezas destacaron",
+    body: "Hola, espero que tu día vaya bien. Noté tu trabajo mientras navegaba y me gustó la atmósfera que creas. Si tienes piezas disponibles, agradecería la oportunidad de verlas."
+  },
+  {
+    subject: "Contactando",
+    body: "Hola, espero que tu semana vaya bien. Vi tu arte hoy mientras revisaba algunos perfiles y quería preguntar si tienes piezas disponibles actualmente."
+  },
+  {
+    subject: "Consulta simple",
+    body: "Hola, espero que estés bien. Vi tu arte anteriormente y pensé en contactarte. ¿Estarías dispuesto a compartir algunas obras disponibles?"
+  },
+  {
+    subject: "Tu arte me llamó la atención",
+    body: "Buenas tardes, espero que tu día esté tranquilo. Vi algunas de tus piezas y me gustó el tono. Si tienes obras disponibles, me interesaría verlas."
+  },
+  {
+    subject: "Verificando disponibilidad",
+    body: "Hola, espero que tu día vaya bien. Vi tu arte y quería preguntar si actualmente tienes piezas disponibles para revisión o compra."
+  },
+  {
+    subject: "Pequeña consulta",
+    body: "Hola, espero que estés teniendo un buen día. Vi tu trabajo y pensé en contactarte. ¿Tienes obras disponibles en este momento?"
+  },
+  {
+    subject: "Tu trabajo",
+    body: "Buen día, espero que estés bien. Vi tu arte y me gustó tu enfoque. Si estás abierto, me encantaría ver qué tienes disponible."
+  },
+  {
+    subject: "Revisando tus piezas",
+    body: "Hola, espero que este mensaje te encuentre bien. Tu trabajo apareció hoy y captó mi interés. Soy coleccionista y quería preguntar si tienes piezas disponibles para compartir."
+  },
+  {
+    subject: "Pregunta rápida de disponibilidad",
+    body: "Hola, espero que tu día vaya bien. Vi algunas de tus obras y pensé en contactarte. ¿Tienes piezas disponibles actualmente?"
+  },
+  {
+    subject: "Ponerse en contacto",
+    body: "Buen día, espero que tu mañana vaya bien. Descubrí tu trabajo recientemente y quería contactarte. ¿Hay piezas disponibles que puedas compartir?"
+  },
+  {
+    subject: "Tu catálogo",
+    body: "Hola, espero que estés bien hoy. Noté tu arte mientras navegaba y me gustó el equilibrio de tus piezas. ¿Estarías dispuesto a compartir algunas obras disponibles?"
+  },
+  {
+    subject: "Presentación rápida",
+    body: "Hola, espero que tu día vaya bien. Vi tu arte y pensé en contactarte. Soy coleccionista y quería preguntar si tienes obras disponibles actualmente."
+  },
+  {
+    subject: "Tu dirección artística",
+    body: "Buenas tardes, espero que estés bien. Vi tu arte y disfruté la sensación de tus piezas. Me gustaría saber si tienes obras disponibles actualmente."
+  },
+  {
+    subject: "Verificando obras disponibles",
+    body: "Hola, espero que tu día vaya bien. Revisé tu página y quería preguntar si tienes piezas actuales disponibles para revisión."
+  },
+  {
+    subject: "Viendo tu arte",
+    body: "Hola, espero que estés bien. Vi algunas de tus piezas y quería contactarte. ¿Tienes obras disponibles que estés dispuesto a compartir?"
+  },
+  {
+    subject: "Una rápida pregunta",
+    body: "Buen día, espero que este mensaje te encuentre bien. Estuve revisando perfiles de artistas y tu trabajo destacó. Si estás abierto, me gustaría ver qué tienes disponible."
+  },
+  {
+    subject: "Tu portafolio",
+    body: "Hola, espero que tengas un día tranquilo. Descubrí tu arte y quería saber si tienes piezas disponibles para revisión privada."
+  },
+  {
+    subject: "Explorando tu trabajo",
+    body: "Hola, espero que tu día vaya bien. Vi tu arte en línea y pensé en contactarte. ¿Estarías dispuesto a compartir tus obras disponibles?"
+  },
+  {
+    subject: "Tu trabajo creativo",
+    body: "Buenas tardes, espero que estés bien. Vi tus piezas y quería preguntar si actualmente tienes obras disponibles."
+  },
+  {
+    subject: "Solicitud para ver tu arte",
+    body: "Hola, espero que tengas un buen día. Tu trabajo apareció mientras revisaba perfiles de artistas y quería preguntar si tienes piezas disponibles ahora mismo."
+  },
+  {
+    subject: "Buscando obras disponibles",
+    body: "Hola, espero que estés bien. Tu arte apareció mientras exploraba nuevos creadores y quería preguntar si estás abierto a compartir tus obras disponibles."
+  },
+  {
+    subject: "Tu dirección artística",
+    body: "Buen día, espero que tu día vaya bien. Vi algunas de tus piezas y me gustó la dirección que tomas. Si tienes obras disponibles, agradecería la oportunidad de revisarlas."
+  },
+  {
+    subject: "Oportunidades de visualización",
+    body: "Hola, espero que este mensaje te encuentre bien. Descubrí tu arte recientemente y quería preguntar si tienes piezas que te sientas cómodo compartiendo."
+  },
+  {
+    subject: "Tus visuales",
+    body: "Hola, espero que estés bien hoy. Vi tu trabajo y me gustó el tono general. Quisiera saber si tienes obras disponibles para revisión."
+  },
+  {
+    subject: "Pequeña consulta sobre tu arte",
+    body: "Buenas tardes, espero que estés bien hoy. Vi tu arte y pensé en contactarte. ¿Tienes obras disponibles actualmente?"
+  },
+  {
+    subject: "Revisando tu trabajo",
+    body: "Hola, espero que estés teniendo un buen día. Tu arte apareció mientras revisaba distintos creadores y quería preguntar si tienes obras disponibles actualmente."
+  },
+  {
+    subject: "Interés en tus obras disponibles",
+    body: "Hola, espero que estés bien. Descubrí tu página y me parecieron interesantes tus piezas. ¿Estarías dispuesto a compartir obras actuales que tengas disponibles?"
+  },
+  {
+    subject: "Solicitud de revisión de arte",
+    body: "Buen día, espero que tu semana vaya bien. Vi tu arte hoy y quería preguntar si tienes piezas disponibles para revisión privada."
   }
-
-  function saveEmailsToStorage(emails) {
-    localStorage.setItem("emails", JSON.stringify(emails));
+      ], // Spanish variants
+      ru: [
+        {
+    subject: "Быстрый вопрос о вашей работе",
+    body: "Добрый день, надеюсь, у вас хороший день. Я наткнулся на некоторые ваши работы и решил написать. Я коллекционер и часто просматриваю новых художников, чтобы увидеть, что у них есть. Если вы не против, я хотел бы увидеть работы, которыми готовы поделиться."
+  },
+  {
+    subject: "Просматриваю ваше искусство",
+    body: "Здравствуйте, надеюсь, у вас приятный день. Я нашёл ваши работы, и несколько из них привлекли моё внимание. Я коллекционер и хотел бы узнать, есть ли у вас список доступных работ. Мне бы хотелось взглянуть, если вы согласны."
+  },
+  {
+    subject: "Небольшой запрос",
+    body: "Привет, надеюсь, у вас всё хорошо сегодня. Я увидел вашу страницу, и ваш стиль привлёк моё внимание. Я просматриваю работы для частных коллекционеров и хотел бы узнать, есть ли у вас доступные работы для просмотра."
+  },
+  {
+    subject: "Ваше искусство",
+    body: "Добрый день, надеюсь, это сообщение застанет вас в хорошем настроении. Я обнаружил ваши работы, просматривая несколько профилей художников, и решил написать. Я коллекционер и хотел бы узнать, что у вас доступно в данный момент, если есть."
+  },
+  {
+    subject: "Запрос о доступности работ",
+    body: "Привет, надеюсь, у вас хороший день. Недавно я наткнулся на ваше искусство, и направление ваших работ меня заинтересовало. Мне бы хотелось узнать, есть ли текущие работы, доступные для частного просмотра."
+  },
+  {
+    subject: "Ваши последние работы",
+    body: "Здравствуйте, надеюсь, ваш день проходит хорошо. Я просматривал несколько портфолио, и ваши работы выделялись. Я коллекционер и хотел бы узнать, готовы ли вы поделиться доступными работами на данный момент."
+  },
+  {
+    subject: "Быстрый взгляд на ваш каталог",
+    body: "Добрый день, надеюсь, у вас всё хорошо. Сегодня я наткнулся на ваши работы, и мне понравилась энергия ваших работ. Готовы ли вы поделиться доступными работами?"
+  },
+  {
+    subject: "Интерес к вашим работам",
+    body: "Привет, надеюсь, ваш день проходит спокойно. Я наткнулся на ваше искусство и решил написать. Я коллекционер и хотел бы увидеть, что у вас доступно, если вы не против."
+  },
+  {
+    subject: "Небольшая просьба",
+    body: "Добрый день, надеюсь, у вас всё в порядке. Я заметил некоторые ваши работы и очень понравилось их настроение. Есть ли у вас список или каталог доступных работ? Хотелось бы взглянуть."
+  },
+  {
+    subject: "Ваше портфолио привлекло внимание",
+    body: "Здравствуйте, надеюсь, это сообщение застанет вас в хорошем настроении. Сегодня я наткнулся на ваши работы и подумал, что ваш стиль интересен. Я коллекционер и хотел бы узнать, есть ли доступные работы."
+  },
+  {
+    subject: "Проверка вашего искусства",
+    body: "Привет, надеюсь, у вас хороший день. Я видел несколько ваших работ и мне понравилось направление, в котором вы движетесь. Если вы не против, могли бы вы поделиться доступными работами?"
+  },
+  {
+    subject: "Быстрый запрос по искусству",
+    body: "Доброе утро, надеюсь, у вас спокойный день. Недавно я открыл ваше портфолио и хотел бы связаться. Я коллекционер и хотел бы узнать, есть ли доступные работы для просмотра."
+  },
+  {
+    subject: "Вопрос о доступности",
+    body: "Здравствуйте, надеюсь, у вас всё хорошо. Я увидел ваше искусство и оно показалось мне интересным. Есть ли у вас текущие работы, которые можно посмотреть коллекционерам?"
+  },
+  {
+    subject: "Просмотр новых художников",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я просматривал несколько профилей художников, и ваш выделялся. Хотелось бы узнать, есть ли у вас список доступных работ, которые я могу просмотреть."
+  },
+  {
+    subject: "Ваши творения",
+    body: "Добрый день, надеюсь, это сообщение застанет вас в хорошем настроении. Я наткнулся на ваши работы и решил написать. Я коллекционер и хотел бы узнать, есть ли работы для частного просмотра."
+  },
+  {
+    subject: "Связь по поводу вашего искусства",
+    body: "Привет, надеюсь, у вас хороший день. Я видел вашу страницу и ваш стиль показался мне интересным. Готовы ли вы поделиться доступными работами?"
+  },
+  {
+subject: "Краткое представление",
+    body: "Здравствуйте, надеюсь, у вас всё хорошо. Недавно я открыл ваше искусство и мне понравилось настроение ваших работ. Я коллекционер и хотел бы узнать, есть ли текущие работы, которыми вы можете поделиться."
+  },
+  {
+    subject: "Доступность искусства",
+    body: "Добрый день, надеюсь, ваш день проходит спокойно. Я наткнулся на ваши работы и хотел бы узнать, есть ли работы для коллекционеров для просмотра."
+  },
+  {
+    subject: "Просмотр ваших работ",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я увидел ваши работы сегодня и мне понравился ваш подход. Есть ли работы, которыми вы готовы поделиться?"
+  },
+  {
+    subject: "Вопрос о вашей работе",
+    body: "Здравствуйте, надеюсь, ваш день проходит хорошо. Я просматривал портфолио художников и ваши работы привлекли моё внимание. Если вы не против, я хотел бы увидеть, что у вас есть в наличии."
+  },
+  {
+    subject: "Ищу доступные работы",
+    body: "Добрый день, надеюсь, у вас всё в порядке. Я увидел несколько ваших работ и решил написать. Я коллекционер и хотел бы узнать, есть ли работы для просмотра."
+  },
+  {
+    subject: "Ваши работы выделяются",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я заметил ваше искусство и понравилась атмосфера, которую вы создаёте. Если есть доступные работы, я был бы рад их увидеть."
+  },
+  {
+    subject: "Связь",
+    body: "Здравствуйте, надеюсь, у вас хорошая неделя. Сегодня я увидел ваше искусство и хотел бы узнать, есть ли у вас доступные работы."
+  },
+  {
+    subject: "Простой запрос",
+    body: "Привет, надеюсь, у вас всё в порядке. Я увидел ваши работы ранее и подумал, что стоит написать. Готовы ли вы поделиться доступными работами?"
+  },
+  {
+    subject: "Ваше искусство привлекло внимание",
+    body: "Добрый день, надеюсь, ваш день проходит спокойно. Я видел несколько ваших работ и понравился их тон. Если есть доступные работы, я хотел бы их посмотреть."
+  },
+  {
+    subject: "Проверка доступности",
+    body: "Здравствуйте, надеюсь, у вас хороший день. Я увидел ваши работы и хотел бы узнать, есть ли доступные работы для просмотра или покупки."
+  },
+  {
+    subject: "Краткий запрос",
+    body: "Привет, надеюсь, у вас хороший день. Я видел ваши работы и подумал написать. Есть ли работы, доступные в данный момент?"
+  },
+  {
+    subject: "Ваша работа",
+    body: "Добрый день, надеюсь, у вас всё в порядке. Я наткнулся на ваше искусство и мне понравился ваш подход. Если вы не против, я хотел бы увидеть, что доступно."
+  },
+  {
+    subject: "Просмотр ваших работ",
+    body: "Здравствуйте, надеюсь, это сообщение застанет вас в хорошем настроении. Сегодня я увидел ваши работы и они привлекли моё внимание. Я коллекционер и хотел бы узнать, есть ли доступные работы."
+  },
+  {
+    subject: "Быстрый вопрос о доступности",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я видел ваши работы и подумал написать. Есть ли доступные работы сейчас?"
+  },
+  {
+    subject: "Связаться",
+    body: "Добрый день, надеюсь, ваше утро проходит спокойно. Я недавно открыл ваши работы и хотел бы узнать, есть ли работы, которыми вы можете поделиться?"
+  },
+  {
+    subject: "Ваш каталог",
+    body: "Здравствуйте, надеюсь, у вас хороший день. Я заметил ваше искусство и мне понравился баланс ваших работ. Готовы ли вы поделиться доступными работами?"
+  },
+  {
+    subject: "Быстрое представление",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я увидел ваши работы и решил написать. Я коллекционер и хотел бы узнать, есть ли текущие работы для просмотра."
+  },
+  {
+    subject: "Ваше художественное направление",
+    body: "Добрый день, надеюсь, у вас всё хорошо. Я увидел ваши работы и понравилось настроение ваших произведений. Хотелось бы узнать, есть ли работы в наличии."
+  },
+  {
+    subject: "Проверка доступных работ",
+    body: "Здравствуйте, надеюсь, ваш день проходит спокойно. Я просматривал вашу страницу и хотел бы узнать, есть ли текущие работы для просмотра."
+  },
+  {
+    subject: "Просмотр вашего искусства",
+    body: "Привет, надеюсь, у вас всё в порядке. Я увидел несколько ваших работ и хотел бы написать. Есть ли работы, которыми вы готовы поделиться?"
+  },
+  {
+    subject: "Быстрый вопрос",
+    body: "Добрый день, надеюсь, это сообщение застанет вас в хорошем настроении. Я просматривал профили художников, и ваши работы выделялись. Если вы не против, я хотел бы увидеть, что у вас доступно."
+  },
+  {
+    subject: "Ваш портфолио",
+    body: "Здравствуйте, надеюсь, у вас спокойный день. Я наткнулся на ваши работы и хотел бы узнать, есть ли работы для частного просмотра."
+  },
+  {
+    subject: "Изучение вашего искусства",
+    body: "Привет, надеюсь, ваш день проходит хорошо. Я увидел ваши работы в интернете и решил написать. Готовы ли вы поделиться своими доступными работами?"
+  },
+  {
+    subject: "Ваши творческие работы",
+    body: "Добрый день, надеюсь, у вас всё хорошо. Я наткнулся на ваши работы и хотел бы узнать, есть ли текущие доступные произведения."
+  },
+  {
+    subject: "Запрос на просмотр вашего искусства",
+    body: "Здравствуйте, надеюсь, у вас хороший день. Ваши работы появились, когда я просматривал профили художников, и хотел бы узнать, есть ли доступные работы прямо сейчас."
+  },
+  {
+    subject: "Ищу доступные работы",
+    body: "Привет, надеюсь, у вас всё хорошо. Ваше искусство появилось, когда я изучал новых создателей, и я хотел бы узнать, готовы ли вы поделиться доступными работами."
+  },
+  {
+    subject: "Ваше художественное направление",
+    body: "Добрый день, надеюсь, ваш день проходит хорошо. Я увидел несколько ваших работ и мне понравилось направление, в котором вы движетесь. Если есть доступные работы, я был бы рад их просмотреть."
+  },
+  {
+    subject: "Возможности просмотра",
+    body: "Здравствуйте, надеюсь, это сообщение застанет вас в хорошем настроении. Недавно я обнаружил ваше искусство и хотел бы узнать, есть ли работы, которыми вы комфортно делитесь."
+  },
+  {
+    subject: "Ваши визуальные работы",
+    body: "Привет, надеюсь, у вас хороший день. Я увидел ваше искусство и понравился общий тон. Хотелось бы узнать, есть ли доступные работы для просмотра."
+  },
+  {
+    subject: "Краткий запрос по вашему искусству",
+    body: "Добрый день, надеюсь, у вас всё хорошо. Я наткнулся на ваши работы и решил написать. Есть ли доступные работы на данный момент?"
+  },
+  {
+    subject: "Просмотр ваших работ",
+    body: "Здравствуйте, надеюсь, у вас хороший день. Ваше искусство появилось, когда я просматривал разных создателей, и я хотел бы узнать, есть ли текущие доступные работы."
+  },
+  {
+    subject: "Интерес к вашим доступным работам",
+    body: "Привет, надеюсь, у вас всё хорошо. Я обнаружил вашу страницу и мне показались интересными ваши работы. Готовы ли вы поделиться текущими доступными произведениями?"
+  },
+  {
+    subject: "Запрос на просмотр искусства",
+    body: "Добрый день, надеюсь, у вас хорошая неделя. Я увидел ваши работы сегодня и хотел бы узнать, есть ли работы для частного просмотра."
   }
-
-  function getEmails() {
-    return emailsInput.value
-      .split(/\r?\n/)
-      .map(e => e.trim())
-      .filter(e => e.length > 0);
+      ], // Russian variants
+      de: [
+        {
+    subject: "Kurze Frage zu Ihrer Arbeit",
+    body: "Guten Tag, ich hoffe, Ihr Tag verläuft gut. Ich bin auf einige Ihrer Werke gestoßen und wollte mich melden. Ich bin Sammler und sehe mir oft neue Künstler an, um zu sehen, was aktuell verfügbar ist. Wenn Sie möchten, würde ich gerne Ihre Arbeiten sehen, die Sie teilen möchten."
+  },
+  {
+    subject: "Durchsicht Ihrer Kunst",
+    body: "Hallo, ich hoffe, Sie haben einen angenehmen Tag. Ich habe Ihre Arbeiten gesehen und einige Werke sind mir besonders aufgefallen. Ich bin Sammler und wollte fragen, ob Sie eine Liste verfügbarer Werke teilen. Ich würde sie mir gerne ansehen, wenn Sie einverstanden sind."
+  },
+  {
+    subject: "Kleine Anfrage",
+    body: "Hallo, ich hoffe, es geht Ihnen heute gut. Ich habe Ihre Seite gefunden und Ihr Stil hat mich angesprochen. Ich überprüfe Kunstwerke für private Sammler und wollte fragen, ob Sie aktuell Werke zum Betrachten haben."
+  },
+  {
+    subject: "Ihre Kunstwerke",
+    body: "Guten Tag, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Ich habe Ihre Arbeiten beim Durchsehen mehrerer Künstlerprofile entdeckt und wollte mich melden. Ich bin Sammler und würde gerne sehen, was Sie momentan verfügbar haben."
+  },
+  {
+    subject: "Anfrage zur Verfügbarkeit von Kunst",
+    body: "Hallo, ich hoffe, Sie haben einen guten Tag. Kürzlich bin ich auf Ihre Kunst gestoßen, und die Richtung Ihrer Werke hat mich sehr interessiert. Ich würde gerne wissen, ob Sie aktuell Werke für eine private Ansicht verfügbar haben."
+  },
+  {
+    subject: "Ihre neuesten Arbeiten",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft gut. Ich habe einige Portfolios durchgesehen, und Ihre Werke sind mir aufgefallen. Ich bin Sammler und wollte fragen, ob Sie bereit sind, Ihre verfügbaren Arbeiten zu teilen."
+  },
+  {
+    subject: "Kurzer Blick in Ihr Portfolio",
+    body: "Guten Nachmittag, ich hoffe, es geht Ihnen gut. Heute bin ich auf Ihre Werke gestoßen und mir gefällt die Energie Ihrer Arbeiten. Wären Sie bereit, einige aktuell verfügbare Werke zu teilen?"
+  },
+  {
+    subject: "Interesse an Ihren Werken",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich bin auf Ihre Kunst gestoßen und dachte, es wäre sinnvoll, mich zu melden. Ich bin Sammler und würde gerne sehen, was verfügbar ist, falls Sie nichts dagegen haben."
+  },
+  {
+    subject: "Kleine Bitte",
+    body: "Guten Tag, ich hoffe, es geht Ihnen gut. Ich habe einige Ihrer Arbeiten gesehen und mochte das Gefühl Ihrer Werke sehr. Haben Sie eine Liste oder ein Portfolio Ihrer verfügbaren Kunstwerke? Ich würde sie gerne ansehen."
+  },
+  {
+    subject: "Ihr Portfolio hat mein Interesse geweckt",
+    body: "Hallo, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Ich bin heute auf Ihre Arbeiten gestoßen und fand Ihren Stil interessant. Ich bin Sammler und wollte fragen, ob aktuell Werke verfügbar sind."
+  },
+  {
+    subject: "Überprüfung Ihrer Kunst",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich habe einige Ihrer Werke gesehen und mochte die Richtung, in die Sie gehen. Wenn Sie einverstanden sind, könnten Sie Ihre aktuell verfügbaren Werke teilen?"
+  },
+  {
+    subject: "Kurze Kunstanfrage",
+    body: "Guten Morgen, ich hoffe, Sie haben einen ruhigen Tag. Kürzlich habe ich Ihr Portfolio entdeckt und wollte mich melden. Ich bin Sammler und würde gerne wissen, ob aktuelle Werke zur Ansicht verfügbar sind."
+  },
+  {
+    subject: "Verfügbarkeitsfrage",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich bin auf Ihre Kunst gestoßen und fand sie interessant. Haben Sie aktuell Werke, die Sammler ansehen können?"
+  },
+  {
+    subject: "Durchsicht neuer Künstler",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft gut. Ich habe einige Künstlerprofile durchgesehen, und Ihres ist mir aufgefallen. Ich würde gerne wissen, ob Sie eine Liste verfügbarer Werke haben, die ich ansehen könnte."
+  },
+  {
+    subject: "Ihre Kreationen",
+    body: "Guten Tag, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Ich habe Ihre Arbeiten gesehen und wollte mich melden. Ich bin Sammler und wollte fragen, ob Werke für eine private Ansicht verfügbar sind."
+  },
+  {
+    subject: "Kontaktaufnahme wegen Ihrer Kunst",
+    body: "Hallo, ich hoffe, Sie haben einen angenehmen Tag. Ich habe Ihre Seite gesehen und fand Ihren Stil interessant. Wären Sie bereit, Ihre verfügbaren Werke zu teilen?"
+  },
+  {
+    subject: "Kurze Vorstellung",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich habe kürzlich Ihre Arbeiten entdeckt und mochte das Gefühl Ihrer Werke. Ich bin Sammler und wollte fragen, ob aktuelle Werke verfügbar sind, die Sie teilen können."
+  },
+  {
+    subject: "Verfügbarkeit von Kunst",
+    body: "Guten Nachmittag, ich hoffe, Ihr Tag verläuft ruhig. Ich bin auf Ihre Werke gestoßen und wollte fragen, ob einige Arbeiten für Sammler verfügbar sind."
+  },
+  {
+    subject: "Überprüfung Ihrer Werke",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich habe Ihre Arbeiten heute gesehen und mochte Ihre Herangehensweise. Haben Sie verfügbare Werke, die Sie teilen möchten?"
+  },
+  {
+    subject: "Anfrage zu Ihrer Arbeit",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft gut. Ich habe Künstlerportfolios durchgesehen und Ihre Arbeiten sind mir aufgefallen. Wenn Sie einverstanden sind, würde ich gerne sehen, was aktuell verfügbar ist."
+  },
+  {
+    subject: "Suche nach verfügbaren Werken",
+    body: "Guten Tag, ich hoffe, es geht Ihnen gut. Ich bin auf einige Ihrer Werke gestoßen und wollte mich melden. Ich bin Sammler und wollte fragen, ob Werke für die Ansicht verfügbar sind."
+  },
+  {
+    subject: "Ihre Werke sind aufgefallen",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft gut. Ich habe Ihre Arbeiten gesehen und mochte die Atmosphäre, die Sie schaffen. Wenn Werke verfügbar sind, würde ich sie gerne ansehen."
+  },
+  {
+    subject: "Kontaktaufnahme",
+    body: "Hallo, ich hoffe, Ihre Woche läuft gut. Ich habe heute Ihre Kunst gesehen und wollte fragen, ob aktuell Werke verfügbar sind."
+  },
+  {
+    subject: "Einfache Anfrage",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich habe Ihre Arbeiten kürzlich gesehen und wollte mich melden. Wären Sie bereit, verfügbare Werke zu teilen?"
+  },
+  {
+    subject: "Ihre Kunstwerke haben mein Interesse geweckt",
+    body: "Guten Nachmittag, ich hoffe, Sie haben einen ruhigen Tag. Ich habe einige Ihrer Werke gesehen und mochte den Ton. Wenn Werke verfügbar sind, würde ich sie gerne ansehen."
+  },
+  {
+    subject: "Verfügbarkeit prüfen",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich bin auf Ihre Kunst gestoßen und wollte fragen, ob aktuell Werke zur Ansicht oder zum Kauf verfügbar sind."
+  },
+  {
+    subject: "Kurze Anfrage",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft gut. Ich habe Ihre Arbeiten gesehen und wollte schreiben. Gibt es aktuell verfügbare Werke?"
+  },
+  {
+    subject: "Ihre Arbeit",
+    body: "Guten Tag, ich hoffe, es geht Ihnen gut. Ich bin auf Ihre Kunst gestoßen und mochte Ihren Ansatz. Wenn Sie einverstanden sind, würde ich gerne sehen, was verfügbar ist."
+  },
+  {
+    subject: "Durchsicht Ihrer Werke",
+    body: "Hallo, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Heute bin ich auf Ihre Arbeiten gestoßen und sie haben mein Interesse geweckt. Ich bin Sammler und wollte fragen, ob Werke verfügbar sind."
+  },
+  {
+    subject: "Kurze Frage zur Verfügbarkeit",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich habe Ihre Werke gesehen und wollte schreiben. Gibt es aktuell verfügbare Werke?"
+  },
+  {
+    subject: "Kontakt aufnehmen",
+    body: "Guten Tag, ich hoffe, Ihr Morgen verläuft gut. Ich habe kürzlich Ihre Arbeiten entdeckt und wollte fragen, ob Werke verfügbar sind, die Sie teilen können."
+  },
+  {
+    subject: "Ihr Katalog",
+    body: "Hallo, ich hoffe, Sie haben einen guten Tag. Ich habe Ihre Kunstwerke gesehen und mochte das Gleichgewicht Ihrer Arbeiten. Wären Sie bereit, verfügbare Werke zu teilen?"
+  },
+  {
+    subject: "Kurze Vorstellung",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich habe Ihre Kunst gesehen und wollte mich melden. Ich bin Sammler und wollte fragen, ob aktuelle Werke verfügbar sind."
+  },
+  {
+subject: "Ihre künstlerische Richtung",
+    body: "Guten Tag, ich hoffe, es geht Ihnen gut. Ich habe Ihre Arbeiten gesehen und mochte das Gefühl Ihrer Werke. Ich würde gerne wissen, ob aktuell Werke verfügbar sind."
+  },
+  {
+    subject: "Überprüfung verfügbarer Werke",
+    body: "Hallo, ich hoffe, Ihr Tag verläuft ruhig. Ich habe Ihre Seite durchgesehen und wollte fragen, ob aktuell Werke verfügbar sind."
+  },
+  {
+    subject: "Ihre Kunst ansehen",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich habe einige Ihrer Werke gesehen und wollte schreiben. Gibt es Werke, die Sie teilen würden?"
+  },
+  {
+    subject: "Kurze Frage",
+    body: "Guten Tag, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Ich habe Künstlerseiten durchgesehen und Ihre Werke sind mir aufgefallen. Wenn Sie einverstanden sind, würde ich gerne sehen, was verfügbar ist."
+  },
+  {
+    subject: "Ihr Portfolio",
+    body: "Hallo, ich hoffe, Sie haben einen ruhigen Tag. Ich habe Ihre Arbeiten entdeckt und wollte wissen, ob Werke für eine private Ansicht verfügbar sind."
+  },
+  {
+    subject: "Ihr Werk erkunden",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ich habe Ihre Kunst online gesehen und wollte schreiben. Wären Sie bereit, Ihre verfügbaren Werke zu teilen?"
+  },
+  {
+    subject: "Ihre kreativen Arbeiten",
+    body: "Guten Tag, ich hoffe, es geht Ihnen gut. Ich habe Ihre Werke gesehen und wollte fragen, ob aktuell verfügbare Arbeiten vorhanden sind."
+  },
+  {
+    subject: "Anfrage zur Ansicht Ihrer Kunst",
+    body: "Hallo, ich hoffe, Sie haben einen angenehmen Tag. Ihre Werke erschienen beim Durchsehen von Künstlerseiten, und ich wollte fragen, ob aktuell verfügbare Arbeiten vorhanden sind."
+  },
+  {
+    subject: "Suche nach verfügbaren Werken",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ihre Kunst tauchte auf, als ich neue Künstler entdeckte, und ich wollte fragen, ob Sie bereit sind, Ihre verfügbaren Werke zu teilen."
+  },
+  {
+    subject: "Ihre künstlerische Richtung",
+    body: "Guten Tag, ich hoffe, Ihr Tag verläuft gut. Ich habe einige Ihrer Werke gesehen und mochte die Richtung, in die Sie gehen. Wenn Werke verfügbar sind, würde ich sie gerne ansehen."
+  },
+  {
+    subject: "Möglichkeiten zur Ansicht",
+    body: "Hallo, ich hoffe, diese Nachricht erreicht Sie wohlbehalten. Ich habe Ihre Kunst kürzlich online entdeckt und wollte fragen, ob aktuell Werke vorhanden sind, die Sie teilen würden."
+  },
+  {
+    subject: "Ihre visuellen Arbeiten",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich habe Ihre Arbeiten gesehen und mochte den Gesamteindruck. Ich würde gerne wissen, ob aktuell Werke für eine Ansicht verfügbar sind."
+  },
+  {
+    subject: "Kurze Anfrage zu Ihrer Kunst",
+    body: "Guten Nachmittag, ich hoffe, es geht Ihnen heute gut. Ich habe Ihre Arbeiten beim Durchsehen entdeckt und wollte schreiben. Gibt es aktuell verfügbare Werke?"
+  },
+  {
+    subject: "Durchsicht Ihrer Arbeiten",
+    body: "Hallo, ich hoffe, Ihr Tag läuft gut. Ihre Kunst erschien beim Prüfen verschiedener Künstler, und ich wollte fragen, ob aktuell Werke verfügbar sind."
+  },
+  {
+    subject: "Interesse an Ihren verfügbaren Werken",
+    body: "Hallo, ich hoffe, es geht Ihnen gut. Ich habe Ihre Seite entdeckt und fand Ihre Werke interessant. Wären Sie bereit, aktuelle verfügbare Arbeiten zu teilen?"
+  },
+  {
+    subject: "Anfrage zur Kunstansicht",
+    body: "Guten Tag, ich hoffe, Ihre Woche verläuft gut. Ich habe heute Ihre Kunstwerke gesehen und wollte fragen, ob aktuell Arbeiten für eine private Ansicht verfügbar sind."
   }
+      ], // German variants
+      ar: [
+        {
+    subject: "سؤال سريع عن أعمالك",
+    body: "نهارك سعيد، آمل أن يكون يومك جيدًا. صادفت بعض أعمالك أثناء تصفحي وشعرت أنه يجب علي التواصل معك. أنا جامع أعمال فنية وأراجع غالبًا الفنانين الجدد لأرى ما هو متاح حاليًا. إذا كنت مستعدًا، أحب أن أرى أي أعمال تشعر بالراحة في مشاركتها."
+  },
+  {
+    subject: "استعراض أعمالك الفنية",
+    body: "مرحبًا، آمل أن يكون يومك ممتعًا. لقد وجدت أعمالك مؤخرًا ولاحظت بعض القطع المميزة. أنا جامع أعمال وأود أن أسأل إذا كان بإمكانك مشاركة قائمة بالأعمال المتاحة. أحب أن أطلع عليها إذا كان ذلك ممكنًا."
+  },
+  {
+    subject: "استفسار بسيط",
+    body: "مرحبًا، آمل أن يكون يومك على ما يرام. لقد عثرت على صفحتك وأعجبني أسلوبك. أقوم بمراجعة الأعمال الفنية للجامعين الخاصين، وأود أن أسأل إذا كانت هناك أعمال متاحة للمشاهدة حاليًا."
+  },
+  {
+    subject: "أعمالك الفنية",
+    body: "نهارك سعيد، آمل أن تصلك هذه الرسالة وأنت بخير. اكتشفت أعمالك أثناء استعراض بعض الملفات الشخصية للفنانين وشعرت بضرورة التواصل. أنا جامع أعمال وأود معرفة ما هو متاح لديك حاليًا."
+  },
+  {
+    subject: "استفسار عن توفر الأعمال الفنية",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. مؤخرًا اطلعت على فنك وأعجبتني اتجاهات أعمالك. أحب أن أعرف إذا كان لديك أعمال متاحة للمراجعة الخاصة."
+  },
+  {
+    subject: "أعمالك الأخيرة",
+    body: "مرحبًا، آمل أن يكون يومك يسير على ما يرام. كنت أتصفح بعض المحافظ الفنية ولاحظت أعمالك. أنا جامع أعمال وأود أن أسأل إذا كنت مستعدًا لمشاركة أعمالك المتاحة."
+  },
+  {
+    subject: "نظرة سريعة على كتالوجك",
+    body: "مساء الخير، آمل أن تكون بخير. صادفت أعمالك اليوم وأعجبتني الطاقة في قطعك. هل يمكن أن تشارك أي أعمال متاحة لديك حاليًا؟"
+  },
+  {
+    subject: "اهتمام بأعمالك",
+    body: "مرحبًا، آمل أن يسير يومك بسلاسة. صادفت أعمالك واعتقدت أنه من الجيد التواصل معك. أنا جامع أعمال وأود معرفة ما هو متاح لديك إذا لم يكن لديك مانع."
+  },
+  {
+    subject: "طلب بسيط",
+    body: "نهارك سعيد، آمل أن تكون بخير. لاحظت بعض أعمالك أثناء تصفحي وأعجبتني جدًا طريقة تقديمك لها. هل لديك قائمة أو كتالوج للأعمال المتاحة؟ أحب أن أطلع عليها."
+  },
+  {
+    subject: "محفظتك لفتت انتباهي",
+    body: "مرحبًا، آمل أن تصلك هذه الرسالة وأنت بخير. اكتشفت أعمالك اليوم ووجدت أسلوبك مثيرًا للاهتمام. أنا جامع أعمال وأود أن أسأل إذا كانت هناك أعمال متاحة حاليًا."
+  },
+  {
+    subject: "متابعة أعمالك الفنية",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت بعض أعمالك ولفتتني اتجاهاتك الفنية. إذا كنت مستعدًا، هل يمكنك مشاركة أي أعمال متاحة لديك؟"
+  },
+  {
+    subject: "استفسار سريع عن الفن",
+    body: "صباح الخير، آمل أن يكون يومك هادئًا. اكتشفت محفظتك مؤخرًا وأردت التواصل معك. أنا جامع أعمال وأود معرفة ما إذا كانت هناك قطع متاحة للمراجعة."
+  },
+  {
+    subject: "سؤال عن التوافر",
+    body: "مرحبًا، آمل أن تكون بخير. صادفت أعمالك ووجدتها مثيرة للاهتمام. هل لديك أي قطع متاحة ليطلع عليها الجامعون؟"
+  },
+  {
+    subject: "استعراض الفنانين الجدد",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. كنت أستعرض بعض الملفات الشخصية للفنانين وبرزت أعمالك. أحب أن أعرف إذا كان لديك قائمة بالأعمال المتاحة للمراجعة."
+  },
+  {
+    subject: "إبداعاتك",
+    body: "نهارك سعيد، آمل أن تصلك هذه الرسالة وأنت في حالة جيدة. وجدت أعمالك أثناء التصفح وشعرت بضرورة التواصل. أنا جامع أعمال وأود أن أسأل إذا كانت هناك قطع مفتوحة للمراجعة الخاصة."
+  },
+  {
+    subject: "التواصل بخصوص فنك",
+    body: "مرحبًا، آمل أن يكون يومك ممتعًا. رأيت صفحتك ووجدت أسلوبك مثيرًا للاهتمام. هل ستكون مستعدًا لمشاركة أعمالك المتاحة؟"
+  },
+  {
+    subject: "مقدمة سريعة",
+    body: "مرحبًا، آمل أن تكون بخير. اكتشفت مؤخرًا أعمالك وأعجبني شعور قطعك. أنا جامع أعمال وأود أن أسأل إذا كانت هناك أعمال حالية يمكن مشاركتها."
+  },
+  {
+    subject: "توافر الأعمال الفنية",
+    body: "مساء الخير، آمل أن يكون يومك هادئًا. صادفت أعمالك وأردت معرفة ما إذا كانت هناك قطع متاحة للمراجعة من قبل الجامعين."
+  },
+  {
+    subject: "مراجعة أعمالك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت أعمالك اليوم وأعجبني أسلوبك. هل لديك أي قطع متاحة ترغب بمشاركتها؟"
+  },
+  {
+    subject: "استفسار عن عملك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. كنت أستعرض محافظ الفنانين ولاحظت أعمالك. إذا كنت مستعدًا، أحب أن أرى ما هو متاح حاليًا."
+  },
+  {
+    subject: "البحث عن الأعمال المتاحة",
+    body: "نهارك سعيد، آمل أن تكون بخير. صادفت بعض أعمالك وقررت التواصل. أنا جامع أعمال وأود أن أسأل إذا كانت هناك أعمال متاحة للمراجعة."
+  },
+  {
+    subject: "أعمالك لفتت انتباهي",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. لاحظت أعمالك أثناء التصفح وأعجبني الجو الذي تخلقه. إذا كانت هناك أعمال متاحة، سأكون سعيدًا بمشاهدتها."
+  },
+  {
+    subject: "التواصل",
+    body: "مرحبًا، آمل أن تكون أسبوعك جيدًا. اكتشفت أعمالك اليوم أثناء استعراض بعض الملفات وكنت أرغب في السؤال عن الأعمال المتاحة حاليًا."
+  },
+  {
+    subject: "استفسار بسيط",
+    body: "مرحبًا، آمل أن تكون بخير. رأيت أعمالك مؤخرًا وأردت التواصل. هل ستكون مستعدًا لمشاركة أي أعمال متاحة؟"
+  },
+  {
+    subject: "أعمالك الفنية جذبت انتباهي",
+    body: "مساء الخير، آمل أن يكون يومك هادئًا. رأيت بعض أعمالك وأعجبني الأسلوب. إذا كانت هناك أعمال متاحة، أود الاطلاع عليها."
+  },
+  {
+    subject: "التحقق من التوافر",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. صادفت أعمالك وأردت السؤال إذا كانت هناك قطع مفتوحة للمراجعة أو للشراء."
+  },
+  {
+    subject: "استفسار موجز",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت أعمالك وقررت التواصل. هل هناك أعمال متاحة حاليًا؟"
+  },
+  {
+    subject: "عملك",
+    body: "نهارك سعيد، آمل أن تكون بخير. صادفت أعمالك وأعجبني أسلوبك. إذا كنت مستعدًا، أود الاطلاع على ما هو متاح."
+  },
+  {
+    subject: "استعراض أعمالك",
+    body: "مرحبًا، آمل أن تصلك هذه الرسالة وأنت بخير. اليوم اكتشفت أعمالك ولفتت انتباهي. أنا جامع أعمال وأود معرفة ما إذا كانت هناك قطع متاحة."
+  },
+  {
+    subject: "سؤال سريع عن التوافر",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت بعض أعمالك وقررت التواصل. هل هناك قطع متاحة حاليًا للمراجعة؟"
+  },
+  {
+    subject: "متابعة",
+    body: "نهارك سعيد، آمل أن يكون صباحك هادئًا. اكتشفت أعمالك مؤخرًا وأردت التواصل. هل هناك أعمال متاحة يمكنك مشاركتها؟"
+  },
+  {
+    subject: "كتالوجك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. لاحظت أعمالك وأعجبني التوازن في قطعك. هل ستكون مستعدًا لمشاركة الأعمال المتاحة؟"
+  },
+  {
+    subject: "مقدمة سريعة",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت أعمالك وقررت التواصل. أنا جامع أعمال وأود أن أسأل إذا كانت هناك أعمال متاحة حاليًا."
+  },
+  {
+    subject: "اتجاهك الفني",
+    body: "نهارك سعيد، آمل أن تكون بخير. رأيت أعمالك اليوم وأعجبني شعور قطعك. أود أن أعرف ما إذا كانت هناك أعمال متاحة حاليًا."
+  },
+  {
+    subject: "التحقق من الأعمال المتاحة",
+    body: "مرحبًا، آمل أن يكون يومك هادئًا. تصفحت صفحتك وأردت السؤال عن الأعمال المتاحة حاليًا."
+  },
+  {
+    subject: "مشاهدة أعمالك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. اكتشفت بعض أعمالك اليوم وأردت التواصل. هل هناك أعمال متاحة ترغب بمشاركتها؟"
+  },
+  {
+    subject: "سؤال سريع",
+    body: "نهارك سعيد، آمل أن تصلك هذه الرسالة وأنت بخير. كنت أتصفح صفحات الفنانين ولاحظت أعمالك. إذا كنت مستعدًا، أود معرفة ما هو متاح."
+  },
+  {
+    subject: "محفظتك",
+    body: "مرحبًا، آمل أن يكون يومك هادئًا. اكتشفت أعمالك مؤخرًا وأردت السؤال إذا كانت هناك قطع متاحة للعرض الخاص."
+  },
+  {
+    subject: "استكشاف أعمالك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. رأيت أعمالك على الإنترنت وقررت التواصل. هل ستشارك أعمالك المتاحة إذا وجدت؟"
+  },
+  {
+    subject: "أعمالك الإبداعية",
+    body: "نهارك سعيد، آمل أن تكون بخير. اكتشفت أعمالك اليوم وأردت السؤال عن الأعمال المتاحة حاليًا."
+  },
+  {
+    subject: "طلب لمشاهدة أعمالك",
+    body: "مرحبًا، آمل أن يكون يومك ممتعًا. ظهرت أعمالك أثناء تصفحي للصفحات الفنية، وأردت السؤال إذا كانت هناك أعمال متاحة الآن."
+  },
+  {
+    subject: "البحث عن الأعمال المتاحة",
+    body: "مرحبًا، آمل أن تكون بخير. ظهرت أعمالك أثناء استكشاف الفنانين الجدد وأردت السؤال إذا كنت مستعدًا لمشاركة الأعمال المتاحة."
+  },
+  {
+    subject: "اتجاهك الفني",
+    body: "نهارك سعيد، آمل أن يكون يومك جيدًا. رأيت بعض أعمالك وأعجبتني اتجاهاتك. إذا كانت هناك أعمال متاحة، سأكون سعيدًا بمشاهدتها."
+  },
+  {
+    subject: "فرص للمشاهدة",
+    body: "مرحبًا، آمل أن تصلك هذه الرسالة وأنت بخير. اكتشفت أعمالك على الإنترنت مؤخرًا وأردت السؤال إذا كانت هناك أعمال يمكن مشاركتها."
+  },
+  {
+    subject: "أعمالك البصرية",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. اكتشفت أعمالك وأعجبني الطابع العام. أود معرفة ما إذا كانت هناك أعمال متاحة للمراجعة."
+  },
+  {
+    subject: "استفسار قصير عن أعمالك",
+body: "مساء الخير، آمل أن يكون يومك جيدًا. اكتشفت أعمالك أثناء البحث وأردت التواصل. هل هناك أعمال متاحة حاليًا؟"
+  },
+  {
+    subject: "استعراض أعمالك",
+    body: "مرحبًا، آمل أن يكون يومك جيدًا. ظهرت أعمالك أثناء مراجعتي لمختلف الفنانين، وأردت السؤال إذا كانت هناك أعمال متاحة حاليًا."
+  },
+  {
+    subject: "اهتمام بالأعمال المتاحة",
+    body: "مرحبًا، آمل أن تكون بخير. اكتشفت صفحتك ووجدت أعمالك مثيرة للاهتمام. هل ستكون مستعدًا لمشاركة الأعمال المتاحة حاليًا؟"
+  },
+  {
+    subject: "طلب مراجعة الفن",
+    body: "نهارك سعيد، آمل أن تكون أسبوعك جيدًا. رأيت أعمالك اليوم وأردت السؤال إذا كانت هناك قطع متاحة للعرض الخاص."
+  }
+      ], // Arabic variants
+      it: [
+        {
+    subject: "Domanda veloce sul tuo lavoro",
+    body: "Buongiorno, spero che la tua giornata stia andando bene. Ho visto alcune delle tue opere mentre navigavo e ho pensato di contattarti. Sono un collezionista e spesso valuto nuovi artisti per vedere cosa hanno disponibile. Se sei disponibile, mi piacerebbe vedere eventuali opere che sei disposto a condividere."
+  },
+  {
+    subject: "Esaminando le tue opere",
+    body: "Ciao, spero tu stia passando una buona giornata. Ho scoperto il tuo lavoro recentemente e alcune opere mi hanno colpito. Sono un collezionista e volevo chiederti se condividi una lista delle opere disponibili. Mi piacerebbe dare un’occhiata se possibile."
+  },
+  {
+    subject: "Piccolo quesito",
+    body: "Ciao, spero tu stia bene oggi. Ho visitato la tua pagina e il tuo stile ha catturato la mia attenzione. Valuto opere d’arte per collezionisti privati e volevo chiederti se al momento hai opere disponibili da mostrare."
+  },
+  {
+    subject: "Le tue opere",
+    body: "Buongiorno, spero che questo messaggio ti trovi bene. Ho scoperto il tuo lavoro mentre esploravo alcuni profili di artisti e ho pensato di contattarti. Sono un collezionista e mi piacerebbe sapere cosa hai disponibile al momento."
+  },
+  {
+    subject: "Richiesta sulla disponibilità delle opere",
+    body: "Ciao, spero che tu stia passando una buona giornata. Ho recentemente scoperto la tua arte e la direzione delle tue opere mi ha colpito. Mi piacerebbe sapere se hai opere disponibili per una revisione privata."
+  },
+  {
+    subject: "Le tue opere recenti",
+    body: "Ciao, spero che la tua giornata proceda bene. Stavo sfogliando alcune collezioni e le tue opere hanno attirato la mia attenzione. Sono un collezionista e volevo chiederti se sei disponibile a condividere le opere attualmente disponibili."
+  },
+  {
+    subject: "Uno sguardo veloce al tuo catalogo",
+    body: "Buon pomeriggio, spero tu stia bene. Ho visto le tue opere oggi e mi è piaciuta l’energia delle tue creazioni. Saresti disponibile a condividere eventuali opere attualmente disponibili?"
+  },
+  {
+    subject: "Interesse per le tue opere",
+    body: "Ciao, spero che la tua giornata proceda senza intoppi. Ho visto le tue opere e ho pensato fosse giusto contattarti. Sono un collezionista e vorrei vedere cosa hai disponibile, se non ti dispiace condividere."
+  },
+  {
+    subject: "Piccola richiesta",
+    body: "Buongiorno, spero tu stia bene. Ho notato alcune delle tue opere mentre navigavo e mi è piaciuta molto l’atmosfera che trasmettono. Hai una lista o un catalogo delle opere disponibili? Mi piacerebbe dare un’occhiata."
+  },
+  {
+    subject: "Il tuo portfolio ha attirato la mia attenzione",
+    body: "Ciao, spero che questo messaggio ti trovi bene. Ho visto le tue opere oggi e il tuo stile mi è sembrato interessante. Sono un collezionista e volevo chiederti se hai opere disponibili al momento."
+  },
+  {
+    subject: "Controllo sulle tue opere",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto alcune delle tue opere e mi è piaciuta la direzione che stai prendendo. Se sei disponibile, puoi condividere le opere attualmente disponibili?"
+  },
+  {
+    subject: "Richiesta rapida di arte",
+    body: "Buongiorno, spero tu stia trascorrendo una giornata tranquilla. Ho scoperto recentemente il tuo portfolio e volevo contattarti. Sono un collezionista e vorrei sapere se hai opere disponibili per una revisione."
+  },
+  {
+    subject: "Domanda sulla disponibilità",
+    body: "Ciao, spero tu stia bene. Ho scoperto le tue opere e le ho trovate interessanti. Hai opere attualmente disponibili per i collezionisti?"
+  },
+  {
+    subject: "Esplorando nuovi artisti",
+    body: "Ciao, spero che la tua giornata stia andando bene. Stavo sfogliando alcuni profili di artisti e il tuo mi ha colpito. Vorrei sapere se hai una lista di opere disponibili da poter esaminare."
+  },
+  {
+    subject: "Le tue creazioni",
+    body: "Buongiorno, spero che questo messaggio ti trovi in buona forma. Ho scoperto le tue opere mentre navigavo e ho pensato fosse giusto contattarti. Sono un collezionista e volevo chiederti se hai opere aperte per una revisione privata."
+  },
+  {
+    subject: "Contatto riguardo la tua arte",
+    body: "Ciao, spero tu stia passando una buona giornata. Ho visitato la tua pagina e ho trovato il tuo stile interessante. Saresti disposto a condividere le opere disponibili?"
+  },
+  {
+    subject: "Breve introduzione",
+    body: "Ciao, spero tu stia bene. Ho recentemente scoperto la tua arte e mi è piaciuta l’atmosfera delle tue opere. Sono un collezionista e volevo chiederti se hai opere disponibili da condividere."
+  },
+  {
+    subject: "Disponibilità delle opere",
+    body: "Buon pomeriggio, spero che la tua giornata stia procedendo senza problemi. Ho visto le tue opere e volevo sapere se ci sono opere disponibili per la revisione dei collezionisti."
+  },
+  {
+    subject: "Revisione delle tue opere",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere oggi e mi è piaciuto il tuo approccio. Hai opere disponibili che sei disposto a condividere?"
+  },
+  {
+    subject: "Domanda sul tuo lavoro",
+    body: "Ciao, spero che la tua giornata stia andando bene. Stavo guardando i portfolio degli artisti e il tuo lavoro ha catturato la mia attenzione. Se sei disponibile, vorrei vedere cosa hai attualmente."
+  },
+  {
+    subject: "Ricerca di opere disponibili",
+    body: "Buongiorno, spero che tu stia bene. Ho visto alcune delle tue opere e volevo contattarti. Sono un collezionista e volevo chiederti se ci sono opere disponibili per la revisione."
+  },
+  {
+    subject: "Le tue opere si sono distinte",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho notato le tue opere e mi è piaciuta l’atmosfera che crei. Se ci sono opere disponibili, apprezzerei l’opportunità di vederle."
+  },
+  {
+    subject: "Contatto",
+    body: "Ciao, spero che la tua settimana stia procedendo bene. Ho visto la tua arte oggi mentre esploravo alcuni profili e volevo chiedere se ci sono opere attualmente disponibili."
+  },
+  {
+    subject: "Semplice richiesta",
+    body: "Ciao, spero che tu stia bene. Ho scoperto le tue opere e ho pensato fosse giusto contattarti. Sei disposto a condividere eventuali opere disponibili?"
+  },
+  {
+    subject: "Le tue opere hanno attirato la mia attenzione",
+    body: "Buon pomeriggio, spero che la tua giornata sia tranquilla. Ho visto alcune delle tue opere e mi è piaciuta la tonalità. Se ci sono opere disponibili, sarei interessato a vederle."
+  },
+  {
+    subject: "Verifica della disponibilità",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere e volevo chiedere se ci sono pezzi disponibili per revisione o considerazione d’acquisto."
+  },
+  {
+    subject: "Breve domanda",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere e ho pensato di contattarti. Ci sono opere disponibili al momento?"
+  },
+  {
+    subject: "Il tuo lavoro",
+    body: "Buongiorno, spero che tu stia bene. Ho visto le tue opere mentre navigavo e mi è piaciuto il tuo approccio. Se sei disponibile, vorrei vedere cosa hai disponibile."
+  },
+  {
+    subject: "Esaminando le tue opere",
+    body: "Ciao, spero che questo messaggio ti trovi bene. Oggi ho scoperto le tue opere e mi hanno colpito. Sono un collezionista e vorrei sapere se ci sono opere disponibili."
+  },
+  {
+    subject: "Domanda rapida sulla disponibilità",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto alcune delle tue opere e ho pensato di contattarti. Ci sono opere disponibili al momento per la revisione?"
+  },
+  {
+    subject: "Restare in contatto",
+    body: "Buongiorno, spero che la tua mattinata proceda bene. Ho scoperto le tue opere recentemente e volevo contattarti. Ci sono opere disponibili da condividere?"
+  },
+  {
+    subject: "Il tuo catalogo",
+    body: "Ciao, spero tu stia bene oggi. Ho notato le tue opere e mi è piaciuto l’equilibrio delle tue creazioni. Saresti disposto a condividere eventuali opere disponibili?"
+  },
+  {
+    subject: "Breve introduzione",
+body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere e ho pensato fosse giusto contattarti. Sono un collezionista e volevo chiederti se ci sono opere disponibili al momento."
+  },
+  {
+    subject: "La tua direzione artistica",
+    body: "Buon pomeriggio, spero tu stia bene. Ho visto le tue opere oggi e mi è piaciuta l’atmosfera. Vorrei sapere se ci sono opere disponibili attualmente."
+  },
+  {
+    subject: "Controllo sulle opere disponibili",
+    body: "Ciao, spero che la tua giornata proceda bene. Ho visitato la tua pagina e volevo chiedere se ci sono opere attualmente disponibili per la revisione."
+  },
+  {
+    subject: "Visualizzare le tue opere",
+    body: "Ciao, spero tu stia bene. Ho trovato alcune delle tue opere oggi e volevo contattarti. Ci sono opere disponibili che sei disposto a condividere?"
+  },
+  {
+    subject: "Domanda veloce",
+    body: "Buongiorno, spero che questo messaggio ti trovi bene. Stavo navigando tra i profili degli artisti e il tuo lavoro ha catturato la mia attenzione. Se sei disponibile, vorrei vedere cosa hai attualmente."
+  },
+  {
+    subject: "Il tuo portfolio",
+    body: "Ciao, spero che la tua giornata sia tranquilla. Ho scoperto le tue opere recentemente e volevo sapere se ci sono pezzi disponibili per la visione privata."
+  },
+  {
+    subject: "Esplorare il tuo lavoro",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere online e volevo contattarti. Saresti disposto a condividere le opere disponibili, se ce ne sono?"
+  },
+  {
+    subject: "Il tuo lavoro creativo",
+    body: "Buon pomeriggio, spero tu stia bene. Ho scoperto le tue opere oggi e volevo chiedere se ci sono pezzi disponibili al momento."
+  },
+  {
+    subject: "Richiesta per vedere le tue opere",
+    body: "Ciao, spero che la tua giornata stia andando bene. Le tue opere sono apparse mentre navigavo tra i profili degli artisti, e volevo chiedere se ci sono pezzi disponibili ora."
+  },
+  {
+    subject: "Ricerca di opere disponibili",
+    body: "Ciao, spero tu stia bene. Ho visto le tue opere mentre esploravo nuovi creatori e volevo chiedere se sei disposto a condividere le opere disponibili."
+  },
+  {
+    subject: "La tua direzione artistica",
+    body: "Buongiorno, spero che la tua giornata stia andando bene. Ho visto alcune delle tue opere e mi è piaciuta la direzione che stai prendendo. Se ci sono opere disponibili, mi piacerebbe vederle."
+  },
+  {
+    subject: "Opportunità di visualizzazione",
+    body: "Ciao, spero che questo messaggio ti raggiunga bene. Ho scoperto recentemente la tua arte online e volevo chiedere se ci sono pezzi che sei disposto a condividere."
+  },
+  {
+    subject: "I tuoi lavori visivi",
+    body: "Ciao, spero che la tua giornata stia andando bene. Ho visto le tue opere e mi è piaciuto il tono generale. Vorrei sapere se ci sono pezzi disponibili per la revisione."
+  },
+  {
+    subject: "Breve richiesta sulle tue opere",
+    body: "Buon pomeriggio, spero tu stia bene oggi. Ho scoperto le tue opere e ho pensato di contattarti. Ci sono pezzi disponibili al momento?"
+  },
+  {
+    subject: "Esaminando le tue opere",
+    body: "Ciao, spero che la tua giornata stia andando bene. Le tue opere sono apparse mentre stavo esaminando diversi creatori e volevo chiedere se ci sono opere attualmente disponibili."
+  },
+  {
+    subject: "Interesse per le opere disponibili",
+    body: "Ciao, spero tu stia bene. Ho scoperto la tua pagina e ho trovato le tue opere interessanti. Sei disposto a condividere eventuali opere attualmente disponibili?"
+  },
+  {
+    subject: "Richiesta di revisione artistica",
+    body: "Buongiorno, spero che la tua settimana stia andando bene. Ho visto le tue opere oggi e volevo chiedere se ci sono pezzi disponibili per una visione privata."
+  }
+      ], // Italian variants
+      pt: [
+        {
+    subject: "Pergunta rápida sobre seu trabalho",
+    body: "Bom dia, espero que seu dia esteja indo bem. Encontrei algumas de suas obras enquanto navegava e achei que deveria entrar em contato. Sou colecionador e frequentemente avalio novos artistas para ver o que eles têm disponível. Se estiver disposto, adoraria ver quaisquer obras que queira compartilhar."
+  },
+  {
+    subject: "Explorando suas obras",
+    body: "Olá, espero que esteja tendo um bom dia. Encontrei seu trabalho recentemente e algumas peças se destacaram para mim. Sou colecionador e queria perguntar se você compartilha uma lista das obras disponíveis. Gostaria de dar uma olhada, se possível."
+  },
+  {
+    subject: "Pequena dúvida",
+    body: "Olá, espero que esteja bem hoje. Visitei sua página e seu estilo chamou minha atenção. Avalio obras de arte para colecionadores privados e queria saber se atualmente você tem alguma obra disponível para visualização."
+  },
+  {
+    subject: "Suas obras",
+    body: "Bom dia, espero que esta mensagem o encontre bem. Descobri seu trabalho enquanto explorava alguns perfis de artistas e achei que deveria entrar em contato. Sou colecionador e gostaria de ver o que você tem disponível no momento."
+  },
+  {
+    subject: "Consulta sobre disponibilidade de obras",
+    body: "Olá, espero que seu dia esteja indo bem. Recentemente encontrei sua arte e a direção de suas peças me chamou atenção. Gostaria de saber se você tem obras disponíveis para uma revisão privada."
+  },
+  {
+    subject: "Suas obras recentes",
+    body: "Olá, espero que seu dia esteja correndo bem. Estava olhando alguns portfólios e suas peças se destacaram para mim. Sou colecionador e queria perguntar se você está aberto a compartilhar suas obras disponíveis no momento."
+  },
+  {
+    subject: "Uma olhada rápida no seu catálogo",
+    body: "Boa tarde, espero que esteja bem. Encontrei seu trabalho hoje e gostei da energia das suas obras. Você estaria aberto a compartilhar algumas peças que tem disponíveis atualmente?"
+  },
+  {
+    subject: "Interesse em suas obras",
+    body: "Olá, espero que seu dia esteja tranquilo. Vi suas obras recentemente e achei que valia a pena entrar em contato. Sou colecionador e gostaria de ver o que você tem disponível, se não se importar em compartilhar."
+  },
+  {
+    subject: "Pequeno pedido",
+    body: "Bom dia, espero que esteja bem. Notei algumas de suas obras enquanto navegava e gostei muito do sentimento que elas transmitem. Você tem uma lista ou catálogo das obras disponíveis? Gostaria de dar uma olhada."
+  },
+  {
+    subject: "Seu portfólio chamou minha atenção",
+    body: "Olá, espero que esta mensagem o encontre bem. Encontrei suas obras hoje e achei seu estilo interessante. Sou colecionador e gostaria de saber se você tem obras disponíveis no momento."
+  },
+  {
+    subject: "Verificando sobre sua arte",
+    body: "Olá, espero que seu dia esteja indo bem. Vi algumas de suas obras e gostei da direção que você está seguindo. Se estiver aberto, poderia compartilhar algumas obras que tem disponíveis atualmente?"
+  },
+  {
+    subject: "Consulta rápida sobre arte",
+    body: "Bom dia, espero que esteja tendo um dia tranquilo. Descobri seu portfólio recentemente e queria entrar em contato. Sou colecionador e gostaria de saber se você tem obras disponíveis para revisão."
+  },
+  {
+    subject: "Pergunta sobre disponibilidade",
+    body: "Olá, espero que esteja bem. Encontrei suas obras e as achei interessantes. Você tem alguma obra disponível atualmente para colecionadores?"
+  },
+  {
+    subject: "Explorando novos artistas",
+    body: "Olá, espero que seu dia esteja indo bem. Estava passando por alguns perfis de artistas e o seu se destacou para mim. Gostaria de saber se você tem uma lista de obras disponíveis que eu possa revisar."
+  },
+  {
+    subject: "Suas criações",
+    body: "Bom dia, espero que esta mensagem o encontre bem. Encontrei suas obras enquanto navegava e achei que deveria entrar em contato. Sou colecionador e queria saber se você tem obras disponíveis para revisão privada."
+  },
+  {
+subject: "Entrando em contato sobre sua arte",
+    body: "Olá, espero que esteja tendo um bom dia. Visitei sua página recentemente e achei seu estilo interessante. Você estaria aberto a compartilhar as obras disponíveis?"
+  },
+  {
+    subject: "Breve apresentação",
+    body: "Olá, espero que esteja bem. Descobri recentemente suas obras e gostei do sentimento delas. Sou colecionador e gostaria de saber se você tem obras disponíveis para compartilhar."
+  },
+  {
+    subject: "Disponibilidade de obras",
+    body: "Boa tarde, espero que seu dia esteja indo bem. Vi suas obras e queria saber se você tem peças disponíveis para revisão por colecionadores."
+  },
+  {
+    subject: "Revisão de suas obras",
+    body: "Olá, espero que seu dia esteja indo bem. Vi suas obras hoje e gostei do seu estilo. Você tem peças disponíveis que esteja disposto a compartilhar?"
+  },
+  {
+    subject: "Pergunta sobre seu trabalho",
+    body: "Olá, espero que seu dia esteja indo bem. Estava revisando portfólios de artistas e seu trabalho chamou minha atenção. Se estiver aberto, gostaria de ver o que você tem disponível atualmente."
+  },
+  {
+    subject: "Buscando obras disponíveis",
+    body: "Bom dia, espero que esteja bem. Encontrei algumas de suas obras e queria entrar em contato. Sou colecionador e queria saber se há peças abertas para revisão."
+  },
+  {
+    subject: "Suas obras se destacaram",
+    body: "Olá, espero que seu dia esteja indo bem. Notei seu trabalho enquanto navegava e gostei da atmosfera que você cria. Se houver obras disponíveis, apreciaria a chance de vê-las."
+  },
+  {
+    subject: "Entrando em contato",
+    body: "Olá, espero que sua semana esteja indo bem. Vi sua arte hoje enquanto revisava alguns perfis e queria perguntar se você tem obras disponíveis atualmente."
+  },
+  {
+    subject: "Pergunta simples",
+    body: "Olá, espero que esteja bem. Descobri suas obras recentemente e achei que deveria entrar em contato. Você estaria aberto a compartilhar obras disponíveis?"
+  },
+  {
+    subject: "Suas obras chamaram minha atenção",
+    body: "Boa tarde, espero que seu dia esteja tranquilo. Vi algumas de suas obras e gostei da tonalidade delas. Se houver obras disponíveis, eu gostaria de vê-las."
+  },
+  {
+    subject: "Verificando disponibilidade",
+    body: "Olá, espero que seu dia esteja indo bem. Encontrei sua arte e queria saber se há peças abertas para revisão ou possível compra."
+  },
+  {
+    subject: "Breve pergunta",
+    body: "Olá, espero que seu dia esteja indo bem. Vi suas obras e pensei em entrar em contato. Há obras disponíveis no momento?"
+  },
+  {
+    subject: "Seu trabalho",
+    body: "Bom dia, espero que esteja bem. Encontrei suas obras enquanto navegava e gostei do seu estilo. Se estiver aberto, gostaria de ver o que tem disponível."
+  },
+  {
+    subject: "Explorando suas obras",
+    body: "Olá, espero que esta mensagem o encontre bem. Hoje encontrei suas obras e gostei muito. Sou colecionador e queria saber se há peças disponíveis."
+  },
+  {
+    subject: "Pergunta rápida sobre disponibilidade",
+    body: "Olá, espero que seu dia esteja indo bem. Vi algumas de suas obras e pensei em entrar em contato. Há peças disponíveis no momento para revisão?"
+  },
+  {
+    subject: "Mantendo contato",
+    body: "Bom dia, espero que sua manhã esteja tranquila. Descobri suas obras recentemente e queria entrar em contato. Há peças disponíveis para compartilhar?"
+  },
+  {
+    subject: "Seu catálogo",
+    body: "Olá, espero que esteja bem hoje. Notei suas obras e gostei do equilíbrio delas. Você estaria disposto a compartilhar algumas peças disponíveis?"
+  },
+  {
+    subject: "Apresentação rápida",
+    body: "Olá, espero que seu dia esteja indo bem. Vi suas obras e achei que valia a pena entrar em contato. Sou colecionador e queria saber se há peças disponíveis atualmente."
+  },
+  {
+    subject: "Sua direção artística",
+    body: "Boa tarde, espero que esteja bem. Vi suas obras hoje e gostei do sentimento delas. Gostaria de saber se há obras disponíveis no momento."
+  },
+  {
+    subject: "Verificando obras disponíveis",
+body: "Olá, espero que seu dia esteja indo bem. Visitei sua página e queria saber se há peças disponíveis para revisão."
+  },
+  {
+    subject: "Visualizando suas obras",
+    body: "Olá, espero que esteja bem. Encontrei algumas de suas obras hoje e queria entrar em contato. Você tem peças disponíveis que esteja disposto a compartilhar?"
+  },
+  {
+    subject: "Pergunta rápida",
+    body: "Bom dia, espero que esta mensagem o encontre bem. Estava navegando por perfis de artistas e seu trabalho chamou minha atenção. Se estiver aberto, gostaria de ver o que tem disponível atualmente."
+  },
+  {
+    subject: "Seu portfólio",
+    body: "Olá, espero que seu dia esteja tranquilo. Descobri suas obras recentemente e queria saber se há peças disponíveis para visualização privada."
+  },
+  {
+    subject: "Explorando seu trabalho",
+    body: "Olá, espero que seu dia esteja indo bem. Vi suas obras online e queria entrar em contato. Você estaria disposto a compartilhar as obras disponíveis, se houver?"
+  },
+  {
+    subject: "Seu trabalho criativo",
+    body: "Boa tarde, espero que esteja bem. Encontrei suas peças hoje e queria perguntar se há obras disponíveis atualmente."
+  },
+  {
+    subject: "Pedido para ver suas obras",
+    body: "Olá, espero que esteja tendo um bom dia. Suas obras apareceram enquanto eu navegava por perfis de artistas e queria perguntar se há peças disponíveis agora."
+  },
+  {
+    subject: "Buscando peças disponíveis",
+    body: "Olá, espero que esteja bem. Vi suas obras enquanto explorava novos criadores e queria perguntar se você estaria disposto a compartilhar as peças disponíveis."
+  },
+  {
+    subject: "Sua direção artística",
+    body: "Bom dia, espero que seu dia esteja indo bem. Vi algumas de suas obras e gostei da direção que está seguindo. Se houver peças disponíveis, adoraria vê-las."
+  },
+  {
+    subject: "Oportunidades de visualização",
+    body: "Olá, espero que esta mensagem o encontre bem. Recentemente descobri sua arte online e queria saber se há peças que você estaria disposto a compartilhar."
+  },
+  {
+    subject: "Seus visuais",
+    body: "Olá, espero que seu dia esteja indo bem. Vi suas obras e gostei do tom geral. Gostaria de saber se há peças disponíveis para revisão."
+  },
+  {
+    subject: "Breve consulta sobre suas obras",
+    body: "Boa tarde, espero que esteja bem hoje. Encontrei suas obras enquanto pesquisava e pensei em entrar em contato. Há peças disponíveis no momento?"
+  },
+  {
+    subject: "Explorando suas obras",
+    body: "Olá, espero que seu dia esteja indo bem. Suas obras apareceram enquanto eu revisava diferentes criadores e queria saber se há peças disponíveis atualmente."
+  },
+  {
+    subject: "Interesse em suas obras disponíveis",
+    body: "Olá, espero que esteja bem. Descobri sua página e achei suas peças interessantes. Você estaria aberto a compartilhar obras disponíveis atualmente?"
+  },
+  {
+    subject: "Pedido de revisão de arte",
+    body: "Bom dia, espero que sua semana esteja indo bem. Vi suas obras hoje e queria perguntar se há peças disponíveis para uma visualização privada."
+  }
+      ], // Portuguese variants
+      fr: [
+        {
+    subject: "Question rapide sur votre travail",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai découvert certaines de vos œuvres en naviguant et j'ai pensé qu'il serait bon de vous contacter. Je suis collectionneur et j'examine souvent de nouveaux artistes pour voir ce qu'ils ont de disponible. Si vous êtes ouvert, j'aimerais voir les œuvres que vous souhaitez partager."
+  },
+  {
+    subject: "Exploration de vos œuvres",
+    body: "Bonjour, j'espère que vous passez une bonne journée. J'ai vu votre travail récemment et quelques pièces ont retenu mon attention. Je suis collectionneur et je voulais savoir si vous partagez une liste des œuvres disponibles. J'aimerais y jeter un œil si possible."
+  },
+  {
+    subject: "Petite demande",
+    body: "Bonjour, j'espère que vous allez bien aujourd'hui. J'ai visité votre page et votre style m'a interpellé. J'examine des œuvres pour des collectionneurs privés et je voulais savoir si vous avez actuellement des pièces disponibles pour consultation."
+  },
+  {
+    subject: "Vos œuvres",
+    body: "Bonjour, j'espère que ce message vous trouve en bonne santé. J'ai découvert votre travail en consultant quelques profils d'artistes et j'ai pensé vous contacter. Je suis collectionneur et j'aimerais voir ce que vous avez de disponible pour le moment."
+  },
+  {
+    subject: "Demande de disponibilité des œuvres",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai récemment découvert votre art et la direction de vos pièces a vraiment attiré mon attention. J'aimerais savoir si vous avez des œuvres disponibles pour consultation privée."
+  },
+  {
+    subject: "Vos œuvres récentes",
+    body: "Bonjour, j'espère que votre journée se déroule bien. Je parcourais quelques portfolios et vos pièces se sont démarquées. Je suis collectionneur et voulais savoir si vous êtes ouvert à partager vos œuvres disponibles actuellement."
+  },
+  {
+    subject: "Un aperçu rapide de votre catalogue",
+    body: "Bon après-midi, j'espère que vous allez bien. J'ai découvert votre travail aujourd'hui et j'ai aimé l'énergie de vos pièces. Seriez-vous ouvert à partager certaines œuvres que vous avez actuellement disponibles?"
+  },
+  {
+    subject: "Intérêt pour vos pièces",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai découvert vos œuvres récemment et j'ai pensé qu'il valait la peine de vous contacter. Je suis collectionneur et j'aimerais voir ce que vous avez de disponible, si cela ne vous dérange pas."
+  },
+  {
+    subject: "Petite requête",
+    body: "Bonjour, j'espère que vous allez bien. J'ai remarqué certaines de vos œuvres en naviguant et j'ai beaucoup aimé l'atmosphère qu'elles dégagent. Avez-vous une liste ou un catalogue des œuvres disponibles? J'aimerais y jeter un œil."
+  },
+  {
+    subject: "Votre portfolio a attiré mon attention",
+    body: "Bonjour, j'espère que ce message vous trouve bien. J'ai découvert votre travail aujourd'hui et votre style m'a paru intéressant. Je suis collectionneur et voulais savoir si vous avez des œuvres disponibles actuellement."
+  },
+  {
+    subject: "Suivi concernant votre art",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai vu certaines de vos pièces et j'ai apprécié la direction que vous prenez. Si vous êtes ouvert, pourriez-vous partager les œuvres que vous avez actuellement disponibles?"
+  },
+  {
+    subject: "Demande rapide sur l'art",
+    body: "Bonjour, j'espère que votre matinée se passe calmement. J'ai découvert votre portfolio récemment et voulais vous contacter. Je suis collectionneur et j'aimerais savoir si vous avez des pièces disponibles pour consultation."
+  },
+  {
+    subject: "Question sur la disponibilité",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert votre art et l'ai trouvé intéressant. Avez-vous actuellement des œuvres disponibles pour les collectionneurs?"
+  },
+  {
+    subject: "Découverte de nouveaux artistes",
+    body: "Bonjour, j'espère que votre journée se passe bien. Je parcourais plusieurs profils d'artistes et le vôtre m'a marqué. J'aimerais savoir si vous avez une liste des œuvres disponibles que je pourrais consulter."
+  },
+  {
+    subject: "Vos créations",
+    body: "Bonjour, j'espère que ce message vous trouve bien. J'ai découvert votre travail en naviguant et j'ai pensé qu'il serait bon de vous contacter. Je suis collectionneur et je voulais savoir si vous avez des œuvres ouvertes à une consultation privée."
+  },
+  {
+    subject: "Prise de contact pour votre art",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai visité votre page récemment et votre style m'a paru intéressant. Seriez-vous ouvert à partager vos pièces disponibles?"
+  },
+  {
+    subject: "Brève présentation",
+    body: "Bonjour, j'espère que vous allez bien. J'ai récemment découvert vos œuvres et apprécié leur style. Je suis collectionneur et je voulais savoir si vous avez des œuvres actuelles à partager."
+  },
+  {
+    subject: "Disponibilité des œuvres",
+    body: "Bon après-midi, j'espère que votre journée se déroule bien. J'ai découvert votre travail et je voulais voir si vous avez des pièces disponibles pour les collectionneurs."
+  },
+  {
+    subject: "Révision de vos pièces",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai vu vos œuvres aujourd'hui et apprécié votre approche. Avez-vous des pièces disponibles que vous seriez prêt à partager?"
+  },
+  {
+    subject: "Demande concernant votre travail",
+    body: "Bonjour, j'espère que votre journée se passe bien. Je consultais des portfolios d'artistes et votre travail a attiré mon attention. Si vous êtes ouvert, j'aimerais voir ce que vous avez de disponible actuellement."
+  },
+  {
+    subject: "À la recherche d'œuvres disponibles",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert certaines de vos œuvres et voulais vous contacter. Je suis collectionneur et souhaitais savoir si vous avez des pièces ouvertes à la consultation."
+  },
+  {
+    subject: "Vos pièces se sont démarquées",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai remarqué votre travail et aimé l'ambiance que vous créez. Si vous avez des pièces disponibles, j'apprécierais la possibilité de les voir."
+  },
+  {
+    subject: "Prise de contact",
+    body: "Bonjour, j'espère que votre semaine se passe bien. J'ai découvert votre art aujourd'hui et voulais demander si vous avez des pièces disponibles actuellement."
+  },
+  {
+    subject: "Demande simple",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert vos œuvres récemment et pensé qu'il serait bien de vous contacter. Seriez-vous ouvert à partager vos pièces disponibles?"
+  },
+  {
+    subject: "Vos œuvres ont attiré mon attention",
+    body: "Bon après-midi, j'espère que votre journée est calme. J'ai vu certaines de vos pièces et aimé leur tonalité. Si vous avez des œuvres disponibles, j'aimerais les découvrir."
+  },
+  {
+    subject: "Vérification de la disponibilité",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai découvert votre art et voulais savoir si vous avez des pièces disponibles pour consultation ou achat éventuel."
+  },
+  {
+    subject: "Brève question",
+    body: "Bonjour, j'espère que vous allez bien. J'ai vu vos œuvres et pensé à vous contacter. Avez-vous des pièces disponibles en ce moment?"
+  },
+  {
+    subject: "Votre travail",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert vos œuvres et apprécié votre approche. Si vous êtes ouvert, j'aimerais voir ce que vous avez de disponible."
+  },
+  {
+    subject: "Exploration de vos pièces",
+    body: "Bonjour, j'espère que ce message vous trouve bien. Aujourd'hui, j'ai découvert vos œuvres et apprécié leur qualité. Je suis collectionneur et voulais savoir si vous avez des pièces disponibles."
+  },
+  {
+    subject: "Question rapide sur la disponibilité",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai vu certaines de vos œuvres et pensé à vous contacter. Avez-vous des pièces disponibles actuellement pour consultation?"
+  },
+  {
+    subject: "Prise de contact",
+    body: "Bonjour, j'espère que votre matinée se passe bien. J'ai découvert vos œuvres récemment et voulais entrer en contact. Y a-t-il des pièces disponibles que vous pouvez partager?"
+  },
+  {
+    subject: "Votre catalogue",
+    body: "Bonjour, j'espère que vous allez bien aujourd'hui. J'ai remarqué vos œuvres et apprécié l'équilibre qu'elles dégagent. Seriez-vous ouvert à partager certaines pièces disponibles?"
+  },
+  {
+    subject: "Présentation rapide",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai découvert votre art et pensé qu'il valait la peine de vous contacter. Je suis collectionneur et voulais savoir si vous avez des pièces disponibles actuellement."
+  },
+  {
+    subject: "Votre orientation artistique",
+    body: "Bon après-midi, j'espère que vous allez bien. J'ai découvert vos œuvres aujourd'hui et apprécié leur style. J'aimerais savoir si vous avez des pièces disponibles en ce moment."
+  },
+  {
+    subject: "Vérification des œuvres disponibles",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai visité votre page et voulais savoir si vous avez des pièces disponibles pour consultation."
+  },
+  {
+    subject: "Visualisation de vos œuvres",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert certaines de vos pièces aujourd'hui et voulais vous contacter. Avez-vous des pièces disponibles que vous seriez prêt à partager?"
+  },
+  {
+    subject: "Question rapide",
+    body: "Bonjour, j'espère que ce message vous trouve bien. Je parcourais des profils d'artistes et votre travail a retenu mon attention. Si vous êtes ouvert, j'aimerais voir ce que vous avez de disponible."
+  },
+  {
+    subject: "Votre portfolio",
+    body: "Bonjour, j'espère que votre journée est calme. J'ai découvert vos œuvres récemment et voulais savoir si vous avez des pièces disponibles pour visualisation privée."
+  },
+  {
+    subject: "Exploration de votre travail",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai vu vos œuvres en ligne et voulais vous contacter. Seriez-vous ouvert à partager vos œuvres disponibles, si vous en avez?"
+  },
+  {
+    subject: "Votre travail créatif",
+    body: "Bon après-midi, j'espère que vous allez bien. J'ai découvert vos pièces aujourd'hui et voulais savoir si vous avez des œuvres disponibles actuellement."
+  },
+  {
+    subject: "Demande pour voir vos œuvres",
+    body: "Bonjour, j'espère que vous passez une bonne journée. Vos œuvres sont apparues pendant que je naviguais et je voulais demander si des pièces sont disponibles maintenant."
+  },
+  {
+    subject: "À la recherche de pièces disponibles",
+    body: "Bonjour, j'espère que vous allez bien. J'ai vu vos œuvres en explorant de nouveaux créateurs et voulais savoir si vous seriez ouvert à partager vos pièces disponibles."
+  },
+  {
+    subject: "Votre direction artistique",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai vu certaines de vos œuvres et aimé la direction que vous prenez. Si vous avez des pièces disponibles, j'aimerais les découvrir."
+  },
+  {
+    subject: "Opportunités de visualisation",
+    body: "Bonjour, j'espère que ce message vous trouve bien. J'ai récemment découvert votre art en ligne et voulais savoir si vous avez des pièces que vous seriez à l'aise de partager."
+  },
+  {
+    subject: "Vos visuels",
+    body: "Bonjour, j'espère que votre journée se passe bien. J'ai découvert vos œuvres et apprécié leur ton général. J'aimerais savoir si vous avez des pièces disponibles pour consultation."
+  },
+  {
+    subject: "Brève demande concernant votre art",
+    body: "Bon après-midi, j'espère que vous allez bien aujourd'hui. J'ai découvert vos œuvres et pensé qu'il valait la peine de vous contacter. Avez-vous des pièces disponibles en ce moment?"
+  },
+  {
+    subject: "Exploration de vos œuvres",
+    body: "Bonjour, j'espère que votre journée se passe bien. Vos œuvres sont apparues pendant que je consultais différents créateurs et je voulais savoir si vous avez des pièces disponibles actuellement."
+  },
+  {
+    subject: "Intérêt pour vos œuvres disponibles",
+    body: "Bonjour, j'espère que vous allez bien. J'ai découvert votre page et trouvé vos pièces intéressantes. Seriez-vous ouvert à partager vos œuvres disponibles actuellement?"
+  },
+  {
+    subject: "Demande de consultation artistique",
+    body: "Bonjour, j'espère que votre semaine se passe bien. J'ai découvert vos œuvres aujourd'hui et voulais savoir si vous avez des pièces disponibles pour une visualisation privée."
+  }
+      ], // French variants
+      el: [
+        {
+    subject: "Γρήγορη ερώτηση για τη δουλειά σας",
+    body: "Καλημέρα, ελπίζω η μέρα σας να πηγαίνει καλά. Βρήκα μερικά από τα έργα σας ενώ περιηγούμουν και σκέφτηκα ότι θα ήταν καλό να επικοινωνήσω μαζί σας. Είμαι συλλέκτης και συχνά αξιολογώ νέους καλλιτέχνες για να δω τι έχουν διαθέσιμο. Αν θέλετε, θα ήθελα να δω όσα έργα μπορείτε να μοιραστείτε."
+  },
+  {
+    subject: "Εξετάζοντας την τέχνη σας",
+    body: "Γεια σας, ελπίζω να περνάτε μια ευχάριστη μέρα. Βρήκα τα έργα σας νωρίτερα και μερικά ξεχώρισαν για μένα. Είμαι συλλέκτης και ήθελα να ρωτήσω αν μοιράζεστε μια λίστα με διαθέσιμα έργα. Θα ήθελα να ρίξω μια ματιά αν είναι δυνατό."
+  },
+  {
+    subject: "Μικρή ερώτηση",
+    body: "Γεια σας, ελπίζω να είστε καλά σήμερα. Βρήκα τη σελίδα σας και το στυλ σας τράβηξε την προσοχή μου. Αξιολογώ έργα για ιδιωτικούς συλλέκτες και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα προς επίδειξη."
+  },
+  {
+    subject: "Τα έργα σας",
+    body: "Καλημέρα, ελπίζω αυτό το μήνυμα να σας βρίσκει καλά. Ανακάλυψα τη δουλειά σας ενώ εξερευνούσα μερικά προφίλ καλλιτεχνών και σκέφτηκα να επικοινωνήσω. Είμαι συλλέκτης και θα ήθελα να δω τι έχετε διαθέσιμο αυτή τη στιγμή."
+  },
+  {
+    subject: "Ερώτηση για τη διαθεσιμότητα έργων",
+    body: "Γεια σας, ελπίζω να περνάτε καλά. Πρόσφατα ανακάλυψα την τέχνη σας και ο τρόπος που παρουσιάζετε τα έργα σας με εντυπωσίασε. Θα ήθελα να ξέρω αν έχετε διαθέσιμα έργα για ιδιωτική προβολή."
+  },
+  {
+    subject: "Τα πρόσφατα έργα σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Περιηγούμουν σε μερικά portfolios και τα έργα σας ξεχώρισαν. Είμαι συλλέκτης και ήθελα να ρωτήσω αν είστε ανοιχτοί στο να μοιραστείτε τα διαθέσιμα έργα σας."
+  },
+  {
+    subject: "Μια γρήγορη ματιά στον κατάλογό σας",
+    body: "Καλησπέρα, ελπίζω να είστε καλά. Ανακάλυψα τα έργα σας σήμερα και μου άρεσε η ενέργεια που μεταδίδουν. Θα ήσασταν ανοιχτοί στο να μοιραστείτε όσα έργα έχετε διαθέσιμα;"
+  },
+  {
+    subject: "Ενδιαφέρον για τα έργα σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να κυλάει ομαλά. Βρήκα τα έργα σας πρόσφατα και σκέφτηκα ότι αξίζει να επικοινωνήσω. Είμαι συλλέκτης και θα ήθελα να δω τι έχετε διαθέσιμο, αν δεν σας πειράζει."
+  },
+  {
+    subject: "Μικρό αίτημα",
+    body: "Καλημέρα, ελπίζω να είστε καλά. Παρατήρησα μερικά από τα έργα σας ενώ περιηγούμουν και μου άρεσε η αίσθηση που μεταδίδουν. Έχετε μια λίστα ή κατάλογο των διαθέσιμων έργων σας; Θα ήθελα να ρίξω μια ματιά."
+  },
+  {
+    subject: "Το portfolio σας τράβηξε την προσοχή μου",
+    body: "Γεια σας, ελπίζω να είστε καλά. Βρήκα τα έργα σας σήμερα και το στυλ σας μου φάνηκε ενδιαφέρον. Είμαι συλλέκτης και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Ενημέρωση σχετικά με την τέχνη σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Είδα μερικά από τα έργα σας και μου άρεσε η κατεύθυνση που παίρνετε. Αν είστε ανοιχτοί, θα μπορούσατε να μοιραστείτε τα έργα που έχετε διαθέσιμα;"
+  },
+  {
+    subject: "Γρήγορη ερώτηση για έργα τέχνης",
+    body: "Καλημέρα, ελπίζω να περνάτε ήρεμα τη μέρα σας. Πρόσφατα ανακάλυψα το portfolio σας και ήθελα να επικοινωνήσω. Είμαι συλλέκτης και θα ήθελα να ξέρω αν έχετε διαθέσιμα έργα για προβολή."
+  },
+  {
+    subject: "Ερώτηση διαθεσιμότητας",
+    body: "Γεια σας, ελπίζω να είστε καλά. Ανακάλυψα την τέχνη σας και τη βρήκα ενδιαφέρουσα. Έχετε κάποια διαθέσιμα έργα για συλλέκτες;"
+  },
+  {
+    subject: "Ανακαλύπτοντας νέους καλλιτέχνες",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Εξερευνούσα μερικά προφίλ καλλιτεχνών και το δικό σας ξεχώρισε για μένα. Θα ήθελα να ξέρω αν έχετε μια λίστα με διαθέσιμα έργα που μπορώ να δω."
+  },
+  {
+    subject: "Οι δημιουργίες σας",
+    body: "Καλημέρα, ελπίζω αυτό το μήνυμα να σας βρίσκει καλά. Ανακάλυψα τα έργα σας ενώ περιηγούμουν και σκέφτηκα να επικοινωνήσω. Είμαι συλλέκτης και ήθελα να ρωτήσω αν έχετε έργα διαθέσιμα για ιδιωτική προβολή."
+  },
+  {
+    subject: "Επικοινωνία για την τέχνη σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να κυλάει καλά. Επισκέφτηκα τη σελίδα σας και το στυλ σας μου φάνηκε ενδιαφέρον. Θα ήσασταν ανοιχτοί στο να μοιραστείτε τα διαθέσιμα έργα σας;"
+  },
+  {
+    subject: "Σύντομη εισαγωγή",
+    body: "Γεια σας, ελπίζω να είστε καλά. Πρόσφατα ανακάλυψα τα έργα σας και μου άρεσε το ύφος τους. Είμαι συλλέκτης και θα ήθελα να ξέρω αν έχετε διαθέσιμα έργα προς κοινοποίηση."
+  },
+  {
+    subject: "Διαθεσιμότητα έργων",
+    body: "Καλησπέρα, ελπίζω η μέρα σας να κυλάει ομαλά. Ανακάλυψα τη δουλειά σας και ήθελα να δω αν έχετε έργα διαθέσιμα για συλλέκτες."
+  },
+  {
+    subject: "Ανασκόπηση των έργων σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Βρήκα τα έργα σας σήμερα και μου άρεσε η προσέγγισή σας. Έχετε διαθέσιμα έργα που θα θέλατε να μοιραστείτε;"
+  },
+  {
+    subject: "Ερώτηση για τη δουλειά σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Εξερευνούσα portfolios καλλιτεχνών και η δουλειά σας τράβηξε την προσοχή μου. Αν είστε ανοιχτοί, θα ήθελα να δω τι έχετε διαθέσιμο."
+  },
+  {
+    subject: "Αναζήτηση διαθέσιμων έργων",
+    body: "Καλημέρα, ελπίζω να είστε καλά. Βρήκα μερικά από τα έργα σας και ήθελα να επικοινωνήσω. Είμαι συλλέκτης και ήθελα να ρωτήσω αν έχετε έργα ανοιχτά για προβολή."
+  },
+  {
+    subject: "Τα έργα σας ξεχώρισαν",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Παρατήρησα τη δουλειά σας και μου άρεσε η ατμόσφαιρα που δημιουργείτε. Αν έχετε διαθέσιμα έργα, θα εκτιμούσα την ευκαιρία να τα δω."
+  },
+  {
+    subject: "Επικοινωνία",
+    body: "Γεια σας, ελπίζω η εβδομάδα σας να κυλάει καλά. Ανακάλυψα την τέχνη σας σήμερα και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Απλή ερώτηση",
+    body: "Γεια σας, ελπίζω να είστε καλά. Πρόσφατα βρήκα τα έργα σας και σκέφτηκα να επικοινωνήσω. Θα ήσασταν ανοιχτοί στο να μοιραστείτε διαθέσιμα έργα;"
+  },
+  {
+    subject: "Τα έργα σας τράβηξαν την προσοχή μου",
+    body: "Καλησπέρα, ελπίζω η μέρα σας να είναι ήρεμη. Είδα μερικά από τα έργα σας και μου άρεσε ο τόνος τους. Αν έχετε διαθέσιμα έργα, θα ήθελα να τα δω."
+  },
+  {
+    subject: "Έλεγχος διαθεσιμότητας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Ανακάλυψα την τέχνη σας και ήθελα να ρωτήσω αν έχετε έργα ανοιχτά για προβολή ή πιθανή αγορά."
+  },
+  {
+    subject: "Σύντομη ερώτηση",
+    body: "Γεια σας, ελπίζω να είστε καλά. Είδα τα έργα σας και σκέφτηκα να επικοινωνήσω. Έχετε διαθέσιμα έργα αυτή τη στιγμή;"
+  },
+  {
+    subject: "Η δουλειά σας",
+    body: "Καλημέρα, ελπίζω να είστε καλά. Ανακάλυψα την τέχνη σας και μου άρεσε η προσέγγισή σας. Αν είστε ανοιχτοί, θα ήθελα να δω τι έχετε διαθέσιμο."
+  },
+  {
+    subject: "Εξετάζοντας τα έργα σας",
+    body: "Γεια σας, ελπίζω το μήνυμα αυτό να σας βρίσκει καλά. Σήμερα ανακάλυψα τα έργα σας και εκτίμησα την ποιότητά τους. Είμαι συλλέκτης και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα."
+  },
+  {
+    subject: "Γρήγορη ερώτηση για διαθεσιμότητα",
+    body: "Γεια σας, ελπίζω η μέρα σας να κυλάει καλά. Είδα κάποια έργα σας και σκέφτηκα να επικοινωνήσω. Έχετε διαθέσιμα έργα για προβολή αυτή τη στιγμή;"
+  },
+  {
+    subject: "Επικοινωνία",
+    body: "Γεια σας, ελπίζω το πρωινό σας να κυλάει ομαλά. Πρόσφατα ανακάλυψα τα έργα σας και ήθελα να επικοινωνήσω. Υπάρχουν διαθέσιμα έργα που μπορείτε να μοιραστείτε;"
+  },
+  {
+    subject: "Ο κατάλογός σας",
+    body: "Γεια σας, ελπίζω να είστε καλά σήμερα. Παρατήρησα τα έργα σας και μου άρεσε η αίσθηση ισορροπίας τους. Θα ήσασταν ανοιχτοί στο να μοιραστείτε κάποια διαθέσιμα έργα;"
+  },
+  {
+    subject: "Γρήγορη εισαγωγή",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Βρήκα την τέχνη σας και σκέφτηκα ότι αξίζει να επικοινωνήσω. Είμαι συλλέκτης και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Καλλιτεχνική κατεύθυνση σας",
+    body: "Καλησπέρα, ελπίζω να είστε καλά. Ανακάλυψα τα έργα σας σήμερα και εκτίμησα το ύφος τους. Θα ήθελα να ξέρω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Έλεγχος για διαθέσιμα έργα",
+    body: "Γεια σας, ελπίζω η μέρα σας να κυλάει ομαλά. Επισκέφτηκα τη σελίδα σας και ήθελα να ρωτήσω αν έχετε τρέχοντα έργα διαθέσιμα για προβολή."
+  },
+  {
+subject: "Προβολή των έργων σας",
+    body: "Γεια σας, ελπίζω να είστε καλά. Βρήκα μερικά από τα έργα σας σήμερα και ήθελα να επικοινωνήσω. Έχετε διαθέσιμα έργα που θα μπορούσα να δω;"
+  },
+  {
+    subject: "Γρήγορη ερώτηση",
+    body: "Γεια σας, ελπίζω αυτό το μήνυμα να σας βρίσκει καλά. Περιηγούμουν σε προφίλ καλλιτεχνών και η δουλειά σας ξεχώρισε. Αν είστε ανοιχτοί, θα ήθελα να δω τι έχετε διαθέσιμο."
+  },
+  {
+    subject: "Το portfolio σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να είναι ήρεμη. Πρόσφατα ανακάλυψα τα έργα σας και ήθελα να ξέρω αν έχετε διαθέσιμα έργα για ιδιωτική προβολή."
+  },
+  {
+    subject: "Εξερεύνηση της δουλειάς σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Είδα τα έργα σας στο διαδίκτυο και σκέφτηκα να επικοινωνήσω. Θα ήσασταν ανοιχτοί να μοιραστείτε τα διαθέσιμα έργα σας;"
+  },
+  {
+    subject: "Η δημιουργική σας δουλειά",
+    body: "Καλησπέρα, ελπίζω να είστε καλά. Ανακάλυψα τα έργα σας σήμερα και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Αίτημα για προβολή των έργων σας",
+    body: "Γεια σας, ελπίζω να περνάτε μια ευχάριστη μέρα. Τα έργα σας εμφανίστηκαν ενώ περιηγούμουν σε προφίλ καλλιτεχνών και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα τώρα."
+  },
+  {
+    subject: "Αναζήτηση διαθέσιμων έργων",
+    body: "Γεια σας, ελπίζω να είστε καλά. Εξερευνούσα νέους δημιουργούς και είδα την τέχνη σας. Θα ήθελα να ρωτήσω αν είστε ανοιχτοί να μοιραστείτε τα διαθέσιμα έργα σας."
+  },
+  {
+    subject: "Καλλιτεχνική σας κατεύθυνση",
+    body: "Καλημέρα, ελπίζω η μέρα σας να πηγαίνει καλά. Είδα μερικά από τα έργα σας και μου άρεσε η κατεύθυνση που παίρνετε. Αν έχετε διαθέσιμα έργα, θα ήθελα να τα δω."
+  },
+  {
+    subject: "Ευκαιρίες προβολής",
+    body: "Γεια σας, ελπίζω αυτό το μήνυμα να σας βρίσκει καλά. Πρόσφατα ανακάλυψα την τέχνη σας στο διαδίκτυο και ήθελα να ρωτήσω αν έχετε έργα που θα αισθανόσασταν άνετα να μοιραστείτε."
+  },
+  {
+    subject: "Τα οπτικά σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Ανακάλυψα τα έργα σας και μου άρεσε ο συνολικός τους τόνος. Θα ήθελα να ξέρω αν έχετε διαθέσιμα έργα για προβολή."
+  },
+  {
+    subject: "Σύντομη ερώτηση για την τέχνη σας",
+    body: "Καλησπέρα, ελπίζω να είστε καλά σήμερα. Βρήκα τα έργα σας και σκέφτηκα να επικοινωνήσω. Έχετε διαθέσιμα έργα αυτή τη στιγμή;"
+  },
+  {
+    subject: "Εξερεύνηση των έργων σας",
+    body: "Γεια σας, ελπίζω η μέρα σας να πηγαίνει καλά. Τα έργα σας εμφανίστηκαν ενώ κοιτούσα διάφορους δημιουργούς και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα αυτή τη στιγμή."
+  },
+  {
+    subject: "Ενδιαφέρον για τα διαθέσιμα έργα σας",
+    body: "Γεια σας, ελπίζω να είστε καλά. Πρόσφατα ανακάλυψα τη σελίδα σας και βρήκα τα έργα σας ενδιαφέροντα. Θα ήσασταν ανοιχτοί να μοιραστείτε τα τρέχοντα έργα που έχετε διαθέσιμα;"
+  },
+  {
+    subject: "Αίτημα για αξιολόγηση έργων",
+    body: "Καλημέρα, ελπίζω η εβδομάδα σας να πηγαίνει καλά. Βρήκα τα έργα σας σήμερα και ήθελα να ρωτήσω αν έχετε διαθέσιμα έργα για ιδιωτική προβολή."
+  }
+      ]  // Greek variants
+    };
 
-  function updateSendNextButton() {
-    const emails = getEmails();
-    sendNextBtn.disabled = emails.length === 0;
-    if (emails.length === 0) {
-      emailLink.style.display = "none";
-      emailLink.href = "#";
-      emailLink.textContent = "";
+    let currentLanguage = "en";
+
+    function loadEmailsFromStorage() {
+      const savedEmails = JSON.parse(localStorage.getItem("emails") || "[]");
+      emailsInput.value = savedEmails.join("\n");
+      const savedLang = localStorage.getItem("language") || "en";
+      languageSelect.value = savedLang;
+      currentLanguage = savedLang;
+      updateSendNextButton();
     }
-  }
 
-  function encodeMailto(email) {
-    const random = variants[Math.floor(Math.random() * variants.length)];
-    const subject = encodeURIComponent(random.subject);
-    const body = encodeURIComponent(random.body);
-    return `mailto:${email}?subject=${subject}&body=${body}`;
-  }
-
-  loadEmailsBtn.addEventListener("click", () => {
-    const emails = getEmails();
-    if (emails.length === 0) {
-      alert("Please paste at least one email.");
-      return;
+    function saveEmailsToStorage(emails) {
+      localStorage.setItem("emails", JSON.stringify(emails));
+      localStorage.setItem("language", currentLanguage);
     }
-    saveEmailsToStorage(emails);
-    updateSendNextButton();
-    alert(`Loaded ${emails.length} emails.`);
-  });
 
-  sendNextBtn.addEventListener("click", () => {
-    let emails = getEmails();
-    if (emails.length === 0) {
-      alert("No emails to send.");
-      return;
+    function getEmails() {
+      return emailsInput.value
+        .split(/\r?\n/)
+        .map(e => e.trim())
+        .filter(e => e.length > 0);
     }
-    const currentEmail = emails.shift();
-    emailsInput.value = emails.join("\n");
-    saveEmailsToStorage(emails);
-    updateSendNextButton();
 
-    const mailtoLink = encodeMailto(currentEmail);
-    emailLink.href = mailtoLink;
-    emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
-    emailLink.style.display = "inline-block";
-    emailLink.click();
-
-    // 🔥 NEW: start cooldown after click
-    startCooldown(15); // 10 seconds
-  });
-
-  function startCooldown(seconds) {
-    sendNextBtn.disabled = true;
-    let remaining = seconds;
-    const originalText = "Send Next Email";
-    sendNextBtn.textContent = `Wait ${remaining}s...`;
-    const interval = setInterval(() => {
-      remaining--;
-      if (remaining > 0) {
-        sendNextBtn.textContent = `Wait ${remaining}s...`;
-      } else {
-        clearInterval(interval);
-        sendNextBtn.textContent = originalText;
-        updateSendNextButton();
+    function updateSendNextButton() {
+      const emails = getEmails();
+      sendNextBtn.disabled = emails.length === 0;
+      if (emails.length === 0) {
+        emailLink.style.display = "none";
+        emailLink.href = "#";
+        emailLink.textContent = "";
       }
-    }, 1000);
-  }
+    }
 
-  window.addEventListener("load", loadEmailsFromStorage);
-</script>
+    function encodeMailto(email) {
+      const random = variants[currentLanguage][Math.floor(Math.random() * variants[currentLanguage].length)];
+if(!random) return `mailto:${email}`;
+      const subject = encodeURIComponent(random.subject);
+      const body = encodeURIComponent(random.body);
+      return `mailto:${email}?subject=${subject}&body=${body}`;
+    }
 
+    loadEmailsBtn.addEventListener("click", () => {
+      const emails = getEmails();
+      if (emails.length === 0) {
+        alert("Please paste at least one email.");
+        return;
+      }
+      currentLanguage = languageSelect.value;
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+      alert(`Loaded ${emails.length} emails with language: ${currentLanguage}`);
+    });
 
+    sendNextBtn.addEventListener("click", () => {
+      let emails = getEmails();
+      if (emails.length === 0) {
+        alert("No emails to send.");
+        return;
+      }
+      const currentEmail = emails.shift();
+      emailsInput.value = emails.join("\n");
+      saveEmailsToStorage(emails);
+      updateSendNextButton();
+
+      const mailtoLink = encodeMailto(currentEmail);
+      emailLink.href = mailtoLink;
+      emailLink.textContent = `📧 Sending email to: ${currentEmail}`;
+      emailLink.style.display = "inline-block";
+      emailLink.click();
+
+      startCooldown(15);
+    });
+
+    function startCooldown(seconds) {
+      sendNextBtn.disabled = true;
+      let remaining = seconds;
+      const originalText = "Send Next Email";
+      sendNextBtn.textContent = `Wait ${remaining}s...`;
+      const interval = setInterval(() => {
+        remaining--;
+        if (remaining > 0) {
+          sendNextBtn.textContent = `Wait ${remaining}s...`;
+        } else {
+          clearInterval(interval);
+          sendNextBtn.textContent = originalText;
+          updateSendNextButton();
+        }
+      }, 1000);
+    }
+
+    languageSelect.addEventListener("change", () => {
+      currentLanguage = languageSelect.value;
+      localStorage.setItem("language", currentLanguage);
+    });
+
+    window.addEventListener("load", loadEmailsFromStorage);
+  </script>
+</body>
+</html>
