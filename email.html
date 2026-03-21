@@ -1,14 +1,36 @@
-<script>
-  const emailsInput = document.getElementById("emailsInput");
-  const loadEmailsBtn = document.getElementById("loadEmailsBtn");
-  const sendNextBtn = document.getElementById("sendNextBtn");
-  const emailLink = document.getElementById("emailLink");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Batch Email Sender</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    textarea { width: 100%; height: 200px; margin-bottom: 10px; }
+    button { padding: 10px 20px; margin-right: 10px; }
+    #emailLink { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Batch Email Sender</h1>
 
-  let emails = [];
-  let currentIndex = 0;
+  <textarea id="emailsInput" placeholder="Paste emails here, one per line"></textarea>
+  <br>
+  <button id="loadEmailsBtn">Load Emails</button>
+  <button id="sendNextBtn" disabled>Send Next Email</button>
 
-  // Only English variants now
-  const variants = [
+  <!-- Hidden link to trigger mailto -->
+  <a id="emailLink"></a>
+
+  <script>
+    const emailsInput = document.getElementById("emailsInput");
+    const loadEmailsBtn = document.getElementById("loadEmailsBtn");
+    const sendNextBtn = document.getElementById("sendNextBtn");
+    const emailLink = document.getElementById("emailLink");
+
+    let emails = [];
+    let currentIndex = 0;
+
+    const variants = [
     {
       subject: "Came across your work today",
       body: "Hi, hope you're doing well. I came across your work earlier today while browsing and a few pieces really stood out. I’m a collector and I like to keep up with new artists. If you're open to it, I'd be interested in seeing what you currently have available."
@@ -214,54 +236,50 @@ body: "Hi, I saw your work today and liked it. I’d be interested in anything a
     }
   ];
 
-  loadEmailsBtn.addEventListener("click", () => {
-    const input = emailsInput.value.trim();
-    if (!input) {
-      alert("Please paste some emails first!");
-      return;
-    }
-    emails = input.split(/\r?\n/).filter(email => email);
-    currentIndex = 0;
-    if (emails.length > 0) {
-      sendNextBtn.disabled = false;
-      alert(`${emails.length} emails loaded!`);
-    }
-  });
-
-  sendNextBtn.addEventListener("click", () => {
-    if (currentIndex >= emails.length) {
-      alert("All emails sent!");
-      sendNextBtn.disabled = true;
-      return;
-    }
-
-    // Pick a random variant
-    const variant = variants[Math.floor(Math.random() * variants.length)];
-
-    const email = emails[currentIndex];
-    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(variant.subject)}&body=${encodeURIComponent(variant.body)}`;
-
-    // Set email link and click
-    emailLink.href = mailtoLink;
-    emailLink.style.display = "inline-block";
-    emailLink.click();
-
-    currentIndex++;
-
-    // Disable button for 15 seconds (cooldown)
-    sendNextBtn.disabled = true;
-    let countdown = 15;
-    sendNextBtn.textContent = `Wait ${countdown}s`;
-    const interval = setInterval(() => {
-      countdown--;
-      sendNextBtn.textContent = `Wait ${countdown}s`;
-      if (countdown <= 0) {
-        clearInterval(interval);
-        sendNextBtn.textContent = "Send Next Email";
-        if (currentIndex < emails.length) {
-          sendNextBtn.disabled = false;
-        }
+    loadEmailsBtn.addEventListener("click", () => {
+      const input = emailsInput.value.trim();
+      if (!input) {
+        alert("Please paste some emails first!");
+        return;
       }
-    }, 1000);
-  });
-</script>
+      emails = input.split(/\r?\n/).filter(email => email);
+      currentIndex = 0;
+      if (emails.length > 0) {
+        sendNextBtn.disabled = false;
+        alert(`${emails.length} emails loaded!`);
+      }
+    });
+
+    sendNextBtn.addEventListener("click", () => {
+      if (currentIndex >= emails.length) {
+        alert("All emails sent!");
+        sendNextBtn.disabled = true;
+        return;
+      }
+
+      const variant = variants[Math.floor(Math.random() * variants.length)];
+      const email = emails[currentIndex];
+      const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(variant.subject)}&body=${encodeURIComponent(variant.body)}`;
+
+      emailLink.href = mailtoLink;
+      emailLink.click();
+
+      currentIndex++;
+
+      // 15-second cooldown
+      sendNextBtn.disabled = true;
+      let countdown = 15;
+      sendNextBtn.textContent = `Wait ${countdown}s`;
+      const interval = setInterval(() => {
+        countdown--;
+        sendNextBtn.textContent = `Wait ${countdown}s`;
+        if (countdown <= 0) {
+          clearInterval(interval);
+          sendNextBtn.textContent = "Send Next Email";
+          if (currentIndex < emails.length) sendNextBtn.disabled = false;
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
