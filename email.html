@@ -84,209 +84,169 @@ let emails = [];
 
 // ✅ ONLY ENGLISH VARIANTS
 const variants = [
-    {
-      subject: "Came across your work today",
-      body: "Hi, hope you're doing well. I came across your work earlier today while browsing and a few pieces really stood out. I’m a collector and I like to keep up with new artists. If you're open to it, I'd be interested in seeing what you currently have available."
-    },
-    {
-      subject: "A quick note about your art",
-      body: "Hello, I hope your day is going well. I recently saw some of your work and thought I should reach out. Would you be open to sharing any pieces you currently have available?"
-    },
-    {
-      subject: "Saw a few of your pieces",
-      body: "Hi there, I came across a few of your pieces earlier and liked the direction of your work. I’d be interested in seeing more, especially anything you currently have available."
-    },
-    {
-      subject: "Your work stood out",
-      body: "Hello, I was going through a few artists and your work caught my attention. If you have anything available, I’d be glad to take a look."
-    },
-    {
-      subject: "Following up on your work",
-      body: "Hi, I came across your artwork recently and wanted to reach out. Do you have any current pieces available for viewing?"
-    },
-    {
-      subject: "A small request",
-      body: "Hello, I found your work while browsing and thought it was worth reaching out. If you have any available pieces, I’d appreciate the chance to take a look."
-    },
-    {
-      subject: "Your art caught my interest",
-      body: "Hi there, I recently saw your work and liked the overall feel of your pieces. Do you currently have anything available?"
-    },
-    {
-      subject: "Quick check",
-      body: "Hello, I came across your art earlier and wanted to ask if you have any pieces available at the moment."
-    },
-    {
-      subject: "Your recent pieces",
-      body: "Hi, I saw some of your recent work and found it interesting. I’d like to know if you have anything available to view."
-    },
-    {
-      subject: "Reaching out after seeing your work",
-      body: "Hello, I came across your work and thought I should get in touch. I’d be interested in seeing any pieces you currently have available."
-    },
-    {
-      subject: "A quick look",
-      body: "Hi, I found your artwork earlier and liked your style. Do you have any available pieces at the moment?"
-    },
-    {
-      subject: "Interested in your work",
-      body: "Hello, I recently discovered your work and found it interesting. I’d like to ask if you have any pieces available."
-    },
-    {
-      subject: "Your art came up",
-      body: "Hi, your work came up while I was browsing and it stood out. If you have any available pieces, I’d be glad to see them."
-    },
-    {
-      subject: "A quick message",
-      body: "Hello, I saw your art earlier and wanted to reach out. Do you currently have any works available?"
-    },
-    {
-      subject: "Noticed your artwork",
-      body: "Hi, I noticed your work while browsing and liked the direction of your pieces. Would you be open to sharing anything available?"
-    },
-    {
-      subject: "Your work today",
-      body: "Hello, I came across your work today and thought it was worth reaching out. If you have anything available, I’d be interested."
-    },
-    {
-      subject: "A brief note",
-      body: "Hi, I saw your artwork earlier and found it interesting. Do you have any available pieces?"
-    },
-    {
-      subject: "Your pieces earlier",
-      body: "Hello, I came across your work earlier and wanted to ask if you have anything available at the moment."
-    },
-    {
-      subject: "Interest in your work",
-      body: "Hi, I recently saw your work and liked the feel of your pieces. I’d be interested in seeing anything available."
-    },
-    {
-      subject: "Quick outreach",
-      body: "Hello, I came across your art and thought to reach out. Do you have any available works right now?"
-    },
+   {
+  subject: "Saw your work while browsing",
+  body: "Hi, I came across your work while browsing earlier and a few pieces caught my attention. There’s something about the way your work comes together that felt different from most. I thought I’d reach out and ask if you happen to have anything available at the moment. Would be interesting to see more if you’re open to sharing."
+},
+{
+  subject: "Your pieces stood out a bit",
+  body: "Hello, I was going through a number of artist pages and your work stood out more than expected. There’s a certain consistency in your pieces that made me pause for a bit. I wanted to ask if you currently have any works available or anything you’d be willing to show."
+},
+{
+  subject: "Quick message",
+  body: "Hi, I came across your work earlier and thought I’d send a quick message. I liked the direction of your pieces and was wondering if you have anything available right now. If so, I’d be glad to take a look."
+},
+{
+  subject: "Noticed your work",
+  body: "Hello, I noticed your work while browsing and I found it quite interesting. There’s a certain feel to your pieces that stood out. I wanted to ask if you have any available works at the moment."
+},
+{
+  subject: "A short note",
+  body: "Hi, I came across your art earlier and I liked what I saw. Thought I’d reach out and ask if you have anything available right now. Would be open to taking a look if you do."
+},
+{
+  subject: "Your work caught my attention",
+  body: "Hello, your work caught my attention earlier today while I was going through different artists. There’s something about your style that feels intentional. I wanted to ask if you have any pieces available at the moment."
+},
+{
+  subject: "Across your work earlier",
+  body: "Hi, I came across your work earlier and spent a bit of time looking through it. There’s a certain direction in your pieces that stood out. I wanted to ask if you have anything available currently."
+},
+{
+  subject: "Interesting work",
+  body: "Hello, I ran into your work earlier and found it quite interesting. It’s not something you come across often. I wanted to ask if you have any pieces available or anything you’re open to sharing."
+},
+{
+  subject: "Came across your page",
+  body: "Hi, I came across your page while browsing and your work stood out to me. There’s a nice balance in your pieces. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Your work earlier today",
+  body: "Hello, I saw your work earlier today and thought it was worth reaching out. I liked the overall feel of your pieces. Do you have anything available at the moment?"
+},
 
-    {
-      subject: "Across your portfolio",
-      body: "Hi, I came across your portfolio and a few pieces stood out. I’d be interested in seeing if you have anything currently available."
-    },
-    {
-      subject: "Your artwork online",
-      body: "Hello, I saw your artwork online and liked the tone of your pieces. Would you be open to sharing available works?"
-    },
-    {
-      subject: "Found your work",
-      body: "Hi, I found your work while browsing and thought I’d reach out. Do you have anything available at the moment?"
-    },
-    {
-      subject: "Checking your availability",
-      body: "Hello, I came across your art and wanted to ask if you have any pieces currently available."
-    },
-    {
-      subject: "A quick inquiry about your pieces",
-      body: "Hi, I saw some of your pieces earlier and wanted to check if you have any available works."
-    },
-    {
-      subject: "Your art earlier",
-      body: "Hello, I came across your art earlier and found it interesting. I’d like to know if anything is available."
-    },
-    {
-      subject: "Browsing artists",
-      body: "Hi, I was browsing through artists and your work stood out. Do you have any pieces available?"
-    },
-    {
-      subject: "Your work caught my eye",
-      body: "Hello, your work caught my eye earlier. If you have anything available, I’d be glad to see it."
-    },
-    {
-      subject: "A quick question",
-      body: "Hi, I saw your work and wanted to ask if you currently have any pieces available."
-    },
-    {
-      subject: "Your creative work",
-      body: "Hello, I came across your work and liked the direction. Do you have anything available right now?"
-    },
+{
+  subject: "Quick check on your work",
+  body: "Hi, I came across your work and wanted to check if you have anything available. I liked what I saw and thought I’d reach out instead of just scrolling past."
+},
+{
+  subject: "A quick inquiry",
+  body: "Hello, I saw some of your pieces earlier and they caught my attention. I wanted to ask if you have any available works right now."
+},
+{
+  subject: "Your work feels different",
+  body: "Hi, I came across your work and there’s something about it that feels a bit different from most. It stood out in a good way. I wanted to ask if you have anything available at the moment."
+},
+{
+  subject: "Saw your portfolio",
+  body: "Hello, I saw your portfolio earlier and spent some time going through it. I liked the direction of your work. I wanted to ask if you have anything currently available."
+},
+{
+  subject: "Not sure if you’re open to this",
+  body: "Hi, I’m not sure if you’re open to sharing work like this, but I came across your pieces earlier and found them interesting. I wanted to ask if you have anything available at the moment."
+},
+{
+  subject: "Your pieces caught my eye",
+  body: "Hello, your pieces caught my eye earlier while I was browsing. There’s a certain consistency in your work that stood out. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Across your art",
+  body: "Hi, I came across your art earlier and liked the overall direction. Thought I’d reach out and ask if you have any works available at the moment."
+},
+{
+  subject: "Short message about your work",
+  body: "Hello, I came across your work and I liked what I saw. Just wanted to ask if you have anything available right now."
+},
+{
+  subject: "Your work stood out slightly",
+  body: "Hi, I was browsing earlier and your work stood out slightly compared to others. I wanted to ask if you have anything available at the moment."
+},
+{
+  subject: "Just came across your work",
+  body: "Hello, I just came across your work and thought I’d reach out. I liked the overall feel of your pieces. Do you have anything available currently?"
+},
 
-    {
-      subject: "Looking at your work",
-      body: "Hi, I came across your pieces and thought they were worth reaching out about. Do you have anything available?"
-    },
-    {
-      subject: "Your pieces stood out",
-      body: "Hello, I saw your work earlier and it stood out. I’d like to know if you have any available pieces."
-    },
-    {
-      subject: "Across your work",
-      body: "Hi, I came across your work and found it interesting. Would you be open to sharing available pieces?"
-    },
-    {
-      subject: "Your artwork recently",
-      body: "Hello, I saw your artwork recently and wanted to ask if you have anything available."
-    },
-    {
-      subject: "Quick note",
-      body: "Hi, I came across your art and thought I’d reach out. Do you have any pieces available?"
-    },
-    {
-      subject: "Your work online",
-      body: "Hello, I saw your work online and liked it. I’d be interested in seeing anything available."
-    },
-    {
-      subject: "Found your portfolio",
-      body: "Hi, I found your portfolio earlier and wanted to ask if you have any available works."
-    },
-    {
-      subject: "Checking your work",
-      body: "Hello, I came across your work and wanted to see if you have anything available."
-    },
-    {
-      subject: "Your art caught attention",
-      body: "Hi, your art caught my attention earlier. Do you have anything available right now?"
-    },
-    {
-      subject: "Across your pieces",
-      body: "Hello, I came across your pieces and liked them. I’d be interested in seeing anything available."
-    },
+{
+  subject: "Your work feels consistent",
+  body: "Hi, I came across your work and noticed a level of consistency in your pieces that stood out. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Interesting direction",
+  body: "Hello, I saw your work earlier and I found the direction quite interesting. It felt intentional. I wanted to ask if you have any available pieces at the moment."
+},
+{
+  subject: "Quick note after browsing",
+  body: "Hi, I was browsing earlier and your work caught my attention. Thought I’d send a quick note and ask if you have anything available right now."
+},
+{
+  subject: "Across your pieces today",
+  body: "Hello, I came across your pieces today and spent a bit of time looking through them. I liked the overall feel. I wanted to ask if you have anything available."
+},
+{
+  subject: "Noticed your style",
+  body: "Hi, I noticed your style earlier and it stood out in a subtle way. I wanted to ask if you have any available works at the moment."
+},
+{
+  subject: "A small question",
+  body: "Hello, I came across your work and had a quick question. Do you currently have anything available?"
+},
+{
+  subject: "Your work caught interest",
+  body: "Hi, I saw your work earlier and it caught my interest more than expected. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Across your page earlier",
+  body: "Hello, I came across your page earlier and I liked the direction of your work. I wanted to ask if you have anything available."
+},
+{
+  subject: "Saw your work briefly",
+  body: "Hi, I saw your work briefly earlier and it stuck with me a bit. Thought I’d reach out and ask if you have anything available."
+},
+{
+  subject: "Your pieces earlier",
+  body: "Hello, I came across your pieces earlier and I liked the overall feel. I wanted to ask if you have anything available at the moment."
+},
 
-    {
-      subject: "Your work stood out earlier",
-      body: "Hi, I saw your work earlier and it stood out. Do you have any pieces available?"
-    },
-    {
-      subject: "Quick availability check",
-      body: "Hello, I came across your art and wanted to ask if you have anything available."
-    },
-    {
-      subject: "Your art style",
-      body: "Hi, I liked your style and thought I’d reach out. Do you have any works available?"
-    },
-    {
-      subject: "Looking through artists",
-      body: "Hello, I was looking through artists and your work stood out. I’d like to see anything available."
-    },
-    {
-      subject: "Your work caught interest",
-      body: "Hi, I saw your work and found it interesting. Do you have anything available?"
-    },
-    {
-      subject: "A short inquiry",
-      body: "Hello, I came across your art and wanted to ask if you have any pieces available."
-    },
-    {
-      subject: "Your work today",
-body: "Hi, I saw your work today and liked it. I’d be interested in anything available."
-    },
-    {
-      subject: "Your pieces online",
-      body: "Hello, I found your pieces online and wanted to ask if you have anything available."
-    },
-    {
-      subject: "Across your art",
-      body: "Hi, I came across your art and thought to reach out. Do you have any available works?"
-    },
-    {
-      subject: "Your artwork",
-      body: "Hello, I saw your artwork earlier and liked it. I’d be interested in seeing anything available."
-    }
+{
+  subject: "Something about your work",
+  body: "Hi, I came across your work and there’s something about it that made me pause for a bit. It felt different. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Quick outreach",
+  body: "Hello, I saw your work earlier and thought I’d reach out. I liked what I saw and wanted to ask if you have anything available."
+},
+{
+  subject: "Your work stood out a bit",
+  body: "Hi, your work stood out a bit while I was browsing earlier. I wanted to ask if you have any pieces available right now."
+},
+{
+  subject: "Across your artwork",
+  body: "Hello, I came across your artwork and found it quite interesting. I wanted to ask if you have anything available."
+},
+{
+  subject: "Noticed your work earlier",
+  body: "Hi, I noticed your work earlier and I liked the direction of your pieces. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Your work feels intentional",
+  body: "Hello, I came across your work and it feels quite intentional in its direction. That stood out to me. I wanted to ask if you have anything available."
+},
+{
+  subject: "Short outreach",
+  body: "Hi, I saw your work earlier and thought I’d reach out quickly. Do you have anything available at the moment?"
+},
+{
+  subject: "Your work caught attention earlier",
+  body: "Hello, your work caught my attention earlier while browsing. I wanted to ask if you have anything available right now."
+},
+{
+  subject: "Across your work today",
+body: "Hi, I came across your work today and I liked the overall feel. I wanted to ask if you have anything available."
+},
+{
+  subject: "Simple question",
+  body: "Hello, I saw your work earlier and wanted to ask if you have anything available at the moment."
+}
   ];
 
 // ✅ SAVE
